@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     pacienteId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Observacao',
+    tableName: 'observacaos',
   });
   return Observacao;
 };

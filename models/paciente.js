@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Paciente.hasMany(models.Relatorio);
-      Paciente.hasMany(models.Medicacao);
+      Paciente.hasMany(models.Medicacoe);
       Paciente.hasMany(models.Agendamento);
       Paciente.hasMany(models.Observacao);
       Paciente.belongsTo(models.Terapeuta);
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     terapeutaId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Paciente',
+     tableName: 'pacientes',
   });
   return Paciente;
 };

@@ -25,9 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     especializacao: DataTypes.STRING,
     telefone: DataTypes.STRING
+    
   }, {
     sequelize,
-    modelName: 'Terapeuta',
+    tableName: 'terapeutas',
   });
   return Terapeuta;
 };

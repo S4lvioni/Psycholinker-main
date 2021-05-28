@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     texto: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Relatorio',
+    tableName: 'relatorios',
   });
   return Relatorio;
 };
