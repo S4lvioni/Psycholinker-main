@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Agendamento.hasMany(models.Datas);
+      Agendamento.hasMany(models.Data);
       Agendamento.belongsTo(models.Terapeuta);
       Agendamento.belongsTo(models.Paciente);
     }
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     terapeutaId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Agendamento',
+    tableName: 'agendamentos',
   });
   return Agendamento;
 };

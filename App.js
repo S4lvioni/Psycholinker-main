@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';//oiii
 import {Text, View,Button } from 'react-native';
 import {css} from './assets/CSS/css';
 import { NavigationContainer } from '@react-navigation/native';
