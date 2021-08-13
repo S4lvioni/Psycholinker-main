@@ -1,22 +1,28 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser=require('body-parser');
-const models=require('./models');
+const bodyParser = require('body-parser');
+const models = require('./models');
 const { useReducer } = require('react');
 
-const app=express();
+
+
+const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
-let agendamento=models.Agendamento;
-let atividade=models.Ativdade;
-let data=models.Data;
-let medicacoe=models.Medicacoe;
-let observacao=models.Observacao;
-let paciente=models.Paciente;
-let relatorio=models.Relatorio;
-let terapeuta=models.Terapeuta;
-let tipoatividade=models.TipoAtividade;
+app.use(bodyParser.json());
+let agendamento = models.Agendamento;
+let atividade = models.Ativdade;
+let data = models.Data;
+let medicacoe = models.Medicacoe;
+let observacao = models.Observacao;
+let paciente = models.Paciente;
+let relatorio = models.Relatorio;
+let terapeuta = models.Terapeuta;
+let tipoatividade = models.TipoAtividade;
 
+/* AULA 12 COMENTOU TUDO ISSO */
+
+/*
 app.get('/create',async (req,res)=>{
     let create=await terapeuta.create({
         name:'alexandre',
@@ -41,16 +47,19 @@ app.get('/read', async (req,res)=>{
 //nao chama paciente
 app.get('/update', async (req,res)=> {
     let update=await terapeuta.findByPk(2/*,
-        {include:[{all:true}]}*/
+        {include:[{all:true}]}
         ).then((response)=>{
            response.name='novoNome';
            response.password='abcde';
            response.save();
     });
 });
+*/
 
+app.post('/login', (req, res) => {
 
-let port=process.env.PORT || 3000;
-app.listen(port,(req,res)=>{
+})
+let port = process.env.PORT || 3000;
+app.listen(port, (req, res) => {
     console.log('Servidor Rodando');
 });
