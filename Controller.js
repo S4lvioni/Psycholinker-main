@@ -56,9 +56,18 @@ app.get('/update', async (req,res)=> {
 });
 */
 
-app.post('/login', (req, res) => {
-
-})
+app.post('/login',async (req,res)=>{
+    let response=await terapeuta.findOne({
+        where:{email:req.body.email, password:req.body.password}
+    })
+    //console.log(response);
+    if(response === null){
+        res.send(JSON.stringify('error'));
+    }else{
+        res.send(response);
+    }
+    
+});
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {
     console.log('Servidor Rodando');
