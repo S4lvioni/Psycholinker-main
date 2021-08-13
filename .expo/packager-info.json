@@ -1,5 +1,8 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19000
+  "packagerPort": 19000,
+  "expoServerNgrokUrl": "https://kd-pmb.anonymous.psycholinker-main.exp.direct",
+  "packagerNgrokUrl": "https://packager.kd-pmb.anonymous.psycholinker-main.exp.direct",
+  "ngrokPid": 10488
 }

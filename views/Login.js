@@ -11,18 +11,27 @@ export default function Login()//routepara passar parametros para a rota
     const [login, setLogin] = useState(null);
 
     async function sendForm() {
-        let response = await fetch('http://192.168.0.34:3000/login', {
+        let response = await fetch('http://192.168.1.100:3000/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: email,
+                email: email,
                 password: password
             })
-        })
+        });
+        //obtem resposta do controller
+        let json=await response.json();
+        if(json === 'error'){
+            setDisplay('flex');
+            setTimeout(()=>{
+                setDisplay('none');
+            },5000);
+        }
     }
+
     return (
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[css.container, css.darkbg]}>
             {<View style={css.login__logomarca}>
