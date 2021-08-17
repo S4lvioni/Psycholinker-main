@@ -1,9 +1,11 @@
+//import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { css } from '../assets/CSS/css';
 
-export default function Login()//routepara passar parametros para a rota
+export default function Login({navigation})//routepara passar parametros para a rota
 {
     const [display, setDisplay] = useState('none');
     const [email, setEmail] = useState(null);
@@ -11,7 +13,7 @@ export default function Login()//routepara passar parametros para a rota
     const [login, setLogin] = useState(null);
 
     async function sendForm() {
-        let response = await fetch('http://192.168.1.100:3000/login', {
+        let response = await fetch('http://192.168.0.42:3000/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -29,6 +31,11 @@ export default function Login()//routepara passar parametros para a rota
             setTimeout(()=>{
                 setDisplay('none');
             },5000);
+            await AsyncStorage.clear();
+        }else{
+            //persistencia dos dados para utilizar na aplicação
+           await AsyncStorage.setItem('emailData', JSON.stringify(json));//json é  a resposta
+           navigation.navigate('HomeTerapeuta');
         }
     }
 
