@@ -60,6 +60,11 @@ const css= StyleSheet.create({
       fontWeight:"bold",
       fontSize: 22,
       color:"#333"
+  },
+  login__button_container:{
+    flexDirection:"row",
+    padding:10,
+    justifyContent:"space-evenly"
   }
   });
   export {css};
