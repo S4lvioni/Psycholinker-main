@@ -62,7 +62,7 @@ export default function Login({navigation})//routepara passar parametros para a 
         }else{
             //persistencia dos dados para utilizar na aplicação
            await AsyncStorage.setItem('emailData', JSON.stringify(json));//json é  a resposta
-           navigation.navigate('HomePaciente');
+           navigation.navigate('HomeTerapeuta');
         }
     }
 

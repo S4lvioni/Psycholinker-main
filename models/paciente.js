@@ -23,8 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     cpf: DataTypes.STRING,
     email: DataTypes.STRING,
-    telefone: DataTypes.STRING,
-    terapeutaId: DataTypes.INTEGER
+    telefone: DataTypes.STRING
   }, {
     sequelize,
      tableName: 'pacientes',
