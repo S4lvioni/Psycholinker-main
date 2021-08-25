@@ -70,7 +70,7 @@ app.post('/loginterapeuta', async (req, res) => {
 
 
 app.post('/loginpaciente', async (req, res) => {
-    let response = await paciente.findOne({
+    let response = await pacientes.findOne({
         where: { email: req.body.email, password: req.body.password }
     })
     //console.log(response);
