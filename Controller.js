@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const models = require('./models');
-const { useReducer } = require('react');
 
 
 
@@ -57,7 +56,7 @@ app.get('/update', async (req,res)=> {
 */
 
 app.post('/loginterapeuta', async (req, res) => {
-    let response = await terapeutas.findOne({
+    let response = await terapeuta.findOne({
         where: { email: req.body.email, password: req.body.password }
     })
     //console.log(response);
@@ -68,9 +67,10 @@ app.post('/loginterapeuta', async (req, res) => {
     }
 
 });
+
 
 app.post('/loginpaciente', async (req, res) => {
-    let response = await pacientes.findOne({
+    let response = await paciente.findOne({
         where: { email: req.body.email, password: req.body.password }
     })
     //console.log(response);
@@ -81,6 +81,7 @@ app.post('/loginpaciente', async (req, res) => {
     }
 
 });
+
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {
     console.log('Servidor Rodando');

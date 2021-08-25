@@ -14,6 +14,7 @@ export default function Login({ navigation })//routepara passar parametros para 
 
     async function sendFormTerapeuta() {
         let response = await fetch('http://192.168.0.34:3000/loginterapeuta', {
+
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -38,6 +39,7 @@ export default function Login({ navigation })//routepara passar parametros para 
             navigation.navigate('HomeTerapeuta');
         }
     }
+
 
     async function sendFormPaciente() {
         let response = await fetch('http://192.168.0.34:3000/loginpaciente', {
