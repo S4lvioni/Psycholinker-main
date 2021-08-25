@@ -8,29 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      data_interresse: {
-        type: Sequelize.DATE
+      pacienteId: {
+        type: Sequelize.INTEGER
+      },
+      terapeutaId: {
+        type: Sequelize.INTEGER
       },
       datasId: {
         type: Sequelize.INTEGER
       },
-      pacienteId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'pacientes',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
-      },
-      terapeutaId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'terapeutas',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+      data_interesse: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

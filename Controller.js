@@ -10,15 +10,15 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-let agendamento = models.Agendamento;
-let atividade = models.Ativdade;
-let data = models.Data;
-let medicacoe = models.Medicacoe;
-let observacao = models.Observacao;
-let paciente = models.Paciente;
-let relatorio = models.Relatorio;
-let terapeuta = models.Terapeuta;
-let tipoatividade = models.TipoAtividade;
+let agendamentos = models.agendamentos;
+let atividades = models.atividades;
+let datas = models.datas;
+let medicacoes = models.Medicacoes;
+let observacaos = models.Observacoes;
+let pacientes = models.Pacientes;
+let relatorios = models.Relatorios;
+let terapeutas = models.Terapeutas;
+let tipoatividades = models.tipoAtividades;
 
 /* AULA 12 COMENTOU TUDO ISSO */
 
@@ -56,17 +56,30 @@ app.get('/update', async (req,res)=> {
 });
 */
 
-app.post('/login',async (req,res)=>{
-    let response=await terapeuta.findOne({
-        where:{email:req.body.email, password:req.body.password}
+app.post('/loginterapeuta', async (req, res) => {
+    let response = await terapeutas.findOne({
+        where: { email: req.body.email, password: req.body.password }
     })
     //console.log(response);
-    if(response === null){
+    if (response === null) {
         res.send(JSON.stringify('error'));
-    }else{
+    } else {
         res.send(response);
     }
-    
+
+});
+
+app.post('/loginpaciente', async (req, res) => {
+    let response = await pacientes.findOne({
+        where: { email: req.body.email, password: req.body.password }
+    })
+    //console.log(response);
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+
 });
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {
