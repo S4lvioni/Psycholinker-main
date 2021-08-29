@@ -12,7 +12,7 @@ export default function Home({navigation})
                     <Image style={css.img1} source={require('../assets/free-user-login-icon-305-thumb.png')}/>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('HomePaciente')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                         <Image style={css.img1} source={require('../assets/home--v5.png')}/>
                  </TouchableOpacity>
             </View>

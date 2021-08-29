@@ -4,16 +4,16 @@ import { Text, View } from 'react-native';
 import { KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { css } from '../assets/CSS/css';
-
+import config from '../config/config.json';
 export default function Login({ navigation })//routepara passar parametros para a rota
 {
     const [display, setDisplay] = useState('none');
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [login, setLogin] = useState(null);
-
-    async function sendFormTerapeuta() {
-        let response = await fetch('http://192.168.0.34:3000/loginterapeuta', {
+  
+    async function sendFormTerapeuta() { 
+        let response = await fetch(`${config.urlRoot}loginTerapeuta`, {
 
             method: 'POST',
             headers: {
@@ -42,7 +42,7 @@ export default function Login({ navigation })//routepara passar parametros para 
 
 
     async function sendFormPaciente() {
-        let response = await fetch('http://192.168.0.34:3000/loginpaciente', {
+        let response = await fetch(`${config.urlRoot}loginPaciente`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -73,7 +73,6 @@ export default function Login({ navigation })//routepara passar parametros para 
     return (
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[css.container, css.darkbg]}>
             {<View style={css.login__logomarca}>
-                <Image style={css.img1} source={require('../assets/LOGO just brethe.png')} />
                 <Text>{email} - {password}</Text>
             </View>}
             <View>
