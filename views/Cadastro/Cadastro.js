@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { TextInput, TouchableOpacity, Image } from 'react-native';
 import { AsyncStorage } from 'react-native';
-import { css } from '../assets/CSS/css';
-import config from '../config/config.json';
+import { css } from '../../assets/CSS/css';
+import config from '../../config/config.json';
 export default function Cadastro({Cadastro})
 {
     const [name,setName]=useState(null);
