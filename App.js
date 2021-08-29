@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {Home,HomePaciente,Login} from './views'
 import HomeTerapeuta from "./views/HomeTerapeuta/HomeTerapeuta";
+import Cadastro from './views/Cadastro';
 
 
 
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Screen name="HomePaciente" component={HomePaciente} />
           {/*<Stack.Screen name="x" component={x} />*/}
           <Stack.Screen name="HomeTerapeuta" component={HomeTerapeuta} />
+          <Stack.Screen name="Cadastro" component={Cadastro} />
 
         </Stack.Navigator>
       </NavigationContainer>

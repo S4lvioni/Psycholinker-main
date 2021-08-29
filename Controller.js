@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const models = require('./models');
+const { response } = require('express');
 
 
 
@@ -54,9 +55,26 @@ app.get('/update', async (req,res)=> {
     });
 });
 */
+//cadastro
+app.post('/create',async (req,res)=>{
+  console.log(req.body);
+  let id='';
+  await terapeutas.create({
+    name: req.body.name,
+    cpf: req.body.cpf,
+    email: req.body.email,
+    cr: req.body.cr,
+    especializacao: req.body.especializacao,
+    password: req.body.password,
+    telefone: req.body.telefone
+  }).then((response)=>{
+    id=response.id;
+  });
+
+});
 
 app.post('/loginterapeuta', async (req, res) => {
-    let response = await terapeuta.findOne({
+    let response = await terapeutas.findOne({
         where: { email: req.body.email, password: req.body.password }
     })
     //console.log(response);
