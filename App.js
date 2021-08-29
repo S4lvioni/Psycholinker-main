@@ -6,7 +6,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {Home,HomePaciente,Login} from './views'
 import HomeTerapeuta from "./views/HomeTerapeuta/HomeTerapeuta";
-import Cadastro from './views/Cadastro';
 
 
 
