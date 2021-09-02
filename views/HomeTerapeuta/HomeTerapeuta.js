@@ -19,7 +19,7 @@ export default function HomeTerapeuta() {
         getTerapeuta();
     },[]);
 
-    //pega nome para o bem vindo
+    //pega nome para o bem vindo o
     useEffect(()=>{
         async function getName()
         {
