@@ -23,6 +23,9 @@ module.exports = {
       telefone: {
         type: Sequelize.STRING
       },
+      code: {
+        type: Sequelize.STRING
+      },
       terapeutaId: {
         type: Sequelize.INTEGER,
         references: { model: 'terapeutas', key: 'id' }

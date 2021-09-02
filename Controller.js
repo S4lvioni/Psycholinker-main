@@ -55,10 +55,9 @@ app.get('/update', async (req,res)=> {
     });
 });
 */
-//cadastro
+//cadastro terapeuta
 app.post('/createTerapeuta', async (req, res) => {
     console.log(req.body);
-    let id = '';
     await terapeutas.create({
         name: req.body.name,
         cpf: req.body.cpf,
@@ -67,25 +66,17 @@ app.post('/createTerapeuta', async (req, res) => {
         especializacao: req.body.especializacao,
         password: req.body.password,
         telefone: req.body.telefone
-    }).then((response) => {
-        id = response.id;
-    });
+    })
 
 });
 
+//Cadastro código de paciente
 app.post('/createPaciente', async (req, res) => {
-    console.log(req.body);
-    let id = '';
     await pacientes.create({
-        name: req.body.name,
-        cpf: req.body.cpf,
-        email: req.body.email,
-        password: req.body.password,
-        telefone: req.body.telefone
-    }).then((response) => {
-        id = response.id;
-    });
-
+        terapeutaId: req.body.terapeutaId,
+        code: req.body.code
+    })
+    
 });
 
 app.post('/loginterapeuta', async (req, res) => {
