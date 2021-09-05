@@ -43,7 +43,7 @@ export default function HomeTerapeuta() {
         async function randomCode()
         {
             let result = '';
-            let length=20;
+            let length=5;
             let chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
             console.log(result);
@@ -52,7 +52,8 @@ export default function HomeTerapeuta() {
         //Envio do formulário
         async function sendForm()
         {
-            let response=await fetch(config.urlRoot+'createPaciente',{
+            randomCode();
+            let response=await fetch(config.urlRoot+'createCodPaciente',{
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
