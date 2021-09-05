@@ -70,15 +70,40 @@ app.post('/createTerapeuta', async (req, res) => {
 
 });
 
+//Cadastro paciente
+app.post('/createPaciente',async (req,res)=>{
+    let response=await pacientes.findOne({
+        where:{code: req.body.code}
+    });
+            response.name=req.body.name;
+            response.cpf=req.body.cpf,
+            response.email=req.body.email,
+            response.password=req.body.password,
+            response.telefone=req.body.telefone,
+            response.save();
+
+    });
+
 //Cadastro código de paciente
-app.post('/createPaciente', async (req, res) => {
+app.post('/createCodPaciente', async (req, res) => {
     await pacientes.create({
         terapeutaId: req.body.terapeutaId,
         code: req.body.code
     })
     
 });
+app.post('/confereCodigo', async (req, res) => {
+    let response = await pacientes.findOne({
+        where: { code: req.body.code}
+    })
+    //console.log(response);
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
 
+});
 app.post('/loginterapeuta', async (req, res) => {
     let response = await terapeutas.findOne({
         where: { email: req.body.email, password: req.body.password }
