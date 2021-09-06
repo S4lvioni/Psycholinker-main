@@ -8,6 +8,7 @@ import config from '../../config/config.json';
 export default function HomeTerapeuta() {
     const [name,setName]=useState(null);
     const [code,setCode]=useState(null);
+    const [codeA,setCodeA]=useState(null);
     const [terapeutaId,setTerapeuta]=useState(null);
     const [response, setResponse] = useState(null);
 
@@ -53,6 +54,7 @@ export default function HomeTerapeuta() {
         async function sendForm()
         {
             randomCode();
+            setCodeA(code);
             let response=await fetch(config.urlRoot+'createCodPaciente',{
                 method: 'POST',
                 headers: {
@@ -62,7 +64,7 @@ export default function HomeTerapeuta() {
                 body: JSON.stringify({
                     terapeutaId: terapeutaId,
                     code: code
-                })
+                }),
 
             });
         }
@@ -74,6 +76,10 @@ export default function HomeTerapeuta() {
             <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>
                 <Text>Novo Paciente</Text>
             </TouchableOpacity>
+            <Text>{codeA}</Text>
+            <View>
+                
+            </View>
         </View>
 
     );
