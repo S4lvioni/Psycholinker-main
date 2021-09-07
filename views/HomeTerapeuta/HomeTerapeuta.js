@@ -10,6 +10,7 @@ export default function HomeTerapeuta() {
     const [code,setCode]=useState(null);
     const [codeA,setCodeA]=useState(null);
     const [terapeutaId,setTerapeuta]=useState(null);
+    const [pacientes,setPacientes]=useState([]);
     const [response, setResponse] = useState(null);
 
     useEffect(()=>{
@@ -20,6 +21,34 @@ export default function HomeTerapeuta() {
         getTerapeuta();
     },[]);
 
+    useEffect(()=>{
+        gerenciaPaciente();
+    },[]);
+
+    async function gerenciaPaciente() {
+        let response = await fetch(`${config.urlRoot}gerenciaPaciente`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                terapeutaId: terapeutaId
+            })
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('pacientesData', JSON.stringify(json));//json é  a resposta
+            console.log('foi');
+            let response=await AsyncStorage.getItem('pacientesData');
+            let jsonNovo=JSON.parse(response);
+            console.log( jsonNovo);
+        }
+    }
     //pega nome para o bem vindo o
     useEffect(()=>{
         async function getName()
@@ -78,7 +107,10 @@ export default function HomeTerapeuta() {
             </TouchableOpacity>
             <Text>{codeA}</Text>
             <View>
-                
+            <TouchableOpacity style={css.login__button} onPress={() => gerenciaPaciente()}>
+                <Text>Paciente</Text>
+            </TouchableOpacity>
+           
             </View>
         </View>
 

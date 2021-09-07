@@ -130,6 +130,20 @@ app.post('/loginpaciente', async (req, res) => {
     }
 
 });
+//listar pacientes
+app.post('/gerenciaPaciente', async (req,res) => {
+    let response = await pacientes.findAll({
+        where:{ terapeutaId : req.body.terapeutaId},
+        attributes:['id','name'],
+        raw:'false'
+    })
+    if(response === null){
+        res.send(JSON.stringify('error'));
+    }else{
+        res.send(response);
+        console.log(response);
+    }
+})
 
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {
