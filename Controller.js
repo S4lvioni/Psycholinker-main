@@ -134,7 +134,7 @@ app.post('/loginpaciente', async (req, res) => {
 app.post('/gerenciaPaciente', async (req,res) => {
     let response = await pacientes.findAll({
         where:{ terapeutaId : req.body.terapeutaId},
-        attributes:['id','name'],
+        attributes:['id','name','email'],
         raw:'false'
     })
     if(response === null){

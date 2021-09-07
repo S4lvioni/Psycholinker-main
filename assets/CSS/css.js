@@ -64,6 +64,23 @@ const css = StyleSheet.create({
   login__button_container: {
     flexDirection: "row",
     justifyContent: "space-evenly"
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  name: {
+    fontSize: 32
+  },
+  listagem:{
+    flex:1
+  },
+  container3:{
+    flex:1
   }
 });
+
+
 export { css };
