@@ -20,7 +20,7 @@ export default function HomeTerapeuta() {
 
     const pacientesarray = [
         {
-            name: name, id : '1'      
+            name: name, id : '1'
         },
         {
             name: name, id : '2'
@@ -54,13 +54,17 @@ export default function HomeTerapeuta() {
         if (json === 'error') {
             console.log('error');
         } else {
-            //persistencia dos dados para utilizar na aplicação
-            await AsyncStorage.setItem('pacientesData', JSON.stringify(json));//json é  a resposta
-            console.log('foi');
-            let response=await AsyncStorage.getItem('pacientesData');
+            // //persistencia dos dados para utilizar na aplicação
+            // await AsyncStorage.setItem('pacientesData', JSON.stringify(json));//json é  a resposta
+            // console.log('foi');
+            // let response=await AsyncStorage.getItem('pacientesData');
+            // const jsonNovo = JSON.parse(response);
+            // console.log(`Aqui está ${jsonNovo}`);
+
+            await AsyncStorage.setItem('pacientesData', JSON.stringify(json));
+            let response = await AsyncStorage.getItem('pacientesData');
             const jsonNovo = JSON.parse(response);
-            console.log(`Aqui está ${jsonNovo}`);
-            
+            setPacientes(jsonNovo);
         }
     }
     //pega nome para o bem vindo o
@@ -137,7 +141,7 @@ export default function HomeTerapeuta() {
             <Text>
                 <SafeAreaView style={css.container3}>
                 <FlatList
-                data={jsonNovo}
+                data={pacientes}
                 renderItem={({item}) => <ListaPaciente pacient={item.name}/>}
                 keyExtractor={item => item.id}
                 />
