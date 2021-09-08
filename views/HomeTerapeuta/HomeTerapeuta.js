@@ -13,29 +13,20 @@ export default function HomeTerapeuta() {
     const [email, setEmail] = useState(null);
     const [codeA,setCodeA]=useState(null);
     const [terapeutaId,setTerapeuta]=useState(null);
-    const [pacientes,setPacientes]=useState([]);
+    const [pacientes,setPacientes]=useState([
+        {
+            name: null, id : '1'
+        }
+    ]);
     const [response, setResponse] = useState(null);
     const [lista, setLista] = useState([]);
     const [jeison, setJeison] = useState([]);
-
-    const pacientesarray = [
-        {
-            name: name, id : '1'
-        },
-        {
-            name: name, id : '2'
-        }
-    ]
     useEffect(()=>{
         randomCode();
     },[]);
 
     useEffect(()=>{
         getTerapeuta();
-    },[]);
-
-    useEffect(()=>{
-        gerenciaPaciente();
     },[]);
 
     async function gerenciaPaciente() {
@@ -55,16 +46,12 @@ export default function HomeTerapeuta() {
             console.log('error');
         } else {
             // //persistencia dos dados para utilizar na aplicação
-            // await AsyncStorage.setItem('pacientesData', JSON.stringify(json));//json é  a resposta
-            // console.log('foi');
-            // let response=await AsyncStorage.getItem('pacientesData');
-            // const jsonNovo = JSON.parse(response);
-            // console.log(`Aqui está ${jsonNovo}`);
-
-            await AsyncStorage.setItem('pacientesData', JSON.stringify(json));
-            let response = await AsyncStorage.getItem('pacientesData');
+           await AsyncStorage.setItem('pacientesData', JSON.stringify(json));//json é  a resposta
+             console.log('foi');
+            let response=await AsyncStorage.getItem('pacientesData');
             const jsonNovo = JSON.parse(response);
             setPacientes(jsonNovo);
+
         }
     }
     //pega nome para o bem vindo o
@@ -143,7 +130,7 @@ export default function HomeTerapeuta() {
                 <FlatList
                 data={pacientes}
                 renderItem={({item}) => <ListaPaciente pacient={item.name}/>}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
                 />
                 </SafeAreaView>
             </Text>
