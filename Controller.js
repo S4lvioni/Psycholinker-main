@@ -131,7 +131,7 @@ app.post('/loginpaciente', async (req, res) => {
 
 });
 //listar pacientes
-app.post('/gerenciaPaciente', async (req,res) => {
+app.post('/listaPaciente', async (req,res) => {
     let response = await pacientes.findAll({
         where:{ terapeutaId : req.body.terapeutaId},
         attributes:['id','name'],
@@ -144,6 +144,28 @@ app.post('/gerenciaPaciente', async (req,res) => {
         console.log(response);
     }
 })
+
+//Delete pacinte
+app.post('/deletePaciente', async (req, res) => {
+    let response = await pacientes.destroy({
+        where: { id: req.body.id }
+    })
+   
+});
+//Editar pacientes
+app.post('/editPaciente', async (req,res) => {
+    let response = await pacientes.findAll({
+        where:{ id: req.body.id },
+        attributes:['id','name','email','telefone']
+    })
+    if(response === null){
+        res.send(JSON.stringify('error'));
+    }else{
+        res.send(response);
+        console.log(response);
+    }
+})
+
 
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {
