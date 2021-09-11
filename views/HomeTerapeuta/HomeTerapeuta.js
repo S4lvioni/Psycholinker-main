@@ -29,7 +29,7 @@ export default function HomeTerapeuta() {
     const [pacienteTelefone, setpacienteTelefone] = useState(null);
     const [pacienteEmail, setpacienteEmail] = useState(null);
     const [response, setResponse] = useState(null);
-    const [paName, setpaName] = useState(null)
+    const [pacienteId, setpacienteId] = useState(null);
     useEffect(() => {
         randomCode();
     }, []);
@@ -72,33 +72,36 @@ export default function HomeTerapeuta() {
         }
     }
     async function onEdit(id, nome) {
-        /*  let response = await fetch(config.urlRoot + 'editPaciente', {
-              method: 'POST',
-              headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                  id:id
-              })
-          });
-          //obtem resposta do controller
-          let json = await response.json();
-          if (json === 'error') {
-              console.log('error');
-          } else {
-              // //persistencia dos dados para utilizar na aplicação
-             await AsyncStorage.setItem('pacientesEditData', JSON.stringify(json));//json é  a resposta
-            
-              let response=await AsyncStorage.getItem('pacientesEditData');
-              const jsonNovo = JSON.parse(response);
-          }*/
-        console.log(nome);
-        setModalVisible(true);
-        console.log(id);
-        setpaName(nome);
+        /*
+*/
+        setpacienteName(nome)
+        setpacienteId(id);
+        setModalVisible(true)
+        console.log(pacienteId)
+    }
 
+    async function funcao() {
+        let response = await fetch(config.urlRoot + 'editPaciente', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: pacienteId
+            })
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('pacientesEditData', JSON.stringify(json));//json é  a resposta
 
+            let response = await AsyncStorage.getItem('pacientesEditData');
+            const jsonNovo = JSON.parse(response);
+        }
     }
 
     async function onDelete(id) {
@@ -204,8 +207,10 @@ export default function HomeTerapeuta() {
                         animationType="slide"
                         visible={modalVisible}
                     >
+
                         <View>
-                            <Text>{paName}</Text>
+                            <Text>{pacienteName}</Text>
+                            <Text>{pacienteId}</Text>
                             <TextInput
                                 placeholder='Nome:'
                                 onChangeText={text => setpacienteName(text)}
@@ -225,7 +230,12 @@ export default function HomeTerapeuta() {
 
                                 <Text >Hide Modal</Text>
                             </Pressable>
-
+                            <Pressable
+                                style={css.login__button}
+                                onPress={() => funcao()}
+                            >
+                                <Text >Hide Modal</Text>
+                            </Pressable>
                         </View>
 
                     </Modal>

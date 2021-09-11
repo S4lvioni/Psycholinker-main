@@ -71,18 +71,18 @@ app.post('/createTerapeuta', async (req, res) => {
 });
 
 //Cadastro paciente
-app.post('/createPaciente',async (req,res)=>{
-    let response=await pacientes.findOne({
-        where:{code: req.body.code}
+app.post('/createPaciente', async (req, res) => {
+    let response = await pacientes.findOne({
+        where: { code: req.body.code }
     });
-            response.name=req.body.name;
-            response.cpf=req.body.cpf,
-            response.email=req.body.email,
-            response.password=req.body.password,
-            response.telefone=req.body.telefone,
-            response.save();
+    response.name = req.body.name;
+    response.cpf = req.body.cpf,
+        response.email = req.body.email,
+        response.password = req.body.password,
+        response.telefone = req.body.telefone,
+        response.save();
 
-    });
+});
 
 //Cadastro código de paciente
 app.post('/createCodPaciente', async (req, res) => {
@@ -90,11 +90,11 @@ app.post('/createCodPaciente', async (req, res) => {
         terapeutaId: req.body.terapeutaId,
         code: req.body.code
     })
-    
+
 });
 app.post('/confereCodigo', async (req, res) => {
     let response = await pacientes.findOne({
-        where: { code: req.body.code}
+        where: { code: req.body.code }
     })
     //console.log(response);
     if (response === null) {
@@ -131,15 +131,15 @@ app.post('/loginpaciente', async (req, res) => {
 
 });
 //listar pacientes
-app.post('/listaPaciente', async (req,res) => {
+app.post('/listaPaciente', async (req, res) => {
     let response = await pacientes.findAll({
-        where:{ terapeutaId : req.body.terapeutaId},
-        attributes:['id','name'],
-        raw:'false'
+        where: { terapeutaId: req.body.terapeutaId },
+        attributes: ['id', 'name'],
+        raw: 'false'
     })
-    if(response === null){
+    if (response === null) {
         res.send(JSON.stringify('error'));
-    }else{
+    } else {
         res.send(response);
         console.log(response);
     }
@@ -150,20 +150,17 @@ app.post('/deletePaciente', async (req, res) => {
     let response = await pacientes.destroy({
         where: { id: req.body.id }
     })
-   
+
 });
 //Editar pacientes
-app.post('/editPaciente', async (req,res) => {
-    let response = await pacientes.findAll({
-        where:{ id: req.body.id },
-        attributes:['id','name','email','telefone']
-    })
-    if(response === null){
-        res.send(JSON.stringify('error'));
-    }else{
-        res.send(response);
-        console.log(response);
-    }
+app.post('/editPaciente', async (req, res) => {
+    let response = await pacientes.findOne({
+        where: { id: req.body.id }
+    });
+    response.name = req.body.name;
+    response.email = req.body.email,
+        response.telefone = req.body.telefone,
+        response.save();
 })
 
 
