@@ -20,41 +20,6 @@ let relatorios = models.Relatorios;
 let terapeutas = models.Terapeutas;
 let tipoatividades = models.tipoAtividades;
 
-/* AULA 12 COMENTOU TUDO ISSO */
-
-/*
-app.get('/create',async (req,res)=>{
-    let create=await terapeuta.create({
-        name:'alexandre',
-        password:'363254',
-        cpf:'36528598569',
-        cr:'235486',
-        email:'alexandretsalvione@gmail.com',
-        especializacao:'assistente social',
-        telefone:'675212052',
-        createdAt: new Date(),
-        updatedAt: new Date()
-    });
-    res.send('Terapeutao criado com sucesso!');
-});
-
-app.get('/read', async (req,res)=>{
-    let read=await terapeuta.findAll({
-        raw:true,
-    });
-    console.log(read);
-});
-//nao chama paciente
-app.get('/update', async (req,res)=> {
-    let update=await terapeuta.findByPk(2/*,
-        {include:[{all:true}]}
-        ).then((response)=>{
-           response.name='novoNome';
-           response.password='abcde';
-           response.save();
-    });
-});
-*/
 //cadastro terapeuta
 app.post('/createTerapeuta', async (req, res) => {
     console.log(req.body);
@@ -158,10 +123,11 @@ app.post('/editPaciente', async (req, res) => {
         where: { id: req.body.id }
     });
     response.name = req.body.name;
-    response.email = req.body.email,
-        response.telefone = req.body.telefone,
-        response.save();
-})
+    response.email = req.body.email;
+    response.telefone = req.body.telefone;
+    response.save();
+
+});
 
 
 let port = process.env.PORT || 3000;

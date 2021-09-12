@@ -2,7 +2,7 @@ import React, { useState, useEffect, isValidElement } from 'react';
 import { Text, View, Modal, TouchableOpacity, TextInput, Pressable } from 'react-native';
 //import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorage } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
@@ -11,6 +11,7 @@ export default function HomeTerapeuta() {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     //terapeuta
     const [email, setEmail] = useState(null);
     const [name, setName] = useState(null);
@@ -25,6 +26,7 @@ export default function HomeTerapeuta() {
         }
     ]);
     //edit paciente
+    const [pacienteId, setpacienteId] = useState(null);
     const [pacienteName, setpacienteName] = useState(null);
     const [pacienteTelefone, setpacienteTelefone] = useState(null);
     const [pacienteEmail, setpacienteEmail] = useState(null);
@@ -40,7 +42,19 @@ export default function HomeTerapeuta() {
 
     useEffect(() => {
         gerenciaPaciente();
+        console.log('useee');
     }, [execucao]);
+
+    //pega nome para o bem vindo o
+    useEffect(() => {
+        async function getName() {
+            let response = await AsyncStorage.getItem('emailData');
+            let json = JSON.parse(response);
+            setName(json.name);
+            setEmail(json.email);
+        }
+        getName();
+    }, []);
 
     async function gerenciaPaciente() {
         let response = await fetch(`${config.urlRoot}listaPaciente`, {
@@ -68,8 +82,12 @@ export default function HomeTerapeuta() {
             if (execucao < 2) {
                 setExecucao(2);
             }
-
+            setRefresh(!refresh);
+            console.log('sad' + refresh);
+            console.log(pacientes);
         }
+
+
     }
     async function onEdit(id, nome) {
         /*
@@ -102,6 +120,39 @@ export default function HomeTerapeuta() {
             let response = await AsyncStorage.getItem('pacientesEditData');
             const jsonNovo = JSON.parse(response);
         }
+        setpacienteId(id);
+        setpacienteName(nome);
+        setModalVisible(true);
+    }
+
+    async function editData() {
+        console.log(pacienteName)
+        let response = await fetch(config.urlRoot + 'editPaciente', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: pacienteId,
+                name: pacienteName,
+                email: pacienteEmail,
+                telefone: pacienteTelefone
+            })
+        });
+        gerenciaPaciente();
+
+        //obtem resposta do controller para atulizar lista
+        /* let json = await response.json();
+         if (json === 'error') {
+             console.log('error');
+         } else {
+             // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('pacientesEditData', JSON.stringify(json));//json é  a resposta
+           
+             let response=await AsyncStorage.getItem('pacientesEditData');
+             const jsonNovo = JSON.parse(response);
+         }*/
     }
 
     async function onDelete(id) {
@@ -117,16 +168,6 @@ export default function HomeTerapeuta() {
         })
     }
 
-    //pega nome para o bem vindo o
-    useEffect(() => {
-        async function getName() {
-            let response = await AsyncStorage.getItem('emailData');
-            let json = JSON.parse(response);
-            setName(json.name);
-            setEmail(json.email);
-        }
-        getName();
-    }, []);
 
     //Pegar o id do Terapeuta
     async function getTerapeuta() {
@@ -195,6 +236,7 @@ export default function HomeTerapeuta() {
                                 data={pacientes}
                                 renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} />}
                                 keyExtractor={item => item.id.toString()}
+                                extraData={refresh}
                             />
                         </SafeAreaView>
                     </Text>
@@ -225,9 +267,14 @@ export default function HomeTerapeuta() {
                             />
                             <Pressable
                                 style={css.login__button}
+                                onPress={() => editData()}
+                            >
+                                <Text >Save</Text>
+                            </Pressable>
+                            <Pressable
+                                style={css.login__button}
                                 onPress={() => setModalVisible(!modalVisible)}
                             >
-
                                 <Text >Hide Modal</Text>
                             </Pressable>
                             <Pressable
