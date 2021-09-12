@@ -81,9 +81,6 @@ export default function HomeTerapeuta() {
             if (execucao < 2) {
                 setExecucao(2);
             }
-            setRefresh(!refresh);
-            console.log('sad'+refresh);
-            console.log(pacientes);  
         }
         
        
@@ -108,20 +105,8 @@ export default function HomeTerapeuta() {
                   email:pacienteEmail,
                   telefone:pacienteTelefone
               })
-          });
-          gerenciaPaciente();
+          });     
                  
-          //obtem resposta do controller para atulizar lista
-         /* let json = await response.json();
-          if (json === 'error') {
-              console.log('error');
-          } else {
-              // //persistencia dos dados para utilizar na aplicação
-             await AsyncStorage.setItem('pacientesEditData', JSON.stringify(json));//json é  a resposta
-            
-              let response=await AsyncStorage.getItem('pacientesEditData');
-              const jsonNovo = JSON.parse(response);
-          }*/
     }
 
     async function onDelete(id) {
@@ -179,8 +164,8 @@ export default function HomeTerapeuta() {
                 <View>
                     <Text>
                         {nome}
-                        <TouchableOpacity style={css.login__button} onPress={() => onEdit(id, nome)} ><Text>E</Text></TouchableOpacity>
-                        <TouchableOpacity style={css.login__button} onPress={() => onDelete(id)} ><Text>D</Text></TouchableOpacity>
+                        <TouchableOpacity style={css.login__button} onPress={() => onEdit(id, nome)}  ><Text>E</Text></TouchableOpacity>
+                        <TouchableOpacity style={css.login__button} onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() =>closeUpdate()} ><Text>D</Text></TouchableOpacity>
                     </Text>
                 </View>
             )
@@ -188,6 +173,10 @@ export default function HomeTerapeuta() {
             return (null);
         }
 
+    }
+    async function closeUpdate(){
+        gerenciaPaciente();
+        setModalVisible(false);
     }
     return (
         <View>
@@ -232,23 +221,25 @@ export default function HomeTerapeuta() {
                                 placeholder='Telefone:'
                                 onChangeText={text => setpacienteTelefone(text)}
                             />
-                             <Pressable
+                            <Pressable
                                 style={css.login__button}
-                                onPress={() => editData()}
+                                onPressIn={() => editData()}
+                                onPress={() =>closeUpdate()}
                             >
-                                <Text >Save</Text>
+                                <Text >Salvar</Text>
                             </Pressable>
                             <Pressable
                                 style={css.login__button}
-                                onPress={() => setModalVisible(!modalVisible)}
+                                onPress={() =>setModalVisible(false)}
                             >
-                                <Text >Hide Modal</Text>
+                                <Text >X</Text>
                             </Pressable>
 
                         </View>
 
                     </Modal>
                 </View>
+               
             </View>
         </View>
 
