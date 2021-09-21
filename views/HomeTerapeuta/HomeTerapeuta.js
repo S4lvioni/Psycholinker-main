@@ -31,7 +31,6 @@ export default function HomeTerapeuta() {
     const [pacienteTelefone, setpacienteTelefone] = useState(null);
     const [pacienteEmail, setpacienteEmail] = useState(null);
     const [response, setResponse] = useState(null);
-    const [pacienteId, setpacienteId] = useState(null);
     useEffect(() => {
         randomCode();
     }, []);
@@ -193,10 +192,12 @@ export default function HomeTerapeuta() {
         if (nome != null) {
             return (
                 <View>
-                    <Text>
-                        {nome}
-                        <TouchableOpacity style={css.login__button} onPress={() => onEdit(id, nome)}  ><Text>E</Text></TouchableOpacity>
-                        <TouchableOpacity style={css.login__button} onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Text>D</Text></TouchableOpacity>
+                    <Text style={css.pacientegerado} >
+                        <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
+                        <View style={css.modalcontainer}>
+                            <TouchableOpacity style={css.modalbotao} onPress={() => onEdit(id, nome)}  ><Text style={css.modaltexto}>Editar</Text></TouchableOpacity>
+                            <TouchableOpacity style={css.modalbotao} onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Text style={css.modaltexto}>Deletar</Text></TouchableOpacity>
+                        </View>
                     </Text>
                 </View>
             )
@@ -211,12 +212,12 @@ export default function HomeTerapeuta() {
     }
     return (
         <View>
-            <Text>Essa é a Home do Terapeuta</Text>
-            <Text>Bem vindo {name}</Text>
+            <Text style={css.titulohome}>Essa é a Home do Terapeuta</Text>
+            <Text style={css.sumario}>Bem vindo, {name}</Text>
             <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>
                 <Text>Novo Paciente</Text>
             </TouchableOpacity>
-            <Text>{codeA}</Text>
+            <Text style={css.codigogerado}>{codeA}</Text>
             <View>
                 {(execucao == 2) ?
                     <Text>

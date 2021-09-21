@@ -7,12 +7,37 @@ const css = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo_container: {
+    flex: 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "flex-end"
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20
+  },
+  button_container: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  esquerda: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+    marginRight: 20
+  },
+  direita: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexDirection: "row",
+  },
   container2: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    backgroundColor: '#ffc8db'
   },
   textPage: {
     backgroundColor: 'orange',
@@ -20,13 +45,11 @@ const css = StyleSheet.create({
   },
   button__home: {
     marginRight: 20,
-
-
   },
   img1: {
     padding: 20,
-    width: 100,
-    height: 100,
+    width: 60,
+    height: 60,
   },
   darkbg: {
     backgroundColor: "#333"
@@ -52,14 +75,14 @@ const css = StyleSheet.create({
   },
   login__button: {
     padding: 12,
-    backgroundColor: "#F58634",
+    backgroundColor: "#FFB6C1",
     alignSelf: "center",
     borderRadius: 5
   },
   login__buttonText: {
     fontWeight: "bold",
     fontSize: 22,
-    color: "#333"
+    color: "#000"
   },
   login__button_container: {
     flexDirection: "row",
@@ -74,11 +97,64 @@ const css = StyleSheet.create({
   name: {
     fontSize: 32
   },
-  listagem:{
-    flex:1
+  listagem: {
+    flex: 1
   },
-  container3:{
-    flex:1
+  container3: {
+    flex: 1
+  },
+  cadastros: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  escolha: {
+    fontSize: 20
+  },
+  imagemajuste: {
+    marginTop: 3,
+    padding: 20,
+    width: 60,
+    height: 60,
+  },
+  titulohome: {
+    fontSize: 20,
+    textAlign: "center",
+    padding: 10
+  },
+  sumario: {
+    fontSize: 14,
+    textAlign: "left",
+    marginLeft: 5,
+    padding: 10
+  },
+  modaltexto: {
+    fontSize: 14
+  },
+  modalbotao: {
+    backgroundColor: "#FFB6C1",
+    borderRadius: 5,
+    width: 70,
+    marginLeft: 20,
+    height: 40,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalcontainer: {
+    flex: 1,
+    justifyContent: "space-evenly",
+    flexDirection: "row"
+  },
+  nomepacientehometerapeuta: {
+    fontSize: 30,
+  },
+  pacientegerado: {
+    marginLeft: 10
+  },
+  codigogerado: {
+    textAlign: "center",
+    marginTop: 20
   }
 });
 

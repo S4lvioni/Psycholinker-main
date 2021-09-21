@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, SafeAreaView } from 'react-native';
 import { Text, View, Button } from 'react-native';
 import { css } from './assets/CSS/css';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { Home, HomePaciente, Login } from './views'
 import HomeTerapeuta from "./views/HomeTerapeuta/HomeTerapeuta";
 import CadastroTerapeuta from './views/Cadastro/CadastroTerapeuta';
 import CadastroPaciente from './views/Cadastro/CadastroPaciente';
+import Cadastros from './views/Cadastro/Cadastros';
 
 
 
@@ -33,9 +34,13 @@ export default function App() {
         <Stack.Screen name="HomeTerapeuta" component={HomeTerapeuta} />
         <Stack.Screen name="CadastroTerapeuta" component={CadastroTerapeuta} />
         <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
+        <Stack.Screen name="Cadastros" component={Cadastros} />
 
       </Stack.Navigator>
+
+
     </NavigationContainer>
+
   );
 }
 
