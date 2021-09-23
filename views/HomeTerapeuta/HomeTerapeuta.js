@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 
-export default function HomeTerapeuta() {
+export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
@@ -213,7 +213,7 @@ export default function HomeTerapeuta() {
     return (
         <View>
             <Text style={css.titulohome}>Essa é a Home do Terapeuta</Text>
-            <Text style={css.sumario}>Bem vindo, {name}</Text>
+            <Text style={css.sumario}>Bem vindo(a)  {name}</Text>
             <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>
                 <Text>Novo Paciente</Text>
             </TouchableOpacity>

@@ -9,12 +9,16 @@ import HomeTerapeuta from "./views/HomeTerapeuta/HomeTerapeuta";
 import CadastroTerapeuta from './views/Cadastro/CadastroTerapeuta';
 import CadastroPaciente from './views/Cadastro/CadastroPaciente';
 import Cadastros from './views/Cadastro/Cadastros';
+import { LogBox } from 'react-native';
 
 
 
 export default function App() {
 
   const Stack = createStackNavigator();
+
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();//Ignore all log notifications
   return (
     <NavigationContainer>
       <Stack.Navigator>

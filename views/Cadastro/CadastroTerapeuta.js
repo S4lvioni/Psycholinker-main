@@ -13,6 +13,7 @@ export default function CadastroTerapeuta({ CadastroTerapeuta }) {
     const [password, setPassword] = useState(null);
     const [telefone, setTelefone] = useState(null);
     const [response, setResponse] = useState(null);
+    const [display, setDisplay] = useState('none');
     //envio
     async function sendForm() {
         let response = await fetch(config.urlRoot + 'createTerapeuta', {
@@ -32,6 +33,20 @@ export default function CadastroTerapeuta({ CadastroTerapeuta }) {
 
             })
         })
+        let json = await response.json();
+        if (json === 'error') {
+            setDisplay('flex');
+            setTimeout(() => {
+                setDisplay('none');
+            }, 5000);
+            await AsyncStorage.clear();
+        } else {
+            setDisplay('flex');
+            setTimeout(() => {
+                setDisplay('none');
+            }, 5000);
+        }
+
     }
     return (
         <View>
@@ -65,6 +80,9 @@ export default function CadastroTerapeuta({ CadastroTerapeuta }) {
                     placeholder='Telefone:'
                     onChangeText={text => setTelefone(text)}
                 />
+            </View>
+            <View>
+                <Text style={css.login__msg(display)}>Cadastrado com sucesso!</Text>
             </View>
 
             <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>

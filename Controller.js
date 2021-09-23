@@ -32,6 +32,11 @@ app.post('/createTerapeuta', async (req, res) => {
         password: req.body.password,
         telefone: req.body.telefone
     })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Cadastrado com Sucesso!'));
+    }
 
 });
 
@@ -46,6 +51,11 @@ app.post('/createPaciente', async (req, res) => {
         response.password = req.body.password,
         response.telefone = req.body.telefone,
         response.save();
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Cadastrado com Sucesso!'));
+    }
 
 });
 

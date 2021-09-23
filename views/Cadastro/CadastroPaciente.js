@@ -5,10 +5,11 @@ import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 export default function CadastroPaciente({ CadastroPaciente }) {
-    const [code,setCode]=useState(null);
+    const [code, setCode] = useState(null);
     const [Confere, setConfere] = useState(false);
     //const [idPaciente, setIdPaciente] = useState(null);
     const [display, setDisplay] = useState('none');
+    const [anotherDisplay, setAnotherDisplay] = useState('none');
     const [name, setName] = useState(null);
     const [cpf, setCpf] = useState(null);
     const [email, setEmail] = useState(null);
@@ -24,7 +25,7 @@ export default function CadastroPaciente({ CadastroPaciente }) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-               code:code
+                code: code
             })
         });
         //obtem resposta do controller
@@ -36,7 +37,7 @@ export default function CadastroPaciente({ CadastroPaciente }) {
             }, 5000);
             await AsyncStorage.clear();
         } else {
-            let response=await AsyncStorage.getItem('codData');
+            let response = await AsyncStorage.getItem('codData');
             setConfere(1);
         }
     }
@@ -50,7 +51,7 @@ export default function CadastroPaciente({ CadastroPaciente }) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                code:code,
+                code: code,
                 name: name,
                 cpf: cpf,
                 email: email,
@@ -59,53 +60,69 @@ export default function CadastroPaciente({ CadastroPaciente }) {
 
             })
         })
+        let json = await response.json();
+        if (json === 'error') {
+            setAnotherDisplay('flex');
+            setTimeout(() => {
+                setAnotherDisplay('none');
+            }, 5000);
+            await AsyncStorage.clear();
+        } else {
+            setAnotherDisplay('flex');
+            setTimeout(() => {
+                setAnotherDisplay('none');
+            }, 5000);
+        }
     }
     return (
         <View>
-            {(Confere)?
-            <View>
-                <View style={css.login__input}>
-                <TextInput
-                    placeholder='Nome:'
-                    onChangeText={text => setName(text)}
-                />
-                <TextInput
-                    placeholder='CPF:'
-                    onChangeText={text => setCpf(text)}
-                />
-                <TextInput
-                    placeholder='Email:'
-                    onChangeText={text => setEmail(text)}
-                />
-                <TextInput
-                    placeholder='Senha:'
-                    onChangeText={text => setPassword(text)}
-                />
-                <TextInput
-                    placeholder='Telefone:'
-                    onChangeText={text => setTelefone(text)}
-                />
-            </View>
-
-            <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>
-                <Text>Cadastrar</Text>
-            </TouchableOpacity>
-            </View>
-            :   
-            <View>
+            {(Confere) ?
                 <View>
-                    <Text style={css.login__msg(display)}>Código inválido!</Text>
+                    <View style={css.login__input}>
+                        <TextInput
+                            placeholder='Nome:'
+                            onChangeText={text => setName(text)}
+                        />
+                        <TextInput
+                            placeholder='CPF:'
+                            onChangeText={text => setCpf(text)}
+                        />
+                        <TextInput
+                            placeholder='Email:'
+                            onChangeText={text => setEmail(text)}
+                        />
+                        <TextInput
+                            placeholder='Senha:'
+                            onChangeText={text => setPassword(text)}
+                        />
+                        <TextInput
+                            placeholder='Telefone:'
+                            onChangeText={text => setTelefone(text)}
+                        />
+                    </View>
+                    <View>
+                        <Text style={css.login__msg(anotherDisplay)}>Cadastrado com Sucesso!</Text>
+                    </View>
+                    <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>
+                        <Text>Cadastrar</Text>
+
+                    </TouchableOpacity>
                 </View>
-                <TextInput
-                    placeholder='Código de Cadastro:'
-                    onChangeText={text => setCode(text)}
-                />
-                 <TouchableOpacity style={css.login__button} onPress={() => conferir()}>
-                <Text>Conferir</Text>
-            </TouchableOpacity>
-            </View> 
+                :
+                <View>
+                    <View>
+                        <Text style={css.login__msg(display)}>Código inválido!</Text>
+                    </View>
+                    <TextInput
+                        placeholder='Código de Cadastro:'
+                        onChangeText={text => setCode(text)}
+                    />
+                    <TouchableOpacity style={css.login__button} onPress={() => conferir()}>
+                        <Text>Conferir</Text>
+                    </TouchableOpacity>
+                </View>
             }
-            
+
         </View>
     );
 }

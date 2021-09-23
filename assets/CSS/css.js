@@ -59,10 +59,11 @@ const css = StyleSheet.create({
   },
   login__msg: (text = 'none') => ({
     fontWeight: "bold",
-    fontSize: 22,
-    color: "red",
+    fontSize: 18,
+    color: "black",
     marginBottom: 15,
-    display: text
+    display: text,
+    textAlign: "center"
   }),
   login__form: {
     width: "80%"

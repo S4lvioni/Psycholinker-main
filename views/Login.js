@@ -11,8 +11,8 @@ export default function Login({ navigation })//routepara passar parametros para 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [login, setLogin] = useState(null);
-  
-    async function sendFormTerapeuta() { 
+
+    async function sendFormTerapeuta() {
         let response = await fetch(`${config.urlRoot}loginTerapeuta`, {
 
             method: 'POST',
@@ -63,7 +63,7 @@ export default function Login({ navigation })//routepara passar parametros para 
             await AsyncStorage.clear();
         } else {
             //persistencia dos dados para utilizar na aplicação
-            await AsyncStorage.setItem('emailData', JSON.stringify(json));//json é  a resposta
+            await AsyncStorage.setItem('emailDataP', JSON.stringify(json));//json é  a resposta
             navigation.navigate('HomePaciente');
         }
     }
