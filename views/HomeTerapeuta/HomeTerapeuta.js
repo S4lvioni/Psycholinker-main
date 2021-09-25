@@ -94,7 +94,7 @@ export default function HomeTerapeuta({ navigation }) {
         console.log(pacienteId)
     }
 
-    async function funcao() {
+    /*async function funcao() {
         let response = await fetch(config.urlRoot + 'editPaciente', {
             method: 'POST',
             headers: {
@@ -119,7 +119,8 @@ export default function HomeTerapeuta({ navigation }) {
         setpacienteId(id);
         setpacienteName(nome);
         setModalVisible(true);
-    }
+    }*/
+
 
     async function editData() {
         console.log(pacienteName)
@@ -268,12 +269,7 @@ export default function HomeTerapeuta({ navigation }) {
                             >
                                 <Text >X</Text>
                             </Pressable>
-                            <Pressable
-                                style={css.login__button}
-                                onPress={() => funcao()}
-                            >
-                                <Text >Hide Modal</Text>
-                            </Pressable>
+
                         </View>
 
                     </Modal>
