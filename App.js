@@ -34,7 +34,6 @@ export default function App() {
         />
         <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
         <Stack.Screen name="HomePaciente" component={HomePaciente} />
-        {/*<Stack.Screen name="x" component={x} />*/}
         <Stack.Screen name="HomeTerapeuta" component={HomeTerapeuta} />
         <Stack.Screen name="CadastroTerapeuta" component={CadastroTerapeuta} />
         <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
