@@ -1,4 +1,4 @@
-import React, { useState, useEffect, isValidElement } from 'react';
+import React, { useState, useEffect, Component} from 'react';
 import { Text, View, Modal, TouchableOpacity, TextInput, Pressable } from 'react-native';
 //import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorage } from 'react-native';
@@ -6,6 +6,7 @@ import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
+import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
 
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
@@ -93,33 +94,6 @@ export default function HomeTerapeuta({ navigation }) {
         setModalVisible(true)
         console.log(pacienteId)
     }
-
-    /*async function funcao() {
-        let response = await fetch(config.urlRoot + 'editPaciente', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: pacienteId
-            })
-        });
-        //obtem resposta do controller
-        let json = await response.json();
-        if (json === 'error') {
-            console.log('error');
-        } else {
-            // //persistencia dos dados para utilizar na aplicação
-            await AsyncStorage.setItem('pacientesEditData', JSON.stringify(json));//json é  a resposta
-
-            let response = await AsyncStorage.getItem('pacientesEditData');
-            const jsonNovo = JSON.parse(response);
-        }
-        setpacienteId(id);
-        setpacienteName(nome);
-        setModalVisible(true);
-    }*/
 
 
     async function editData() {
@@ -276,6 +250,8 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
+            <Text>TEESTEEE</Text>
+            <AgendamentoTerapeuta/>
         </View>
 
     );
