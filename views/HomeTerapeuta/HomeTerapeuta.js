@@ -289,6 +289,7 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
+            <AgendamentoTerapeuta/>
         </View>
 
     );

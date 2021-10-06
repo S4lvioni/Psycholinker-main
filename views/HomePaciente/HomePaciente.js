@@ -3,7 +3,8 @@ import React, { useState, useEffect, isValidElement } from 'react';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import { Text, View, Button } from 'react-native';
-import Anotacoes from '../Notas/Anotacoes'
+import Anotacoes from '../Notas/Anotacoes';
+import AgendamentoPaciente from '../Agendamento/AgendamentoPaciente';
 
 
 export default function HomePaciente({ HomePaciente }) {
@@ -26,6 +27,7 @@ export default function HomePaciente({ HomePaciente }) {
         <View>
             <Text style={css.titulohome}>Essa é a Home do Paciente</Text>
             <Text style={css.sumario}>Bem vindo(a)  {name}</Text>
+            <AgendamentoPaciente/>
         </View>
     );
 }

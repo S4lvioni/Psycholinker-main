@@ -16,7 +16,7 @@ let medicacoes = models.Medicacoes;
 let observacoes = models.Observacoes;
 let pacientes = models.Pacientes;
 let relatorios = models.Relatorios;
-let terapeutas = models.terapeuta;
+let terapeutas = models.Terapeutas;
 let tipoatividades = models.tipoAtividades;
 
 //cadastro terapeuta
