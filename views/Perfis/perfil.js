@@ -22,8 +22,9 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 
 
 export default function Perfil({ navigation }) {
-    const [name, setName] = useState(null)
-    const [id, setId] = useState(null)
+    const [name, setName] = useState(null);
+    const [id, setId] = useState(null);
+    const [tela,setTela] = useState(1);
 
     //pegar o nome do paciente atual
     useEffect(() => {
