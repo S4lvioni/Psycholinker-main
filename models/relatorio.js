@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      relatorio.belongsTo(models.paciente)
+      relatorio.hasMany(models.atividade);
+      relatorio.hasMany(models.remedio);
+      relatorio.belongsTo(models.Pacientes);
     }
   };
   relatorio.init({
     humor: DataTypes.INTEGER,
-    texto: DataTypes.STRING,
-    datar: DataTypes.STRING,
+    texto: DataTypes.TEXT,
+    emissao: DataTypes.STRING,
     pacienteId: DataTypes.INTEGER
   }, {
     sequelize,

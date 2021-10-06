@@ -11,26 +11,13 @@ module.exports = {
       nome: {
         type: Sequelize.STRING
       },
-      pacienteId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'pacientes',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
-      },
-      tipoatividadeId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'tipoatividades',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
-      },
       relatorioId: {
         type: Sequelize.INTEGER,
+        references: { model: 'relatorios', key: 'id' }
+      },
+      pacienteId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'pacientes', key: 'id' }
       },
       createdAt: {
         allowNull: false,

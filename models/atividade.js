@@ -10,16 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      atividade.belongsTo(models.tipoatividade)
-      atividade.belongsTo(models.paciente)
-      atividade.belongsTo(models.relatorio)
+      atividade.belongsTo(models.relatorio);
+      atividade.belongsTo(models.Pacientes);
     }
   };
   atividade.init({
     nome: DataTypes.STRING,
-    pacienteId: DataTypes.INTEGER,
-    tipoatividadeId: DataTypes.INTEGER,
-    relatorioId: DataTypes.INTEGER
+    relatorioId: DataTypes.INTEGER,
+    pacienteId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'atividade',

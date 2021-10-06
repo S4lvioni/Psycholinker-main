@@ -16,8 +16,7 @@ let medicacoes = models.Medicacoes;
 let observacoes = models.Observacoes;
 let pacientes = models.Pacientes;
 let relatorios = models.Relatorios;
-let terapeutas = models.terapeuta;
-let tipoatividades = models.tipoAtividades;
+let terapeutas = models.Terapeutas;
 
 //cadastro terapeuta
 app.post('/createTerapeuta', async (req, res) => {

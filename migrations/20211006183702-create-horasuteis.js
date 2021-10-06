@@ -1,33 +1,22 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('observacaos', {
+    await queryInterface.createTable('horasuteis', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      texto: {
+      hora: {
         type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.BOOLEAN
       },
       terapeutaId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'terapeuta',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
-      },
-      pacienteId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'pacientes',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+        references: { model: 'terapeutas', key: 'id' }
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +29,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('observacaos');
+    await queryInterface.dropTable('horasuteis');
   }
 };
