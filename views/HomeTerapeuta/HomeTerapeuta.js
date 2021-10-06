@@ -8,7 +8,7 @@ import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
 
-
+//
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
