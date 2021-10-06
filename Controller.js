@@ -5,7 +5,6 @@ const models = require('./models');
 const { response } = require('express');
 
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,10 +13,10 @@ let agendamentos = models.agendamentos;
 let atividades = models.atividades;
 let datas = models.datas;
 let medicacoes = models.Medicacoes;
-let observacaos = models.Observacoes;
+let observacoes = models.Observacoes;
 let pacientes = models.Pacientes;
 let relatorios = models.Relatorios;
-let terapeutas = models.Terapeutas;
+let terapeutas = models.terapeuta;
 let tipoatividades = models.tipoAtividades;
 
 //cadastro terapeuta
@@ -59,6 +58,7 @@ app.post('/createPaciente', async (req, res) => {
 
 });
 
+
 //Cadastro código de paciente
 app.post('/createCodPaciente', async (req, res) => {
     await pacientes.create({
@@ -67,6 +67,8 @@ app.post('/createCodPaciente', async (req, res) => {
     })
 
 });
+
+
 app.post('/confereCodigo', async (req, res) => {
     let response = await pacientes.findOne({
         where: { code: req.body.code }
@@ -105,6 +107,25 @@ app.post('/loginpaciente', async (req, res) => {
     }
 
 });
+
+
+app.post('/perfilpaciente', async (req, res) => {
+    let response = await pacientes.findOne({
+        where: { name: req.body.name, id: req.body.id },
+        attributes: ['name', 'id']
+    })
+    //console.log(response);
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+    console.log('aqui')
+});
+
+
+
+
 //listar pacientes
 app.post('/listaPaciente', async (req, res) => {
     let response = await pacientes.findAll({
@@ -120,13 +141,27 @@ app.post('/listaPaciente', async (req, res) => {
     }
 })
 
+app.post('/listaTerapeuta', async (req, res) => {
+    let response = await pacientes.findAll({
+        where: { id: req.body.pacienteId },
+        attributes: ['terapeutaId'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
 //Delete pacinte
 app.post('/deletePaciente', async (req, res) => {
     let response = await pacientes.destroy({
         where: { id: req.body.id }
     })
-
 });
+
 //Editar pacientes
 app.post('/editPaciente', async (req, res) => {
     let response = await pacientes.findOne({

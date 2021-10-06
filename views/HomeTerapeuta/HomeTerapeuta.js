@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component} from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { Text, View, Modal, TouchableOpacity, TextInput, Pressable } from 'react-native';
 //import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorage } from 'react-native';
@@ -8,11 +8,13 @@ import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
 
+
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
     const [refresh, setRefresh] = useState(false);
+    const [display, setDisplay] = useState('none')
     //terapeuta
     const [email, setEmail] = useState(null);
     const [name, setName] = useState(null);
@@ -163,12 +165,49 @@ export default function HomeTerapeuta({ navigation }) {
         });
     }
 
+    //pegar o nome e id de cada paciente para abrir no perfil
+    async function openPerfilPaciente(id, nome) {
+
+        let response = await fetch(`${config.urlRoot}perfilpaciente`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: nome,
+                id: id
+            })
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            setDisplay('flex');
+            setTimeout(() => {
+                setDisplay('none');
+            }, 5000);
+            await AsyncStorage.clear();
+        } else {
+            //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('emailDataP', JSON.stringify(json));//json é  a resposta
+        }
+        navigation.navigate('Perfil');
+    }
+
+
+
+
+
     function ListaPaciente({ nome, id }) {
+
         if (nome != null) {
             return (
                 <View>
                     <Text style={css.pacientegerado} >
-                        <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
+                        <TouchableOpacity
+                            onPress={() => openPerfilPaciente(id, nome)}>
+                            <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
+                        </TouchableOpacity>
                         <View style={css.modalcontainer}>
                             <TouchableOpacity style={css.modalbotao} onPress={() => onEdit(id, nome)}  ><Text style={css.modaltexto}>Editar</Text></TouchableOpacity>
                             <TouchableOpacity style={css.modalbotao} onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Text style={css.modaltexto}>Deletar</Text></TouchableOpacity>
@@ -250,8 +289,6 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
-            <Text>TEESTEEE</Text>
-            <AgendamentoTerapeuta/>
         </View>
 
     );

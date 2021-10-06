@@ -1,21 +1,23 @@
 'use strict';
-const { ForeignKeyConstraintError } = require('sequelize');
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Terapeutas extends Model {
+  class terapeuta extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Terapeutas.hasMany(models.Pacientes);
+      terapeuta.hasMany(models.paciente)
+      terapeuta.hasMany(models.observacao)
+      terapeuta.hasMany(models.diasUteis)
+      terapeuta.hasMany(models.dia)
     }
   };
-  Terapeutas.init({
-    name: DataTypes.STRING,
+  terapeuta.init({
+    nome: DataTypes.STRING,
     cpf: DataTypes.STRING,
     email: DataTypes.STRING,
     cr: DataTypes.STRING,
@@ -24,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     telefone: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Terapeutas',
+    modelName: 'terapeuta',
   });
-  return Terapeutas;
+  return terapeuta;
 };

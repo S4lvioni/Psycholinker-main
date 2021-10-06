@@ -1,27 +1,24 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Relatorios', {
+    await queryInterface.createTable('tipoatividades', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      atividadeId: {
-        type: Sequelize.INTEGER
-      },
-      humor: {
-        type: Sequelize.INTEGER
+      nome: {
+        type: Sequelize.STRING
       },
       pacienteId: {
-        type: Sequelize.INTEGER
-      },
-      terapeutaId: {
-        type: Sequelize.INTEGER
-      },
-      texto: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'pacientes',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Relatorios');
+    await queryInterface.dropTable('tipoatividades');
   }
 };

@@ -9,6 +9,7 @@ import HomeTerapeuta from "./views/HomeTerapeuta/HomeTerapeuta";
 import CadastroTerapeuta from './views/Cadastro/CadastroTerapeuta';
 import CadastroPaciente from './views/Cadastro/CadastroPaciente';
 import Cadastros from './views/Cadastro/Cadastros';
+import Perfil from './views/Perfis/perfil'
 import { LogBox } from 'react-native';
 
 
@@ -38,7 +39,7 @@ export default function App() {
         <Stack.Screen name="CadastroTerapeuta" component={CadastroTerapeuta} />
         <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
         <Stack.Screen name="Cadastros" component={Cadastros} />
-
+        <Stack.Screen name="Perfil" component={Perfil} />
       </Stack.Navigator>
 
 

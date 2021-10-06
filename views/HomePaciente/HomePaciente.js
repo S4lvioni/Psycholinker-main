@@ -3,11 +3,13 @@ import React, { useState, useEffect, isValidElement } from 'react';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import { Text, View, Button } from 'react-native';
+import Anotacoes from '../Notas/Anotacoes'
 
 
 export default function HomePaciente({ HomePaciente }) {
     const [name, setName] = useState(null);
     const [email, setEmail] = useState(null);
+    const [tempId, setTempId] = useState(null);
     //pega nome para o bem vindo o
     useEffect(() => {
         async function getName() {
@@ -15,9 +17,11 @@ export default function HomePaciente({ HomePaciente }) {
             let json = JSON.parse(response);
             setName(json.name);
             setEmail(json.email);
+            setTempId(json.id);
         }
         getName();
     }, []);
+
     return (
         <View>
             <Text style={css.titulohome}>Essa é a Home do Paciente</Text>

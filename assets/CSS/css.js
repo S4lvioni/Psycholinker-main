@@ -156,6 +156,11 @@ const css = StyleSheet.create({
   codigogerado: {
     textAlign: "center",
     marginTop: 20
+  },
+  welcometag: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 5
   }
 });
 

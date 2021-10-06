@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "b928f3a9e2b22d",
-    "password": "9f56129a",
-    "database": "heroku_2122e8ebe0e4435",
-    "host": "us-cdbr-east-04.cleardb.com",
+    "username": "root",
+    "password": null,
+    "database": "psycholinker",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
@@ -20,5 +20,5 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-  "urlRoot": "http://192.168.0.17:3000/"
+  "urlRoot": "http://192.168.0.34:3000/"
 }
