@@ -7,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
+import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
+import CriaHorasAgendaveis from '../Agendamento/CriaHorasAgendaveis';
 
 //
 export default function HomeTerapeuta({ navigation }) {
@@ -44,7 +46,7 @@ export default function HomeTerapeuta({ navigation }) {
 
     useEffect(() => {
         gerenciaPaciente();
-        console.log('useee');
+   
     }, [execucao]);
 
     //pega nome para o bem vindo o
@@ -92,12 +94,12 @@ export default function HomeTerapeuta({ navigation }) {
         setpacienteName(nome)
         setpacienteId(id);
         setModalVisible(true)
-        console.log(pacienteId)
+
     }
 
 
     async function editData() {
-        console.log(pacienteName)
+
         let response = await fetch(config.urlRoot + 'editPaciente', {
             method: 'POST',
             headers: {
@@ -142,7 +144,6 @@ export default function HomeTerapeuta({ navigation }) {
         let length = 5;
         let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-        console.log(result);
         setCode(result);
     }
     //Envio do formulário
@@ -287,7 +288,9 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
-            <AgendamentoTerapeuta />
+            <AgendamentoConfig data={terapeutaId}/>
+        
+            <CriaHorasAgendaveis/>
         </View>
 
     );
