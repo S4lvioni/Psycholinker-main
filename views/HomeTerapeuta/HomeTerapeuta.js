@@ -85,8 +85,6 @@ export default function HomeTerapeuta({ navigation }) {
                 setExecucao(2);
             }
         }
-
-
     }
     async function onEdit(id, nome) {
         /*
@@ -289,7 +287,7 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
-            <AgendamentoTerapeuta/>
+            <AgendamentoTerapeuta />
         </View>
 
     );

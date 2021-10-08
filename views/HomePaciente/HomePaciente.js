@@ -5,12 +5,16 @@ import { css } from '../../assets/CSS/css';
 import { Text, View, Button } from 'react-native';
 import Anotacoes from '../Notas/Anotacoes';
 import AgendamentoPaciente from '../Agendamento/AgendamentoPaciente';
+import AnotacoesPaciente from '../Notas/AnotacoesPaciente';
+import Humor from '../Humor/humor'
 
 
 export default function HomePaciente({ HomePaciente }) {
     const [name, setName] = useState(null);
     const [email, setEmail] = useState(null);
     const [tempId, setTempId] = useState(null);
+    const [control, setControl] = useState(false)
+    const [pacienteId, setPacienteId] = useState(null)
     //pega nome para o bem vindo o
     useEffect(() => {
         async function getName() {
@@ -18,7 +22,7 @@ export default function HomePaciente({ HomePaciente }) {
             let json = JSON.parse(response);
             setName(json.name);
             setEmail(json.email);
-            setTempId(json.id);
+            setPacienteId(json.id);
         }
         getName();
     }, []);
@@ -27,7 +31,9 @@ export default function HomePaciente({ HomePaciente }) {
         <View>
             <Text style={css.titulohome}>Essa é a Home do Paciente</Text>
             <Text style={css.sumario}>Bem vindo(a)  {name}</Text>
-            <AgendamentoPaciente/>
+            {/*<AgendamentoPaciente />
+            <AnotacoesPaciente />*/}
+            <Humor data={pacienteId} />
         </View>
     );
 }

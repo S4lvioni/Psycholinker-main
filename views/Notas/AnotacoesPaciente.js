@@ -19,25 +19,21 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
-Anotacoes = () => {
-    const [modalVisible, setModalVisible] = useState(false)
-    const [dialogVisible, setDialogVisible] = useState(false)
-    const [refresh, setRefresh] = useState(false);
-    const [execucao, setExecucao] = useState(1);
-
-    const [text, setText] = useState('')
-    const [observacao, setObservacao] = useState('')
-    const [pacienteId, setPacienteId] = useState(null)
-    const [terapeutaId, setTerapeutaId] = useState(null)
+AnotacoesPaciente = () => {
     const [observacoes, setObservacoes] = useState([
         {
             texto: null, id: '1'
         }
     ])
+    const [pacienteId, setPacienteId] = useState(null)
+    const [texto, setTexto] = useState('')
+    const [terapeutaId, setTerapeutaId] = useState(null)
+    const [observacao, setObservacao] = useState(null)
 
-    useEffect(() => {
-        gerenciaObservacoes();
-    }, [execucao]);
+    const [refresh, setRefresh] = useState(false);
+    const [execucao, setExecucao] = useState(1);
+    const [dialogVisible, setDialogVisible] = useState(false)
+
 
     //pegando id do paciente
     useEffect(() => {
@@ -49,35 +45,13 @@ Anotacoes = () => {
         getName();
     }, []);
 
-    //pegando id do terapeuta
+
     useEffect(() => {
-        async function getName() {
-            let response = await AsyncStorage.getItem('emailData');
-            let json = JSON.parse(response);
-            setTerapeutaId(json.id)
-        }
-        getName();
-    }, []);
+        mostraObservacoes();
+    }, [execucao]);
 
-    //mandar a nota para o back-end
-    async function criarNota() {
-        let response = await fetch(config.urlRoot + 'createNote', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                terapeutaId: terapeutaId,
-                pacienteId: pacienteId,
-                texto: observacao
-            }),
-        });
-        setModalVisible(!modalVisible)
-        gerenciaObservacoes()
-    }
-
-    async function gerenciaObservacoes() {
+    //mostra observacoes
+    async function mostraObservacoes() {
         let response = await fetch(`${config.urlRoot}listaObservacoes`, {
             method: 'POST',
             headers: {
@@ -109,7 +83,6 @@ Anotacoes = () => {
     }
 
 
-
     function ListaObservacoes({ texto, id }) {
 
         if (texto != null) {
@@ -136,59 +109,21 @@ Anotacoes = () => {
 
     return (
         <View>
-            <View style={estilo.botoescontainer}>
-                <Text style={{ marginLeft: 10 }}>Observações:</Text>
-                <View style={estilo.botoeshorizontais}>
-                    <TouchableOpacity
-                        onPress={() => setModalVisible(!modalVisible)}
-                        style={estilo.botaoaddnota}>
-                        <Text style={estilo.textobotao}>
-                            Adicionar nota
+            <TouchableOpacity
+                onPress={() => setDialogVisible(!dialogVisible)}
+                style={estilo.botaoaddnota}>
+                <Text style={estilo.textobotao}>
+                    Obs completa
                 </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => setDialogVisible(!dialogVisible)}
-                        style={estilo.botaoaddnota}>
-                        <Text style={estilo.textobotao}>
-                            Obs completa
-                </Text>
-                    </TouchableOpacity>
-                </View>
-                <Modal
-                    animationType="slide"
-                    visible={modalVisible}>
-                    <TextInput
-                        style={{ marginLeft: 5 }}
-                        multiline={true}
-                        placeholder="Insira sua observação:"
-                        onChangeText={text => setObservacao(text)}
-                        defaultValue={text} />
-
-                    <View style={estilo.containerbotao}>
-                        <Pressable
-                            onPress={() => criarNota()}
-                            style={estilo.botaomodal}>
-                            <Text style={estilo.textobotaomodal}>
-                                Salvar
-                            </Text>
-                        </Pressable>
-                        <Pressable
-                            onPress={() => setModalVisible(!modalVisible)}
-                            style={estilo.botaomodal}>
-                            <Text style={estilo.textobotaomodal}>
-                                Sair
-                            </Text>
-                        </Pressable>
-                    </View>
-                </Modal>
-                <FlatList style={estilo.lista2}
-                    data={observacoes}
-                    renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
-                    keyExtractor={item => item.id.toString()}
-                    extraData={refresh}
-                />
-            </View>
+            </TouchableOpacity>
+            <FlatList style={estilo.lista2}
+                data={observacoes}
+                renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
+                keyExtractor={item => item.id.toString()}
+                extraData={refresh}
+            />
         </View>
+
     )
 }
 
@@ -247,4 +182,5 @@ const estilo = StyleSheet.create({
         flexDirection: 'row'
     }
 })
-export default Anotacoes
+
+export default AnotacoesPaciente

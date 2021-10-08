@@ -160,7 +160,8 @@ const css = StyleSheet.create({
   welcometag: {
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 5
+    marginTop: 5,
+    marginRight: 5
   }
 });
 

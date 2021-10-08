@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 let agendamentos = models.agendamentos;
-let atividades = models.atividades;
+let atividades = models.atividade;
 let datas = models.datas;
 let medicacoes = models.Medicacoes;
 let observacoes = models.Observacoes;
@@ -56,6 +56,40 @@ app.post('/createPaciente', async (req, res) => {
     }
 
 });
+
+
+//Criar observação
+app.post('/createNote', async (req, res) => {
+    console.log(req.body);
+    await observacoes.create({
+        texto: req.body.texto,
+        terapeutaId: req.body.terapeutaId,
+        pacienteId: req.body.pacienteId,
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Criado com Sucesso!'));
+    }
+
+});
+
+//Criar observação
+app.post('/createActivity', async (req, res) => {
+    console.log(req.body);
+    await atividades.create({
+        nome: req.body.nome,
+        pacienteId: req.body.pacienteId,
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Criado com Sucesso!'));
+    }
+
+});
+
+
 
 
 //Cadastro código de paciente
@@ -130,6 +164,37 @@ app.post('/listaPaciente', async (req, res) => {
     let response = await pacientes.findAll({
         where: { terapeutaId: req.body.terapeutaId },
         attributes: ['id', 'name'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+
+//listar observacoes
+app.post('/listaObservacoes', async (req, res) => {
+    let response = await observacoes.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['id', 'texto'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+//listar atividades
+app.post('/listaAtividades', async (req, res) => {
+    let response = await atividades.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['id', 'nome'],
         raw: 'false'
     })
     if (response === null) {

@@ -24,7 +24,7 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 export default function Perfil({ navigation }) {
     const [name, setName] = useState(null);
     const [id, setId] = useState(null);
-    const [tela,setTela] = useState(1);
+    const [tela, setTela] = useState(1);
 
     //pegar o nome do paciente atual
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function Perfil({ navigation }) {
     return (
         <View>
             <View>
-                <Text style={css.welcometag}> {name}</Text>
+                <Text style={css.welcometag}> {name} {id}</Text>
             </View>
             <View>
                 <Anotacoes />
