@@ -79,7 +79,7 @@ HumorTerapeuta = (idPaciente) => {
                     <View
                         style={estilo.observacoescontainer}>
                         <Text
-                            style={estilo.observacoeslista}>{humor}{id}{texto}</Text>
+                            style={estilo.observacoeslista}>{id}{humor}{texto}</Text>
                     </View>
                 </View >
             )
@@ -91,6 +91,7 @@ HumorTerapeuta = (idPaciente) => {
 
     return(
         <View>
+            <Text> Olaaaaaaaa</Text>
             <FlatList style={estilo.lista2}
                         data={relatorios}
                         renderItem={({ item }) => <ListaRelatorios texto={item.texto} id={item.id} humor={item.humor} />}

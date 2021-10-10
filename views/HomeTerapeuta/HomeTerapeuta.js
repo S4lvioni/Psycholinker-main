@@ -292,7 +292,7 @@ export default function HomeTerapeuta({ navigation }) {
             <AgendamentoConfig data={terapeutaId}/>
         
             <CriaHorasAgendaveis/>
-            <HumorTerapeuta data={pacienteId}/>
+           
         </View>
 
     );

@@ -4,6 +4,7 @@ import config from '../../config/config.json';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import Anotacoes from '../Notas/Anotacoes'
+import HumorTerapeuta from '../Humor/humorTerapeuta';
 import {
     SafeAreaView,
     ScrollView,
@@ -46,6 +47,7 @@ export default function Perfil({ navigation }) {
             </View>
             <View>
                 <Anotacoes />
+                <HumorTerapeuta data={id}/>
             </View>
         </View>
     )
