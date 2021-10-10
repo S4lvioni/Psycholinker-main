@@ -203,16 +203,17 @@ Humor = (id) => {
 
                         <View>
                             <Text>Insira uma nova atividade:</Text>
-                            <Pressable
-                                onPress={() => salvarAtividade()}>
-                                <Text>Inserir</Text>
-                            </Pressable>
+                            
                             <TextInput
                                 style={{ marginLeft: 5 }}
                                 multiline={true}
                                 placeholder="Atividade:"
                                 onChangeText={text => setAtividade(text)}
                                 defaultValue={text} />
+                                <Pressable
+                                onPress={() => salvarAtividade()}>
+                                <Text>Inserir</Text>
+                            </Pressable>
                         </View>
                     
                     <Text> Suas atividades cadastradas:</Text>
@@ -253,6 +254,11 @@ const estilo = StyleSheet.create({
     },
     imagemContainer: {
         flexDirection: 'row'
+    },
+    containerquit:{
+        flexDirection:'row',
+        width:200,
+        justifyContent:'space-around'
     }
 
 })

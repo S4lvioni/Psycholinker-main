@@ -221,6 +221,22 @@ app.post('/listaAtividades', async (req, res) => {
     }
 })
 
+
+app.post('/listaRelatorios', async (req, res) => {
+    let response = await relatorios.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['id', 'humor', 'texto'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+
 app.post('/listaTerapeuta', async (req, res) => {
     let response = await pacientes.findAll({
         where: { id: req.body.pacienteId },

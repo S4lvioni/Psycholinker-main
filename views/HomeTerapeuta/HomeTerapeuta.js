@@ -9,6 +9,7 @@ import config from '../../config/config.json';
 import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
 import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
 import CriaHorasAgendaveis from '../Agendamento/CriaHorasAgendaveis';
+import HumorTerapeuta from '../Humor/humorTerapeuta';
 
 //
 export default function HomeTerapeuta({ navigation }) {
@@ -291,6 +292,7 @@ export default function HomeTerapeuta({ navigation }) {
             <AgendamentoConfig data={terapeutaId}/>
         
             <CriaHorasAgendaveis/>
+            <HumorTerapeuta data={pacienteId}/>
         </View>
 
     );
