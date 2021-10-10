@@ -90,6 +90,21 @@ Humor = (id) => {
         gerenciaAtividades();
     }
 
+    async function salvarRelatorio() {
+        let response = await fetch(config.urlRoot + 'createReport', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                humor: humor,
+                pacienteId: id.data,
+                texto:texto
+            }),
+        });
+    }
+
 
     function ListaAtividades({ nome, id }) {
 
@@ -98,7 +113,6 @@ Humor = (id) => {
                 <View>
                     <View
                         style={estilo.observacoescontainer}>
-
                         <Text
                             style={estilo.observacoeslista}>{nome}{id}</Text>
                     </View>
@@ -167,9 +181,8 @@ Humor = (id) => {
 
 
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Text>
-                    Oi!
-                    </Text>
+            <Image style={estilo.imagem}
+                            source={require('../../assets/nota.png')} />
 
             </TouchableOpacity>
 
@@ -189,9 +202,6 @@ Humor = (id) => {
                             defaultValue={text} />
 
                         <View>
-
-
-
                             <Text>Insira uma nova atividade:</Text>
                             <Pressable
                                 onPress={() => salvarAtividade()}>
@@ -203,26 +213,30 @@ Humor = (id) => {
                                 placeholder="Atividade:"
                                 onChangeText={text => setAtividade(text)}
                                 defaultValue={text} />
-
-
                         </View>
-
-                    </View>
-                    <Pressable
-                        onPress={() => setModalVisible(false)}>
-                        <Text>Sair!</Text>
-                    </Pressable>
-                </Modal>
-                <Text>
-                    {medicacao}
-                    {id.data}
-
+                    
+                    <Text> Suas atividades cadastradas:</Text>
                     <FlatList style={estilo.lista2}
                         data={atividades}
                         renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} />}
                         keyExtractor={item => item.id.toString()}
                         extraData={refresh}
                     />
+                    <View style={estilo.containerquit}>
+                        <Pressable
+                        onPress={() => setModalVisible(false)}>
+                        <Text>Sair!</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => salvarRelatorio()}>
+                        <Text>Enviar relatório</Text>
+                    </Pressable>
+                     </View>
+                     </View>
+                </Modal>
+                <Text>
+                    {medicacao}
+                    {id.data}
                 </Text>
             </View>
 

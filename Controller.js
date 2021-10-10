@@ -15,7 +15,7 @@ let datas = models.datas;
 let medicacoes = models.Medicacoes;
 let observacoes = models.Observacoes;
 let pacientes = models.Pacientes;
-let relatorios = models.Relatorios;
+let relatorios = models.relatorio;
 let terapeutas = models.Terapeutas;
 
 //cadastro terapeuta
@@ -88,6 +88,22 @@ app.post('/createActivity', async (req, res) => {
     }
 
 });
+
+app.post('/createReport', async (req, res) => {
+    console.log(req.body);
+    await relatorios.create({
+        humor: req.body.humor,
+        pacienteId: req.body.pacienteId,
+        texto:req.body.texto
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Criado com Sucesso!'));
+    }
+
+});
+
 
 
 
