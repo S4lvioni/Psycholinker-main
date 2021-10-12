@@ -25,6 +25,7 @@ HumorTerapeuta = (idPaciente) => {
     const [modalVisible, setModalVisible] = useState('')
     const [execucao, setExecucao] = useState(1);
 
+    const [humorimagem, setHumorImagem] = useState(null)
     const [humor, setHumor] = useState(null)
     const [texto, setTexto] = useState('')
     const [relatorios, setRelatorios] = useState([
@@ -67,13 +68,45 @@ HumorTerapeuta = (idPaciente) => {
                 setExecucao(2);
             }
         }
-        console.log(humor)
     }
 
 
     function ListaRelatorios({ humor, id, texto }) {
 
+        
+
         if (texto != null) {
+            if (humor == 1){         
+                humor = <View style ={estilo.imagemrmkcontainer}>
+                        <Image style={estilo.imagemrmk}
+                                source={require('../../assets/felizao.png')} />
+                        </View>  
+            }else if(humor == 2){
+                humor = <View style ={estilo.imagemrmkcontainer}>
+                <Image style={estilo.imagemrmk}
+                        source={require('../../assets/felizinho.png')} />
+                </View> 
+            }else if(humor == 3){
+                humor = <View style ={estilo.imagemrmkcontainer}>
+                        <Image style={estilo.imagemrmk}
+                                source={require('../../assets/normalzinho.png')} />
+                        </View> 
+            }else if(humor == 4){
+                humor = <View style ={estilo.imagemrmkcontainer}>
+                <Image style={estilo.imagemrmk}
+                        source={require('../../assets/tristinho.png')} />
+                </View> 
+            }else if(humor == 5){
+                humor = <View style ={estilo.imagemrmkcontainer}>
+                        <Image style={estilo.imagemrmk}
+                                source={require('../../assets/tristao.png')} />
+                        </View> 
+            }else if(humor == 6){
+                humor = <View style ={estilo.imagemrmkcontainer}>
+                        <Image style={estilo.imagemrmk}
+                                source={require('../../assets/raiva.png')} />
+                        </View> 
+            }
             return (
                 <View>
                     <View
@@ -87,7 +120,6 @@ HumorTerapeuta = (idPaciente) => {
             return (null);
         }
     }
-
 
     return(
         <View>
@@ -106,6 +138,15 @@ const estilo = StyleSheet.create({
     imagem: {
         width: 60,
         height: 60
+    },
+    imagemrmk: {
+        width: 40,
+        height: 40,
+        alignItems:'center'
+    },
+    imagemrmkcontainer: {
+        width: 40,
+        height: 40
     },
     imagemContainer: {
         flexDirection: 'row'
