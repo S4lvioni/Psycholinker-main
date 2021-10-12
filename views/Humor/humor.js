@@ -27,6 +27,11 @@ Humor = (id) => {
     const [text, setText] = useState('')
     const [medicacao, setMedicacao] = useState('')
     const [atividade, setAtividade] = useState('')
+    const [atividadeR, setAtividadeR] = useState([
+        {
+            nome: null, id: '1'
+        }
+    ])
     const [atividades, setAtividades] = useState([
         {
             nome: null, id: '1'
@@ -34,7 +39,8 @@ Humor = (id) => {
     ])
 
     const [refresh, setRefresh] = useState(false);
-    const [modalVisible, setModalVisible] = useState('')
+    const [modalVisible, setModalVisible] = useState('');
+    const [modalVisible2, setModalVisible2] = useState('')
     const [execucao, setExecucao] = useState(1);
 
 
@@ -104,18 +110,25 @@ Humor = (id) => {
             }),
         });
     }
-
+    function atividadeRelatorio(){
+       /* let lAtividadeR=[...atividadeR]
+        lAtividadeR.push({
+            id: id,
+            nome:nome,
+          });*/
+          console.log('lAtividadeR');
+        //  setAtividadeR(lAtividadeR);
+    }
 
     function ListaAtividades({ nome, id }) {
 
         if (nome != null) {
             return (
                 <View>
-                    <View
-                        style={estilo.observacoescontainer}>
-                        <Text
-                            style={estilo.observacoeslista}>{nome}{id}</Text>
-                    </View>
+                    <Text style={estilo.observacoescontainer}>
+                        <TouchableOpacity onPressOut={()=>atividadeRelatorio()}><Text style={estilo.observacoeslista}>{nome}{id}</Text></TouchableOpacity>
+                        
+                    </Text>
                 </View >
             )
         } else {
@@ -179,13 +192,8 @@ Humor = (id) => {
                 defaultValue={text} />
             <Text>{humor}{texto}</Text>
 
-
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Image style={estilo.imagem}
-                            source={require('../../assets/nota.png')} />
-
-            </TouchableOpacity>
-
+            <Text>Insira seus medicamentos:</Text>
+            <TouchableOpacity style={css.login__button} onPress={() => setModalVisible(true)}><Text>+</Text></TouchableOpacity>
             <View style={estilo.modalsize}>
                 <Modal
                     style={estilo.modalcontent}
@@ -193,7 +201,6 @@ Humor = (id) => {
                     visible={modalVisible}>
 
                     <View>
-                        <Text>Insira seus medicamentos:</Text>
                         <TextInput
                             style={{ marginLeft: 5 }}
                             multiline={true}
@@ -201,7 +208,26 @@ Humor = (id) => {
                             onChangeText={text => setMedicacao(text)}
                             defaultValue={text} />
 
-                        <View>
+                    <View style={estilo.containerquit}>
+                        <Pressable
+                        onPress={() => setModalVisible(false)}>
+                        <Text>Sair!</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => salvarRelatorio()}>
+                        <Text>Enviar relatório</Text>
+                    </Pressable>
+                     </View>
+                     </View>
+                </Modal>
+                <Text> Insira suas atividades:</Text>
+                <TouchableOpacity style={css.login__button} onPress={() => setModalVisible2(true)}><Text>+</Text></TouchableOpacity>
+                <Modal
+                    style={estilo.modalcontent}
+                    animationType="slide"
+                    visible={modalVisible2}>
+                    
+                    <View>
                             <Text>Insira uma nova atividade:</Text>
                             
                             <TextInput
@@ -223,9 +249,9 @@ Humor = (id) => {
                         keyExtractor={item => item.id.toString()}
                         extraData={refresh}
                     />
-                    <View style={estilo.containerquit}>
+                      <View style={estilo.containerquit}>
                         <Pressable
-                        onPress={() => setModalVisible(false)}>
+                        onPress={() => setModalVisible2(false)}>
                         <Text>Sair!</Text>
                     </Pressable>
                     <Pressable
@@ -233,7 +259,7 @@ Humor = (id) => {
                         <Text>Enviar relatório</Text>
                     </Pressable>
                      </View>
-                     </View>
+                     
                 </Modal>
                 <Text>
                     {medicacao}

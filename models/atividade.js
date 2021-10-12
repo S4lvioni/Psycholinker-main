@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      atividade.belongsTo(models.relatorio);
       atividade.belongsTo(models.Pacientes);
+      atividade.hasMany(models.atividadexrelatorio);
     }
   };
   atividade.init({

@@ -18,8 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       relatorioId: {
-        type: Sequelize.INTEGER, 
-        references: { model: 'relatorios', key: 'id' }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
