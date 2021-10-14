@@ -1,12 +1,4 @@
-//configurações de agendamento: colocar horas trabalhadas por dia => definirá horas disponiveis
-// 1 = 1h 2 =2h string q vai para o banco : '7,8,9,10,11,14..'
-/*var str = 'algum texto';
-if(str.match(/texto/)){
-  alert('string encontrada');
-}*/
-//codigo uma const com as horas e um case com uma verificação dentro da string
-//vizualizar agenda : meses e dias 
-//editar disponibilidade : hora some do dia escolhido (se todas a horas do dia forem ocupados dume o dia)
+//configurações de agendamento: colocar horas trabalhadas por dia => definirá horas disponiveis para cada dia
 import React, { Component,useState, useEffect,useCallback } from 'react';
 import { Text, View, StyleSheet,TouchableOpacity,Modal,Image,TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -24,7 +16,7 @@ AgendamentoConfig=(id)=>{
                {dia:'Sex',status:false},
                {dia:'Sab',status:false},
     ]);
-    const [horarios,setHorarios]=useState(['07:00']);
+    const [horarios,setHorarios]=useState(['07:00','08:00','09:00','10:00','11:00']);
     const [selectedIndex, setSelectedIndex] = useState(null)
     //variavel para passar valor digitado para o array
     const [aux,setAux]=useState();
@@ -106,10 +98,12 @@ async function criaHorasBd(i){
 
   });
 }
+// chama função q salva no banco e seta o horário de trabalho como já configurado ao fim
 async function criaHoras(){
   for(let i=0;i<horarios.length;i++){
     criaHorasBd(i)
   }
+//seta o horário de trabalho como já configurado para que em uma nova configuração a tabela atual seja apagada antes da criação de uma nova
     let response = await fetch(config.urlRoot + 'confHora', {
       method: 'POST',
       headers: {
@@ -127,7 +121,7 @@ async function criaHoras(){
     return(
         <View>
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Image style={styles.configIcon} source={require("../../assets/configagendamnto.png")} />
+                <Image style={css.SmallIcons} source={require("../../assets/configagendamnto.png")} />
             </TouchableOpacity>
             <Modal
               animationType="slide"
@@ -142,15 +136,19 @@ async function criaHoras(){
                       key={key}
                       onPressOut={()=>diasDiponiveis(key)}
                       style={{
-                          width:55,
-                          height:30,
+                          width:50,
+                          height:50,
+                          marginLeft:2,
+                          marginRight:2,
                           justifyContent:'center',
                           alignItems: 'center',
-                          borderRadius:10,
-                          backgroundColor: item.status ? '#ffcbdb':'#FFFFFF' 
+                          borderRadius:30,
+                          backgroundColor: item.status ? '#ffcbdb':'#FFFFFF',
+                          color: item.status ? '#ffcbdb':'#FFFFFF'
+                           
                       }}
                   >
-                  <Text style={styles.diaText}>{item.dia}</Text>
+                  <Text style={{color:item.status ?'#FFFFFF':'#000000', fontWeight:'bold', fontSize:16,fontWeight:'bold'}}>{item.dia}</Text>
                 </TouchableOpacity>
               
                  ))}
@@ -159,16 +157,30 @@ async function criaHoras(){
 
             <Text>Determine os horários disponíveis diariamente:</Text>
             {/*Adicionar máscara*/}
-            <TextInput style={styles.placeHora} placeholder='00:00' onChangeText={text => setAux(text)}/>
-            <TouchableOpacity style={css.login__button} onPress={onSaveNote} ><Text>+</Text></TouchableOpacity>
-             <SafeAreaView
-                style={styles.listaHora}>
-                <View>
+            <View style={{flexDirection:'row', padding:5}}><TextInput style={styles.placeHora} placeholder='00:00' onChangeText={text => setAux(text)}/>
+            <TouchableOpacity style={css.SmallButtons}  onPress={onSaveNote} ><Text style={css.SmallButtonsText} >+</Text></TouchableOpacity></View>
+             <SafeAreaView>
+                <View style={styles.listar}>
                     {
                         horarios.map((hora,index)=>(
                             <View key={index} >
-                                <TouchableOpacity onPressOut={()=>deletarHora(hora)} >
-                                    <Text>{hora}</Text>
+                                <TouchableOpacity  
+                                style={{
+                                  width:45,
+                                  height:45,
+                                  justifyContent:'center',
+                                  alignItems: 'center',
+                                  borderRadius:30,
+                                  backgroundColor:'#ffcbdb', 
+                                  marginLeft:6,
+                                  marginBottom:20,
+                                  color:"#FFFFFF", 
+                                  fontWeight:'bold',
+                                  fontSize:16,
+                                  
+                                }} 
+                                onPressOut={()=>deletarHora(hora)} >
+                                    <Text style={{color:"#FFFFFF", fontWeight:'bold', fontSize:16,fontWeight:'bold'}}>{hora}</Text>
                                 </TouchableOpacity>
                                 
                             </View>
@@ -178,9 +190,7 @@ async function criaHoras(){
                 </View>
                     
               </SafeAreaView>
-              <TouchableOpacity style={css.modalbotao} onPressOut={() => setModalVisible(false)} onPressIn={()=>criaDias()} onPress={()=>criaHoras()}><Text>Confirmar</Text></TouchableOpacity>
-        
-                <TouchableOpacity style={css.login__button} onPress={() => setModalVisible(false)}><Text>X</Text></TouchableOpacity>
+              <TouchableOpacity style={css.modalbotao} onPressOut={() => setModalVisible(false)} onPressIn={()=>criaDias()} onPress={()=>criaHoras()}><Text style={{color:"#FFFFFF", fontWeight:'bold'}}>Confirmar</Text></TouchableOpacity>
               </View>    
             </Modal>
            
@@ -190,10 +200,6 @@ async function criaHoras(){
     )
 }
 const styles = StyleSheet.create({
-    configIcon:{
-        width: 60,
-        height: 60,
-        },
     listar:{
         flexDirection: 'row',
     },
@@ -206,8 +212,7 @@ const styles = StyleSheet.create({
         
       },
     diaText:{
-      fontSize:16,
-      fontWeight:'bold'
+     
     },
     placeHora:{
         backgroundColor: "#fff",

@@ -95,6 +95,10 @@ const css = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  SmallIcons:{
+    width: 60,
+    height: 60,
+    },
   name: {
     fontSize: 32
   },
@@ -162,7 +166,33 @@ const css = StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
     marginRight: 5
-  }
+  },
+  exercicioIcone:{
+    width: 122,
+    height: 122,
+    
+  },
+  exercicioIconeContainer:{
+    flexDirection: 'row',
+    padding:20
+  },
+  SmallButtons:{
+    backgroundColor:"#FFB6C1",
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent:'center',
+    textAlign: "center",
+    borderRadius:50,
+    marginTop:5,
+    },
+    SmallButtonsText:{
+      color:'#FFFFFF',
+      textAlign: "center",
+      fontWeight:'bold',
+      fontSize:20
+    }
+
 });
 
 

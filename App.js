@@ -10,6 +10,10 @@ import CadastroTerapeuta from './views/Cadastro/CadastroTerapeuta';
 import CadastroPaciente from './views/Cadastro/CadastroPaciente';
 import Cadastros from './views/Cadastro/Cadastros';
 import Perfil from './views/Perfis/perfil'
+import exercicios from './views/Exercicios/exercicios';
+import Respiracao from './views/Exercicios/Respiracao';
+import Relaxamento from './views/Exercicios/Relaxamento';
+import Meditacao from './views/Exercicios/Meditacao';
 import { LogBox } from 'react-native';
 
 
@@ -40,6 +44,10 @@ export default function App() {
         <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
         <Stack.Screen name="Cadastros" component={Cadastros} />
         <Stack.Screen name="Perfil" component={Perfil} />
+        <Stack.Screen name="exercicios" component={exercicios} />
+        <Stack.Screen name="Respiracao" component={Respiracao} />
+        <Stack.Screen name="Relaxamento" component={Relaxamento} />
+        <Stack.Screen name="Meditacao" component={Meditacao} />
       </Stack.Navigator>
 
 
