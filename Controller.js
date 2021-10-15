@@ -296,11 +296,11 @@ app.post('/createHorasUteis', async (req, res) => {
     });
     //se nao existe cria
     if (response){
-       /* await horasuteis.destroy({
+        await horasuteis.destroy({
             where: { terapeutaId: req.body.terapeutaId},
             //truncate: true
-          })*/
-        response.horas = false
+          })
+        response.horasconf = false
         response.save();
     }
         await horasuteis.create({
@@ -315,6 +315,7 @@ app.post('/confHora', async (req, res) => {
     });
      response.horasconf = true
     response.save();
+    res.json('ok');
 });
 
 
