@@ -100,8 +100,8 @@ async function criaHorasBd(i){
 }
 // chama função q salva no banco e seta o horário de trabalho como já configurado ao fim
 async function criaHoras(){
-  for(let i=0;i<horarios.length;i++){
-    criaHorasBd(i)
+  for (const [index, value] of horarios) {
+    await criaHorasBd(index);
   }
 //seta o horário de trabalho como já configurado para que em uma nova configuração a tabela atual seja apagada antes da criação de uma nova
     let response = await fetch(config.urlRoot + 'confHora', {
