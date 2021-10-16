@@ -300,7 +300,7 @@ export default function HomeTerapeuta({ navigation }) {
             </View>
             <AgendamentoTerapeuta data={terapeutaId}/>
         
-            <CriaHorasAgendaveis/>
+            <CriaHorasAgendaveis data={terapeutaId}/>
             <TouchableOpacity style={css.login__button} onPress={() => navigateExercicio()}>
                 <Text>exercico</Text>
             </TouchableOpacity>

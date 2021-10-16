@@ -321,13 +321,42 @@ app.post('/confHora', async (req, res) => {
 
 //cria datas disponiveis na semana
 app.post('/createDias', async (req, res) => {
-    await dias.create({
-        terapeutaId: req.body.terapeutaId,
-        dia: req.body.dia,
-        status:req.body.status
-    })
+    let response = await terapeutas.findOne({
+        where:{id: req.body.terapeutaId}
+    });
+    //se nao existe cria
+    if (response){
+        let response2= await dias.findOne({
+            where:{ dia: req.body.dia}
+        });
+        if(!response2){
+            //só cria se nao existe
+            await dias.create({
+                terapeutaId: req.body.terapeutaId,
+                dia: req.body.dia,
+                status:req.body.status
+            })
+        }
+
+    }
+    res.json('ok');
 
 });
+//Busca dias uteis
+app.post('/buscaDiasUteis', async (req, res) => {
+   
+    let response = await diasuteis.findAll({
+        where: { terapeutaId: req.body.terapeutaId },
+        attributes: ['dia'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+   // res.json('ok');
+})
 
 
 

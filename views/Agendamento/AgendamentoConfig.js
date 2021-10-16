@@ -100,15 +100,9 @@ async function criaHorasBd(i){
 }
 // chama função q salva no banco e seta o horário de trabalho como já configurado ao fim
 async function criaHoras(){
-  console.log(horarios)
   let index3=0;
   for (const [index2=0, value] of horarios) {
-    console.log("index valor:")
-    console.log(index3);
     await criaHorasBd(index3);
-   
-    console.log("hora:")
-  console.log(horarios[index3]);
     index3= index3+1;
   }
 //seta o horário de trabalho como já configurado para que em uma nova configuração a tabela atual seja apagada antes da criação de uma nova
