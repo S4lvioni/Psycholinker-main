@@ -39,7 +39,7 @@ CriaHorasAgendaveis=()=>{
         }
     
     return(
-        <View><TouchableOpacity onPress={() =>geraDatas()}><Text>oi</Text></TouchableOpacity></View>
+        <View><TouchableOpacity onPress={() =>geraDatas()}><Text>Cria horas agendáveis</Text></TouchableOpacity></View>
     );
 
 }
