@@ -12,8 +12,16 @@ import { Text, View, StyleSheet,TouchableOpacity,ScrollView,Image,TextInput } fr
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
-AgendamentoTerapeuta=()=>{
-    
+import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
+AgendamentoTerapeuta=(id)=>{
+
+  return(
+          <View style={{flexDirection:'row'}}>
+            <TouchableOpacity onPress={() => configurarDisponibilidade()}><Image style={css.SmallIcons} source={require("../../assets/AgendamentoIcon.png")} /></TouchableOpacity>
+            <AgendamentoConfig data={id.data}/>
+          </View>
+        );
+  
 }
 
 export default AgendamentoTerapeuta;

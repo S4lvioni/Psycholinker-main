@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from 'react';
-import { Text, View, Modal, TouchableOpacity, TextInput, Pressable } from 'react-native';
+import { Text, View, Modal, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
 //import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorage } from 'react-native';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -7,7 +7,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
-import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
 import CriaHorasAgendaveis from '../Agendamento/CriaHorasAgendaveis';
 import HumorTerapeuta from '../Humor/humorTerapeuta';
 
@@ -224,13 +223,23 @@ export default function HomeTerapeuta({ navigation }) {
         gerenciaPaciente();
         setModalVisible(false);
     }
+     //teste
+     async function navigateExercicio(){
+        navigation.navigate('exercicios');
+    }
     return (
         <View>
-            <Text style={css.titulohome}>Essa é a Home do Terapeuta</Text>
-            <Text style={css.sumario}>Bem vindo(a)  {name}</Text>
-            <TouchableOpacity style={css.login__button} onPress={() => sendForm()}>
-                <Text>Novo Paciente</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection:'row'}}>
+                <Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")}/>
+                <Text style={css.sumario}>{name}</Text>
+            </View>
+            <View>
+                <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
+                    <Text style={css.SmallButtonsText}>+</Text>
+                </TouchableOpacity>
+                <Text>Novo paciente</Text>
+            </View>
+            
             <Text style={css.codigogerado}>{codeA}</Text>
             <View>
                 {(execucao == 2) ?
@@ -289,9 +298,12 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
-            <AgendamentoConfig data={terapeutaId}/>
+            <AgendamentoTerapeuta data={terapeutaId}/>
         
-            <CriaHorasAgendaveis/>
+            <CriaHorasAgendaveis data={terapeutaId}/>
+            <TouchableOpacity style={css.login__button} onPress={() => navigateExercicio()}>
+                <Text>exercico</Text>
+            </TouchableOpacity>
            
         </View>
 

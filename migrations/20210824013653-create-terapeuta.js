@@ -26,6 +26,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      horasconf: {
+        type: Sequelize.BOOLEAN
+      },
       telefone: {
         type: Sequelize.STRING
       },
