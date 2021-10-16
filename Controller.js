@@ -17,6 +17,7 @@ let observacoes = models.Observacoes;
 let pacientes = models.Pacientes;
 let relatorios = models.relatorio;
 let terapeutas = models.Terapeutas;
+let selectedactivity = models.atividadexrelatorio;
 
 //cadastro terapeuta
 app.post('/createTerapeuta', async (req, res) => {
@@ -94,7 +95,8 @@ app.post('/createReport', async (req, res) => {
     await relatorios.create({
         humor: req.body.humor,
         pacienteId: req.body.pacienteId,
-        texto:req.body.texto
+        texto:req.body.texto,
+        emissao:req.body.emissao
     })
     if (response === null) {
         res.send(JSON.stringify('error'));
@@ -105,6 +107,23 @@ app.post('/createReport', async (req, res) => {
 });
 
 
+app.post('/createSelectedActivity', async (req, res) => {
+    console.log(req.body);
+    await selectedactivity.create({
+        nome: req.body.nome,
+        atividadeId:req.body.id,
+        dia:req.body.dia,
+        mes:req.body.mes,
+        ano:req.body.ano,
+        pacienteId: req.body.pacienteId
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Criado com Sucesso!'));
+    }
+
+});
 
 
 
@@ -127,6 +146,19 @@ app.post('/confereCodigo', async (req, res) => {
         res.send(JSON.stringify('error'));
     } else {
         res.send(response);
+    }
+
+});
+
+app.post('/relatorioExiste', async (req, res) => {
+    let response = await relatorios.findOne({
+        where: { emissao: req.body.emissao }
+    })
+    //console.log(response);
+    if (response === null) {
+        res.send(JSON.stringify(1));
+    } else {
+        res.send(JSON.stringify(0));
     }
 
 });
@@ -220,6 +252,40 @@ app.post('/listaAtividades', async (req, res) => {
         console.log(response);
     }
 })
+
+
+app.post('/listaAtividadesSelecionadas', async (req, res) => {
+    let response = await selectedactivity.findAll({
+        where: { pacienteId: req.body.pacienteId,
+    mes:req.body.mes},
+        attributes: [ 'nome', 'dia', 'id'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+app.post('/listaAtividadesSelecionadasPaciente', async (req, res) => {
+    let response = await selectedactivity.findAll({
+        where: { pacienteId: req.body.pacienteId,
+    mes:req.body.mes,
+dia:req.body.dia},
+        attributes: [ 'nome', 'dia', 'id'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+
 
 
 app.post('/listaRelatorios', async (req, res) => {

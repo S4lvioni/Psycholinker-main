@@ -17,6 +17,7 @@ module.exports = {
       emissao: {
         type: Sequelize.STRING
       },
+      
       pacienteId: {
         type: Sequelize.INTEGER,
         references: { model: 'pacientes', key: 'id' }

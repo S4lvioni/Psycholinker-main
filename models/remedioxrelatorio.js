@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   remedioxrelatorio.init({
     relatorioId: DataTypes.INTEGER,
-    remedioId: DataTypes.INTEGER
+    remedioId: DataTypes.INTEGER,
+    nome:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'remedioxrelatorio',

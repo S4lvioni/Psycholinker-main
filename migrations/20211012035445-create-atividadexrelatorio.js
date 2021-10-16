@@ -8,13 +8,25 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      relatorioId: {
+      pacienteId: {
         type: Sequelize.INTEGER,
-        references: { model: 'relatorios', key: 'id' }
+        references: { model: 'pacientes', key: 'id' }
       },
       atividadeId: {
         type: Sequelize.INTEGER,
         references: { model: 'atividades', key: 'id' }
+      },
+      nome:{
+        type: Sequelize.STRING
+      },
+      dia:{
+        type: Sequelize.STRING
+      },
+      mes:{
+        type: Sequelize.STRING
+      },
+      ano:{
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

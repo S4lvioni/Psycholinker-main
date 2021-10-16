@@ -25,6 +25,7 @@ Humor = (id) => {
     const [humor, setHumor] = useState(null)
     const [texto, setTexto] = useState('')
     const [text, setText] = useState('')
+    const [complete, setComplete]=useState(false)
     const [medicacao, setMedicacao] = useState('')
     const [atividade, setAtividade] = useState('')
     const [atividadeR, setAtividadeR] = useState([
@@ -37,15 +38,47 @@ Humor = (id) => {
             nome: null, id: '1'
         }
     ])
+    const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([
+        {
+            nome: null, id: '1', dia:null
+        }
+    ])
+    const pacienteId = id.data
+    //DATA
+    
+    const [diaSelecionado,setDiaSelecionado]=useState(0);
+    const  [datafull, setDatafull] = useState(0)
+    
+    useEffect(()=>{
+        let today = new Date();
+        setAno(today.getFullYear());
+        setMes(today.getMonth() + 1);
+        setDia(today.getDate());
+        let mesCerto = today.getMonth() + 1
+        setDatafull(today.getFullYear() +'/'+ mesCerto + '/'+ today.getDate() )
+    },[]);
+
+    const [ano,setAno]=useState(0);
+    const [mes,setMes]=useState(0);
+    const [dia,setDia]=useState(0);
 
     const [refresh, setRefresh] = useState(false);
     const [modalVisible, setModalVisible] = useState('');
     const [modalVisible2, setModalVisible2] = useState('')
     const [execucao, setExecucao] = useState(1);
+    const [exister, setExister] = useState(0)
 
+    useEffect(() => {
+        relatorioExiste();
+    }, [execucao]);
+    
 
     useEffect(() => {
         gerenciaAtividades();
+    }, [execucao]);
+
+    useEffect(() => {
+        gerenciaAtividadesSelecionadas();
     }, [execucao]);
 
     //pega as atividades do banco
@@ -79,6 +112,73 @@ Humor = (id) => {
         }
     }
 
+    async function relatorioExiste() {
+        let response = await fetch(`${config.urlRoot}relatorioExiste`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                emissao: datafull
+            })
+
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('existeRelatorioData', JSON.stringify(json));//json é  a resposta
+
+            let response = await AsyncStorage.getItem('existeRelatorioData');
+            const jsonNovo = JSON.parse(response);
+            setExister(jsonNovo);
+            if (execucao < 2) {
+                setExecucao(2);
+            }
+            console.log(jsonNovo)
+        }
+        
+    }
+
+    //pega as atividades do banco
+    async function gerenciaAtividadesSelecionadas() {
+        let response = await fetch(`${config.urlRoot}listaAtividadesSelecionadasPaciente`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pacienteId: id.data,
+                nome: atividade,
+                dia:dia,
+                mes:mes,
+                ano:ano
+            })
+
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('AtividadesSelecionadasData', JSON.stringify(json));//json é  a resposta
+
+            let response = await AsyncStorage.getItem('AtividadesSelecionadasData');
+            const jsonNovo = JSON.parse(response);
+            setAtividadesSelecionadas(jsonNovo);
+            if (execucao < 2) {
+                setExecucao(2);
+            }
+            console.log(dia);
+        }
+    }
+
+
 
     //insere nova atividade no banco
     async function salvarAtividade() {
@@ -106,18 +206,32 @@ Humor = (id) => {
             body: JSON.stringify({
                 humor: humor,
                 pacienteId: id.data,
-                texto:texto
+                texto:texto,
+                emissao:datafull
             }),
         });
+        relatorioExiste();
     }
-    function atividadeRelatorio(){
-       /* let lAtividadeR=[...atividadeR]
-        lAtividadeR.push({
-            id: id,
-            nome:nome,
-          });*/
-          console.log('lAtividadeR');
-        //  setAtividadeR(lAtividadeR);
+    async function atividadeRelatorio(nome,id){
+            let response = await fetch(config.urlRoot + 'createSelectedActivity', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    id: id,
+                    dia: dia,
+                    mes:mes,
+                    ano:ano,
+                    pacienteId:pacienteId
+                }),
+            });
+            console.log('Oi')
+            console.log(dia)
+            console.log(pacienteId)
+            gerenciaAtividadesSelecionadas()
     }
 
     function ListaAtividades({ nome, id }) {
@@ -126,8 +240,25 @@ Humor = (id) => {
             return (
                 <View>
                     <Text style={estilo.observacoescontainer}>
-                        <TouchableOpacity onPressOut={()=>atividadeRelatorio()}><Text style={estilo.observacoeslista}>{nome}{id}</Text></TouchableOpacity>
+                        <Pressable style={estilo.botaoreport} onPress={() => atividadeRelatorio(nome,id)}>
+                            <Text style={estilo.observacoeslista}>{nome}{id}</Text>
+                            </Pressable>
                         
+                    </Text>
+                </View >
+            )
+        } else {
+            return (null);
+        }
+    }
+
+    function ListaAtividadesSelecionadas({ nome, id }) {
+
+        if (nome != null) {
+            return (
+                <View>
+                    <Text style={estilo.observacoescontainer}>
+                            <Text style={estilo.observacoeslista}>{nome}{id}</Text>
                     </Text>
                 </View >
             )
@@ -138,6 +269,8 @@ Humor = (id) => {
 
 
     return (
+        <View>
+        { (exister) ?
         <View>
             <View style={estilo.imagemContainer}>
                 <TouchableOpacity
@@ -183,7 +316,7 @@ Humor = (id) => {
                     </View>
                 </TouchableOpacity>
             </View>
-
+            
             <TextInput
                 style={{ marginLeft: 5 }}
                 multiline={true}
@@ -229,7 +362,6 @@ Humor = (id) => {
                     
                     <View>
                             <Text>Insira uma nova atividade:</Text>
-                            
                             <TextInput
                                 style={{ marginLeft: 5 }}
                                 multiline={true}
@@ -240,35 +372,45 @@ Humor = (id) => {
                                 onPress={() => salvarAtividade()}>
                                 <Text>Inserir</Text>
                             </Pressable>
-                        </View>
+                        
                     
                     <Text> Suas atividades cadastradas:</Text>
                     <FlatList style={estilo.lista2}
                         data={atividades}
-                        renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} />}
+                        renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia ={item.dia} />}
                         keyExtractor={item => item.id.toString()}
                         extraData={refresh}
                     />
                       <View style={estilo.containerquit}>
-                        <Pressable
+                      <Pressable
                         onPress={() => setModalVisible2(false)}>
                         <Text>Sair!</Text>
                     </Pressable>
-                    <Pressable
+                    
+                    </View>
+                    </View>
+                </Modal>
+                <FlatList style={estilo.lista2}
+                        data={atividadesSelecionadas}
+                        renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} id={item.id} />}
+                        keyExtractor={item => item.id.toString()}
+                        extraData={refresh}
+                    />
+                <Pressable
                         onPress={() => salvarRelatorio()}>
                         <Text>Enviar relatório</Text>
                     </Pressable>
-                     </View>
-                     
-                </Modal>
                 <Text>
                     {medicacao}
                     {id.data}
                 </Text>
             </View>
-
+            
         </View>
-
+        :
+        <View><Text>Finalizado!</Text></View>}
+        </View>
+    
     )
 }
 
@@ -285,6 +427,9 @@ const estilo = StyleSheet.create({
         flexDirection:'row',
         width:200,
         justifyContent:'space-around'
+    },
+    botaoreport:{
+        backgroundColor:'red'
     }
 
 })

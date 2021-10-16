@@ -24,18 +24,44 @@ HumorTerapeuta = (idPaciente) => {
     const [refresh, setRefresh] = useState(false);
     const [modalVisible, setModalVisible] = useState('')
     const [execucao, setExecucao] = useState(1);
+    const pacienteId = idPaciente.data
 
     const [humorimagem, setHumorImagem] = useState(null)
     const [humor, setHumor] = useState(null)
     const [texto, setTexto] = useState('')
+    const [atividade, setAtividade] = useState('')
     const [relatorios, setRelatorios] = useState([
         {
             humor: null, id: '1', texto:null
         }
     ])
+    const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([
+        {
+            nome: null, dia:null, id:'1'
+        }
+    ])
 
+    const [diaSelecionado, setDiaSelecionado] = useState([
+        {
+            nome: null, id: '1', dia:null
+        }
+    ])
+    //DATA
+    
+    const [mes,setMes]=useState(0);
+    useEffect(()=>{
+        let today = new Date();
+        setMes(today.getMonth() + 1);
+    },[]);
+
+   
+    
     useEffect(() => {
         gerenciaRelatorios();
+    }, [execucao]);
+
+    useEffect(() => {
+        gerenciaAtividadesSelecionadas();
     }, [execucao]);
     
     
@@ -71,8 +97,43 @@ HumorTerapeuta = (idPaciente) => {
     }
 
 
-    function ListaRelatorios({ humor, id, texto }) {
+    async function gerenciaAtividadesSelecionadas() {
+        let response = await fetch(`${config.urlRoot}listaAtividadesSelecionadas`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pacienteId: pacienteId,
+                nome: atividade,
+                mes: mes
+            })
 
+            
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('AtividadesSelecionadasData', JSON.stringify(json));//json é  a resposta
+
+            let response = await AsyncStorage.getItem('AtividadesSelecionadasData');
+            const jsonNovo = JSON.parse(response);
+            setAtividadesSelecionadas(jsonNovo);
+            if (execucao < 2) {
+                setExecucao(2);
+            }
+            
+        }
+        console.log('teste')
+        
+    }
+
+
+    function ListaRelatorios({ humor, id, texto }) {
         
 
         if (texto != null) {
@@ -121,6 +182,23 @@ HumorTerapeuta = (idPaciente) => {
         }
     }
 
+
+    function ListaAtividadesSelecionadas({ nome, dia, id}) {
+
+        if (nome != null) {
+            return (
+                <View>
+                    <Text style={estilo.observacoescontainer}>
+                            <Text style={estilo.observacoeslista}>Atividade: {nome} dia:{dia} Mes da Atividade:{mes} id: {id}</Text>
+                    </Text>
+                </View >
+            )
+        } else {
+            return (null);
+        }
+        
+    }
+
     return(
         <View>
             <Text> Olaaaaaaaa</Text>
@@ -129,6 +207,16 @@ HumorTerapeuta = (idPaciente) => {
                         renderItem={({ item }) => <ListaRelatorios texto={item.texto} id={item.id} humor={item.humor} />}
                         keyExtractor={item => item.id.toString()}
                         extraData={refresh}
+                        
+                    />
+                    
+
+<FlatList style={estilo.lista2}
+                        data={atividadesSelecionadas}
+                        renderItem={({ item }) => <ListaAtividadesSelecionadas   nome={item.nome} dia={item.dia} id={item.id}  />}
+                        keyExtractor={item => item.id.toString()}
+                        extraData={refresh}
+                        
                     />
             </View>
     )
@@ -155,7 +243,8 @@ const estilo = StyleSheet.create({
         flexDirection:'row',
         width:200,
         justifyContent:'space-around'
-    }
+    },
+    
 
 })
 export default HumorTerapeuta
