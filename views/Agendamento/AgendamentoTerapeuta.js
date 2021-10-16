@@ -16,8 +16,8 @@ import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
 AgendamentoTerapeuta=(id)=>{
 
   return(
-          <View style={{flexDirection:'row'}}>
-            <TouchableOpacity onPress={() => configurarDisponibilidade()}><Image style={css.SmallIcons} source={require("../../assets/AgendamentoIcon.png")} /></TouchableOpacity>
+          <View style={{flexDirection:'row', justifyContent:'center', marginTop:20}}>
+            <TouchableOpacity  onPress={() => configurarDisponibilidade()}><Image style={css.SmallIcons} source={require("../../assets/AgendamentoIcon.png")} /></TouchableOpacity>
             <AgendamentoConfig data={id.data}/>
           </View>
         );

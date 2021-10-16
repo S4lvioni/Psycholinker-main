@@ -326,7 +326,7 @@ Humor = (id) => {
             <Text>{humor}{texto}</Text>
 
             <Text>Insira seus medicamentos:</Text>
-            <TouchableOpacity style={css.login__button} onPress={() => setModalVisible(true)}><Text>+</Text></TouchableOpacity>
+            <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
             <View style={estilo.modalsize}>
                 <Modal
                     style={estilo.modalcontent}
@@ -354,7 +354,7 @@ Humor = (id) => {
                      </View>
                 </Modal>
                 <Text> Insira suas atividades:</Text>
-                <TouchableOpacity style={css.login__button} onPress={() => setModalVisible2(true)}><Text>+</Text></TouchableOpacity>
+                <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
                 <Modal
                     style={estilo.modalcontent}
                     animationType="slide"
@@ -402,10 +402,8 @@ Humor = (id) => {
                     </Pressable>
                 <Text>
                     {medicacao}
-                    {id.data}
                 </Text>
             </View>
-            
         </View>
         :
         <View><Text>Finalizado!</Text></View>}
@@ -430,6 +428,19 @@ const estilo = StyleSheet.create({
     },
     botaoreport:{
         backgroundColor:'red'
+    },
+    button_login:{
+        width:40,
+        height:40,
+        borderRadius:30,
+        backgroundColor:'#FFB6C1',
+        alignSelf:'center',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    button_login_text:{
+        marginBottom:3,
+        fontSize:25
     }
 
 })

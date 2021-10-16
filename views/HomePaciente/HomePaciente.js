@@ -29,8 +29,7 @@ export default function HomePaciente({ HomePaciente }) {
 
     return (
         <View>
-            <Text style={css.titulohome}>Essa é a Home do Paciente</Text>
-            <Text style={css.sumario}>Bem vindo(a)  {name}</Text>
+            <Text style={css.titulohome}>Bem vindo(a), {name}</Text>
             {/*<AgendamentoPaciente />
             <AnotacoesPaciente />*/}
             <Humor data={pacienteId} />

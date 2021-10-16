@@ -97,7 +97,7 @@ CriaHorasAgendaveis=(id)=>{
     }
     
     return(
-        <View><TouchableOpacity onPress={() =>geraDatas()}><Text>Cria horas agendáveis</Text></TouchableOpacity></View>
+        <View style={{justifyContent:'center', alignItems:'center', marginTop:15, marginBottom:10}}><TouchableOpacity onPress={() =>geraDatas()}><Text style={{fontWeight:'bold'}}>Cria horas agendáveis</Text></TouchableOpacity></View>
     );
 
 }

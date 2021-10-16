@@ -229,11 +229,11 @@ export default function HomeTerapeuta({ navigation }) {
     }
     return (
         <View>
-            <View style={{flexDirection:'row'}}>
+            <View style={{flexDirection:'column', alignItems:'center', marginTop:10}}>
                 <Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")}/>
                 <Text style={css.sumario}>{name}</Text>
             </View>
-            <View>
+            <View style ={{alignItems:'center',marginTop: 3}}>
                 <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
                     <Text style={css.SmallButtonsText}>+</Text>
                 </TouchableOpacity>
@@ -302,7 +302,7 @@ export default function HomeTerapeuta({ navigation }) {
         
             <CriaHorasAgendaveis data={terapeutaId}/>
             <TouchableOpacity style={css.login__button} onPress={() => navigateExercicio()}>
-                <Text>exercico</Text>
+                <Text>Exercicios</Text>
             </TouchableOpacity>
            
         </View>

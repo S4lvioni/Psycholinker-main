@@ -178,8 +178,8 @@ const css = StyleSheet.create({
   },
   SmallButtons:{
     backgroundColor:"#FFB6C1",
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     alignItems: 'center',
     justifyContent:'center',
     textAlign: "center",
@@ -190,7 +190,8 @@ const css = StyleSheet.create({
       color:'#FFFFFF',
       textAlign: "center",
       fontWeight:'bold',
-      fontSize:20
+      fontSize:20,
+      marginBottom:3
     }
 
 });
