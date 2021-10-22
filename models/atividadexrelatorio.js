@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     nome: DataTypes.STRING,
     dia: DataTypes.STRING,
     mes: DataTypes.STRING,
-    ano: DataTypes.STRING
+    ano: DataTypes.STRING,
+    data: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'atividadexrelatorio',

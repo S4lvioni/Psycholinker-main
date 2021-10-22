@@ -16,16 +16,19 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'atividades', key: 'id' }
       },
-      nome:{
+      nome: {
         type: Sequelize.STRING
       },
-      dia:{
+      dia: {
         type: Sequelize.STRING
       },
-      mes:{
+      mes: {
         type: Sequelize.STRING
       },
-      ano:{
+      ano: {
+        type: Sequelize.STRING
+      },
+      data: {
         type: Sequelize.STRING
       },
       createdAt: {

@@ -96,8 +96,8 @@ app.post('/createReport', async (req, res) => {
     await relatorios.create({
         humor: req.body.humor,
         pacienteId: req.body.pacienteId,
-        texto:req.body.texto,
-        emissao:req.body.emissao
+        texto: req.body.texto,
+        emissao: req.body.emissao
     })
     if (response === null) {
         res.send(JSON.stringify('error'));
@@ -112,11 +112,12 @@ app.post('/createSelectedActivity', async (req, res) => {
     console.log(req.body);
     await selectedactivity.create({
         nome: req.body.nome,
-        atividadeId:req.body.id,
-        dia:req.body.dia,
-        mes:req.body.mes,
-        ano:req.body.ano,
-        pacienteId: req.body.pacienteId
+        atividadeId: req.body.id,
+        dia: req.body.dia,
+        mes: req.body.mes,
+        ano: req.body.ano,
+        pacienteId: req.body.pacienteId,
+        data: req.body.data
     })
     if (response === null) {
         res.send(JSON.stringify('error'));
@@ -257,9 +258,11 @@ app.post('/listaAtividades', async (req, res) => {
 
 app.post('/listaAtividadesSelecionadas', async (req, res) => {
     let response = await selectedactivity.findAll({
-        where: { pacienteId: req.body.pacienteId,
-    mes:req.body.mes},
-        attributes: [ 'nome', 'dia', 'id'],
+        where: {
+            pacienteId: req.body.pacienteId,
+            data: req.body.data
+        },
+        attributes: ['nome', 'dia', 'data', 'id'],
         raw: 'false'
     })
     if (response === null) {
@@ -270,12 +273,32 @@ app.post('/listaAtividadesSelecionadas', async (req, res) => {
     }
 })
 
+app.post('/listaAtividadesSelecionadasDiarias', async (req, res) => {
+    let response = await selectedactivity.findAll({
+        where: {
+            pacienteId: req.body.pacienteId,
+            data: req.body.data
+        },
+        attributes: ['nome', 'dia', 'data', 'id'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+
+})
+
 app.post('/listaAtividadesSelecionadasPaciente', async (req, res) => {
     let response = await selectedactivity.findAll({
-        where: { pacienteId: req.body.pacienteId,
-    mes:req.body.mes,
-dia:req.body.dia},
-        attributes: [ 'nome', 'dia', 'id'],
+        where: {
+            pacienteId: req.body.pacienteId,
+            mes: req.body.mes,
+            dia: req.body.dia
+        },
+        attributes: ['nome', 'dia', 'id'],
         raw: 'false'
     })
     if (response === null) {
@@ -292,7 +315,7 @@ dia:req.body.dia},
 app.post('/listaRelatorios', async (req, res) => {
     let response = await relatorios.findAll({
         where: { pacienteId: req.body.pacienteId },
-        attributes: ['id', 'humor', 'texto'],
+        attributes: ['id', 'humor', 'texto', 'emissao'],
         raw: 'false'
     })
     if (response === null) {
@@ -302,6 +325,8 @@ app.post('/listaRelatorios', async (req, res) => {
         console.log(response);
     }
 })
+
+
 
 
 app.post('/listaTerapeuta', async (req, res) => {
@@ -339,16 +364,16 @@ app.post('/editPaciente', async (req, res) => {
 //cria dias uteis
 app.post('/createDiasUteis', async (req, res) => {
     let response = await diasuteis.findOne({
-        where:{terapeutaId: req.body.terapeutaId }
+        where: { terapeutaId: req.body.terapeutaId }
     });
     //se nao existe cria
-    if (!response){
+    if (!response) {
         await diasuteis.create({
             terapeutaId: req.body.terapeutaId,
             dia: req.body.dia
         })
         //se ja existe edita
-    }else{
+    } else {
         response.terapeutaId = req.body.terapeutaId;
         response.dia = req.body.dia;
         response.save();
@@ -358,28 +383,28 @@ app.post('/createDiasUteis', async (req, res) => {
 //cria horas uteis
 app.post('/createHorasUteis', async (req, res) => {
     let response = await terapeutas.findOne({
-        where:{id: req.body.terapeutaId, horasconf: true}
+        where: { id: req.body.terapeutaId, horasconf: true }
     });
     //se nao existe cria
-    if (response){
+    if (response) {
         await horasuteis.destroy({
-            where: { terapeutaId: req.body.terapeutaId},
+            where: { terapeutaId: req.body.terapeutaId },
             //truncate: true
-          })
+        })
         response.horasconf = false
         response.save();
     }
-        await horasuteis.create({
-           terapeutaId: req.body.terapeutaId,
-           hora: req.body.hora
-       })
-       res.json('ok');
+    await horasuteis.create({
+        terapeutaId: req.body.terapeutaId,
+        hora: req.body.hora
+    })
+    res.json('ok');
 });
 app.post('/confHora', async (req, res) => {
     let response = await terapeutas.findOne({
-        where:{id: req.body.terapeutaId}
+        where: { id: req.body.terapeutaId }
     });
-     response.horasconf = true
+    response.horasconf = true
     response.save();
     res.json('ok');
 });
@@ -388,19 +413,19 @@ app.post('/confHora', async (req, res) => {
 //cria datas disponiveis na semana
 app.post('/createDias', async (req, res) => {
     let response = await terapeutas.findOne({
-        where:{id: req.body.terapeutaId}
+        where: { id: req.body.terapeutaId }
     });
     //se nao existe cria
-    if (response){
-        let response2= await dias.findOne({
-            where:{ dia: req.body.dia}
+    if (response) {
+        let response2 = await dias.findOne({
+            where: { dia: req.body.dia }
         });
-        if(!response2){
+        if (!response2) {
             //só cria se nao existe
             await dias.create({
                 terapeutaId: req.body.terapeutaId,
                 dia: req.body.dia,
-                status:req.body.status
+                status: req.body.status
             })
         }
 
@@ -410,7 +435,7 @@ app.post('/createDias', async (req, res) => {
 });
 //Busca dias uteis
 app.post('/buscaDiasUteis', async (req, res) => {
-   
+
     let response = await diasuteis.findAll({
         where: { terapeutaId: req.body.terapeutaId },
         attributes: ['dia'],
@@ -421,7 +446,7 @@ app.post('/buscaDiasUteis', async (req, res) => {
     } else {
         res.send(response);
     }
-   // res.json('ok');
+    // res.json('ok');
 })
 
 

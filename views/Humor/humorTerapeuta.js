@@ -25,46 +25,47 @@ HumorTerapeuta = (idPaciente) => {
     const [modalVisible, setModalVisible] = useState('')
     const [execucao, setExecucao] = useState(1);
     const pacienteId = idPaciente.data
-
+    const [data, setData] = useState('')
     const [humorimagem, setHumorImagem] = useState(null)
     const [humor, setHumor] = useState(null)
     const [texto, setTexto] = useState('')
+    const [emissao, setEmissao] = useState('')
     const [atividade, setAtividade] = useState('')
     const [relatorios, setRelatorios] = useState([
         {
-            humor: null, id: '1', texto:null
+            humor: null, id: '1', texto: null
         }
     ])
     const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([
         {
-            nome: null, dia:null, id:'1'
+            nome: null, dia: null, id: '1', data: null
         }
     ])
 
     const [diaSelecionado, setDiaSelecionado] = useState([
         {
-            nome: null, id: '1', dia:null
+            nome: null, id: '1', dia: null
         }
     ])
     //DATA
-    
-    const [mes,setMes]=useState(0);
-    useEffect(()=>{
+
+    const [mes, setMes] = useState(0);
+    useEffect(() => {
         let today = new Date();
         setMes(today.getMonth() + 1);
-    },[]);
+    }, []);
 
-   
-    
+
+
     useEffect(() => {
         gerenciaRelatorios();
     }, [execucao]);
 
     useEffect(() => {
-        gerenciaAtividadesSelecionadas();
+        gerenciaAtividadesSelecionadas(emissao)
     }, [execucao]);
-    
-    
+
+
     async function gerenciaRelatorios() {
         let response = await fetch(`${config.urlRoot}listaRelatorios`, {
             method: 'POST',
@@ -75,7 +76,8 @@ HumorTerapeuta = (idPaciente) => {
             body: JSON.stringify({
                 pacienteId: idPaciente.data,
                 texto: texto,
-                humor: humor
+                humor: humor,
+                emissao: emissao
             })
 
         });
@@ -93,11 +95,14 @@ HumorTerapeuta = (idPaciente) => {
             if (execucao < 2) {
                 setExecucao(2);
             }
+            console.log(emissao + 'acelehe')
         }
+
     }
 
 
-    async function gerenciaAtividadesSelecionadas() {
+
+    async function gerenciaAtividadesSelecionadas(emissao) {
         let response = await fetch(`${config.urlRoot}listaAtividadesSelecionadas`, {
             method: 'POST',
             headers: {
@@ -107,10 +112,10 @@ HumorTerapeuta = (idPaciente) => {
             body: JSON.stringify({
                 pacienteId: pacienteId,
                 nome: atividade,
-                mes: mes
+                data: emissao
             })
 
-            
+
         });
         //obtem resposta do controller
         let json = await response.json();
@@ -126,99 +131,105 @@ HumorTerapeuta = (idPaciente) => {
             if (execucao < 2) {
                 setExecucao(2);
             }
-            
         }
-        console.log('teste')
-        
     }
 
 
-    function ListaRelatorios({ humor, id, texto }) {
-        
+    function ListaRelatorios({ humor, id, texto, emissao, data }) {
 
         if (texto != null) {
-            if (humor == 1){         
-                humor = <View style ={estilo.imagemrmkcontainer}>
-                        <Image style={estilo.imagemrmk}
-                                source={require('../../assets/felizao.png')} />
-                        </View>  
-            }else if(humor == 2){
-                humor = <View style ={estilo.imagemrmkcontainer}>
-                <Image style={estilo.imagemrmk}
+            if (humor == 1) {
+                humor = <View style={estilo.imagemrmkcontainer}>
+                    <Image style={estilo.imagemrmk}
+                        source={require('../../assets/felizao.png')} />
+                </View>
+            } else if (humor == 2) {
+                humor = <View style={estilo.imagemrmkcontainer}>
+                    <Image style={estilo.imagemrmk}
                         source={require('../../assets/felizinho.png')} />
-                </View> 
-            }else if(humor == 3){
-                humor = <View style ={estilo.imagemrmkcontainer}>
-                        <Image style={estilo.imagemrmk}
-                                source={require('../../assets/normalzinho.png')} />
-                        </View> 
-            }else if(humor == 4){
-                humor = <View style ={estilo.imagemrmkcontainer}>
-                <Image style={estilo.imagemrmk}
+                </View>
+            } else if (humor == 3) {
+                humor = <View style={estilo.imagemrmkcontainer}>
+                    <Image style={estilo.imagemrmk}
+                        source={require('../../assets/normalzinho.png')} />
+                </View>
+            } else if (humor == 4) {
+                humor = <View style={estilo.imagemrmkcontainer}>
+                    <Image style={estilo.imagemrmk}
                         source={require('../../assets/tristinho.png')} />
-                </View> 
-            }else if(humor == 5){
-                humor = <View style ={estilo.imagemrmkcontainer}>
-                        <Image style={estilo.imagemrmk}
-                                source={require('../../assets/tristao.png')} />
-                        </View> 
-            }else if(humor == 6){
-                humor = <View style ={estilo.imagemrmkcontainer}>
-                        <Image style={estilo.imagemrmk}
-                                source={require('../../assets/raiva.png')} />
-                        </View> 
+                </View>
+            } else if (humor == 5) {
+                humor = <View style={estilo.imagemrmkcontainer}>
+                    <Image style={estilo.imagemrmk}
+                        source={require('../../assets/tristao.png')} />
+                </View>
+            } else if (humor == 6) {
+                humor = <View style={estilo.imagemrmkcontainer}>
+                    <Image style={estilo.imagemrmk}
+                        source={require('../../assets/raiva.png')} />
+                </View>
             }
             return (
                 <View>
                     <View
                         style={estilo.observacoescontainer}>
-                        <Text
-                            style={estilo.observacoeslista}>{id}{humor}{texto}</Text>
+                        <TouchableOpacity
+                            onPress={() => gerenciaAtividadesSelecionadas(emissao)}>
+                            <Text style={estilo.observacoeslista}>{emissao}</Text>
+                        </TouchableOpacity>
+
+                        <Text> {id} {humor} {texto} </Text>
+
                     </View>
                 </View >
             )
+
         } else {
             return (null);
         }
     }
 
 
-    function ListaAtividadesSelecionadas({ nome, dia, id}) {
+    function ListaAtividadesSelecionadas({ nome, dia, id, data }) {
 
         if (nome != null) {
             return (
                 <View>
                     <Text style={estilo.observacoescontainer}>
-                            <Text style={estilo.observacoeslista}>Atividade: {nome} dia:{dia} Mes da Atividade:{mes} id: {id}</Text>
+                        <Text style={estilo.observacoeslista}>Atividade: {nome}  id: {id} data completa: {data}</Text>
                     </Text>
                 </View >
             )
         } else {
             return (null);
         }
-        
+
     }
 
-    return(
+    return (
         <View>
             <Text> Olaaaaaaaa</Text>
-            <FlatList style={estilo.lista2}
-                        data={relatorios}
-                        renderItem={({ item }) => <ListaRelatorios texto={item.texto} id={item.id} humor={item.humor} />}
-                        keyExtractor={item => item.id.toString()}
-                        extraData={refresh}
-                        
-                    />
-                    
 
-<FlatList style={estilo.lista2}
-                        data={atividadesSelecionadas}
-                        renderItem={({ item }) => <ListaAtividadesSelecionadas   nome={item.nome} dia={item.dia} id={item.id}  />}
-                        keyExtractor={item => item.id.toString()}
-                        extraData={refresh}
-                        
-                    />
+            <FlatList style={estilo.lista2}
+                data={relatorios}
+                renderItem={({ item }) => <ListaRelatorios texto={item.texto} id={item.id} humor={item.humor} emissao={item.emissao} />}
+                keyExtractor={item => item.id.toString()}
+                extraData={refresh}
+            />
+            <FlatList style={estilo.lista2}
+                data={atividadesSelecionadas}
+                renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}
+                keyExtractor={item => item.id.toString()}
+                extraData={refresh}
+            />
+
+            <View>
+
             </View>
+
+
+
+        </View>
     )
 }
 
@@ -230,7 +241,7 @@ const estilo = StyleSheet.create({
     imagemrmk: {
         width: 40,
         height: 40,
-        alignItems:'center'
+        alignItems: 'center'
     },
     imagemrmkcontainer: {
         width: 40,
@@ -239,12 +250,16 @@ const estilo = StyleSheet.create({
     imagemContainer: {
         flexDirection: 'row'
     },
-    containerquit:{
-        flexDirection:'row',
-        width:200,
-        justifyContent:'space-around'
+    containerquit: {
+        flexDirection: 'row',
+        width: 200,
+        justifyContent: 'space-around'
     },
-    
+    linhahorizontal: {
+        flexDirection: 'row'
+    },
+
+
 
 })
 export default HumorTerapeuta

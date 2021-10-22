@@ -25,7 +25,7 @@ Humor = (id) => {
     const [humor, setHumor] = useState(null)
     const [texto, setTexto] = useState('')
     const [text, setText] = useState('')
-    const [complete, setComplete]=useState(false)
+    const [complete, setComplete] = useState(false)
     const [medicacao, setMedicacao] = useState('')
     const [atividade, setAtividade] = useState('')
     const [atividadeR, setAtividadeR] = useState([
@@ -40,27 +40,27 @@ Humor = (id) => {
     ])
     const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([
         {
-            nome: null, id: '1', dia:null
+            nome: null, id: '1', dia: null
         }
     ])
     const pacienteId = id.data
     //DATA
-    
-    const [diaSelecionado,setDiaSelecionado]=useState(0);
-    const  [datafull, setDatafull] = useState(0)
-    
-    useEffect(()=>{
+
+    const [diaSelecionado, setDiaSelecionado] = useState(0);
+    const [datafull, setDatafull] = useState(0)
+
+    useEffect(() => {
         let today = new Date();
         setAno(today.getFullYear());
         setMes(today.getMonth() + 1);
         setDia(today.getDate());
         let mesCerto = today.getMonth() + 1
-        setDatafull(today.getFullYear() +'/'+ mesCerto + '/'+ today.getDate() )
-    },[]);
+        setDatafull(today.getFullYear() + '/' + mesCerto + '/' + today.getDate())
+    }, []);
 
-    const [ano,setAno]=useState(0);
-    const [mes,setMes]=useState(0);
-    const [dia,setDia]=useState(0);
+    const [ano, setAno] = useState(0);
+    const [mes, setMes] = useState(0);
+    const [dia, setDia] = useState(0);
 
     const [refresh, setRefresh] = useState(false);
     const [modalVisible, setModalVisible] = useState('');
@@ -71,7 +71,7 @@ Humor = (id) => {
     useEffect(() => {
         relatorioExiste();
     }, [execucao]);
-    
+
 
     useEffect(() => {
         gerenciaAtividades();
@@ -140,7 +140,7 @@ Humor = (id) => {
             }
             console.log(jsonNovo)
         }
-        
+
     }
 
     //pega as atividades do banco
@@ -154,9 +154,9 @@ Humor = (id) => {
             body: JSON.stringify({
                 pacienteId: id.data,
                 nome: atividade,
-                dia:dia,
-                mes:mes,
-                ano:ano
+                dia: dia,
+                mes: mes,
+                ano: ano
             })
 
         });
@@ -206,32 +206,31 @@ Humor = (id) => {
             body: JSON.stringify({
                 humor: humor,
                 pacienteId: id.data,
-                texto:texto,
-                emissao:datafull
+                texto: texto,
+                emissao: datafull
             }),
         });
         relatorioExiste();
     }
-    async function atividadeRelatorio(nome,id){
-            let response = await fetch(config.urlRoot + 'createSelectedActivity', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    nome: nome,
-                    id: id,
-                    dia: dia,
-                    mes:mes,
-                    ano:ano,
-                    pacienteId:pacienteId
-                }),
-            });
-            console.log('Oi')
-            console.log(dia)
-            console.log(pacienteId)
-            gerenciaAtividadesSelecionadas()
+    async function atividadeRelatorio(nome, id) {
+        let response = await fetch(config.urlRoot + 'createSelectedActivity', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                id: id,
+                dia: dia,
+                mes: mes,
+                ano: ano,
+                pacienteId: pacienteId,
+                data: datafull
+            }),
+        });
+        console.log(datafull)
+        gerenciaAtividadesSelecionadas()
     }
 
     function ListaAtividades({ nome, id }) {
@@ -240,10 +239,10 @@ Humor = (id) => {
             return (
                 <View>
                     <Text style={estilo.observacoescontainer}>
-                        <Pressable style={estilo.botaoreport} onPress={() => atividadeRelatorio(nome,id)}>
+                        <Pressable style={estilo.botaoreport} onPress={() => atividadeRelatorio(nome, id)}>
                             <Text style={estilo.observacoeslista}>{nome}{id}</Text>
-                            </Pressable>
-                        
+                        </Pressable>
+
                     </Text>
                 </View >
             )
@@ -258,7 +257,7 @@ Humor = (id) => {
             return (
                 <View>
                     <Text style={estilo.observacoescontainer}>
-                            <Text style={estilo.observacoeslista}>{nome}{id}</Text>
+                        <Text style={estilo.observacoeslista}>{nome}{id}</Text>
                     </Text>
                 </View >
             )
@@ -270,145 +269,145 @@ Humor = (id) => {
 
     return (
         <View>
-        { (exister) ?
-        <View>
-            <View style={estilo.imagemContainer}>
-                <TouchableOpacity
-                    onPress={() => setHumor(1)}>
-                    <View>
-                        <Image style={estilo.imagem}
-                            source={require('../../assets/felizao.png')} />
+            { (exister) ?
+                <View>
+                    <View style={estilo.imagemContainer}>
+                        <TouchableOpacity
+                            onPress={() => setHumor(1)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/felizao.png')} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(2)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/felizinho.png')} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(3)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/normalzinho.png')} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(4)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/tristinho.png')} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(5)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/tristao.png')} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(6)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/raiva.png')} />
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => setHumor(2)}>
-                    <View>
-                        <Image style={estilo.imagem}
-                            source={require('../../assets/felizinho.png')} />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => setHumor(3)}>
-                    <View>
-                        <Image style={estilo.imagem}
-                            source={require('../../assets/normalzinho.png')} />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => setHumor(4)}>
-                    <View>
-                        <Image style={estilo.imagem}
-                            source={require('../../assets/tristinho.png')} />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => setHumor(5)}>
-                    <View>
-                        <Image style={estilo.imagem}
-                            source={require('../../assets/tristao.png')} />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => setHumor(6)}>
-                    <View>
-                        <Image style={estilo.imagem}
-                            source={require('../../assets/raiva.png')} />
-                    </View>
-                </TouchableOpacity>
-            </View>
-            
-            <TextInput
-                style={{ marginLeft: 5 }}
-                multiline={true}
-                placeholder="Insira sua nota:"
-                onChangeText={text => setTexto(text)}
-                defaultValue={text} />
-            <Text>{humor}{texto}</Text>
 
-            <Text>Insira seus medicamentos:</Text>
-            <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
-            <View style={estilo.modalsize}>
-                <Modal
-                    style={estilo.modalcontent}
-                    animationType="slide"
-                    visible={modalVisible}>
+                    <TextInput
+                        style={{ marginLeft: 5 }}
+                        multiline={true}
+                        placeholder="Insira sua nota:"
+                        onChangeText={text => setTexto(text)}
+                        defaultValue={text} />
+                    <Text>{humor}{texto}</Text>
 
-                    <View>
-                        <TextInput
-                            style={{ marginLeft: 5 }}
-                            multiline={true}
-                            placeholder="Medicacao:"
-                            onChangeText={text => setMedicacao(text)}
-                            defaultValue={text} />
+                    <Text>Insira seus medicamentos:</Text>
+                    <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
+                    <View style={estilo.modalsize}>
+                        <Modal
+                            style={estilo.modalcontent}
+                            animationType="slide"
+                            visible={modalVisible}>
 
-                    <View style={estilo.containerquit}>
-                        <Pressable
-                        onPress={() => setModalVisible(false)}>
-                        <Text>Sair!</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => salvarRelatorio()}>
-                        <Text>Enviar relatório</Text>
-                    </Pressable>
-                     </View>
-                     </View>
-                </Modal>
-                <Text> Insira suas atividades:</Text>
-                <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
-                <Modal
-                    style={estilo.modalcontent}
-                    animationType="slide"
-                    visible={modalVisible2}>
-                    
-                    <View>
-                            <Text>Insira uma nova atividade:</Text>
-                            <TextInput
-                                style={{ marginLeft: 5 }}
-                                multiline={true}
-                                placeholder="Atividade:"
-                                onChangeText={text => setAtividade(text)}
-                                defaultValue={text} />
+                            <View>
+                                <TextInput
+                                    style={{ marginLeft: 5 }}
+                                    multiline={true}
+                                    placeholder="Medicacao:"
+                                    onChangeText={text => setMedicacao(text)}
+                                    defaultValue={text} />
+
+                                <View style={estilo.containerquit}>
+                                    <Pressable
+                                        onPress={() => setModalVisible(false)}>
+                                        <Text>Sair!</Text>
+                                    </Pressable>
+                                    <Pressable
+                                        onPress={() => salvarRelatorio()}>
+                                        <Text>Enviar relatório</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal>
+                        <Text> Insira suas atividades:</Text>
+                        <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
+                        <Modal
+                            style={estilo.modalcontent}
+                            animationType="slide"
+                            visible={modalVisible2}>
+
+                            <View>
+                                <Text>Insira uma nova atividade:</Text>
+                                <TextInput
+                                    style={{ marginLeft: 5 }}
+                                    multiline={true}
+                                    placeholder="Atividade:"
+                                    onChangeText={text => setAtividade(text)}
+                                    defaultValue={text} />
                                 <Pressable
-                                onPress={() => salvarAtividade()}>
-                                <Text>Inserir</Text>
-                            </Pressable>
-                        
-                    
-                    <Text> Suas atividades cadastradas:</Text>
-                    <FlatList style={estilo.lista2}
-                        data={atividades}
-                        renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia ={item.dia} />}
-                        keyExtractor={item => item.id.toString()}
-                        extraData={refresh}
-                    />
-                      <View style={estilo.containerquit}>
-                      <Pressable
-                        onPress={() => setModalVisible2(false)}>
-                        <Text>Sair!</Text>
-                    </Pressable>
-                    
+                                    onPress={() => salvarAtividade()}>
+                                    <Text>Inserir</Text>
+                                </Pressable>
+
+
+                                <Text> Suas atividades cadastradas:</Text>
+                                <FlatList style={estilo.lista2}
+                                    data={atividades}
+                                    renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
+                                    keyExtractor={item => item.id.toString()}
+                                    extraData={refresh}
+                                />
+                                <View style={estilo.containerquit}>
+                                    <Pressable
+                                        onPress={() => setModalVisible2(false)}>
+                                        <Text>Sair!</Text>
+                                    </Pressable>
+
+                                </View>
+                            </View>
+                        </Modal>
+                        <FlatList style={estilo.lista2}
+                            data={atividadesSelecionadas}
+                            renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} id={item.id} />}
+                            keyExtractor={item => item.id.toString()}
+                            extraData={refresh}
+                        />
+                        <Pressable
+                            onPress={() => salvarRelatorio()}>
+                            <Text>Enviar relatório</Text>
+                        </Pressable>
+                        <Text>
+                            {medicacao}
+                        </Text>
                     </View>
-                    </View>
-                </Modal>
-                <FlatList style={estilo.lista2}
-                        data={atividadesSelecionadas}
-                        renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} id={item.id} />}
-                        keyExtractor={item => item.id.toString()}
-                        extraData={refresh}
-                    />
-                <Pressable
-                        onPress={() => salvarRelatorio()}>
-                        <Text>Enviar relatório</Text>
-                    </Pressable>
-                <Text>
-                    {medicacao}
-                </Text>
-            </View>
+                </View>
+                :
+                <View><Text>Finalizado!</Text></View>}
         </View>
-        :
-        <View><Text>Finalizado!</Text></View>}
-        </View>
-    
+
     )
 }
 
@@ -421,26 +420,26 @@ const estilo = StyleSheet.create({
     imagemContainer: {
         flexDirection: 'row'
     },
-    containerquit:{
-        flexDirection:'row',
-        width:200,
-        justifyContent:'space-around'
+    containerquit: {
+        flexDirection: 'row',
+        width: 200,
+        justifyContent: 'space-around'
     },
-    botaoreport:{
-        backgroundColor:'red'
+    botaoreport: {
+        backgroundColor: 'red'
     },
-    button_login:{
-        width:40,
-        height:40,
-        borderRadius:30,
-        backgroundColor:'#FFB6C1',
-        alignSelf:'center',
-        justifyContent:'center',
-        alignItems:'center'
+    button_login: {
+        width: 40,
+        height: 40,
+        borderRadius: 30,
+        backgroundColor: '#FFB6C1',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    button_login_text:{
-        marginBottom:3,
-        fontSize:25
+    button_login_text: {
+        marginBottom: 3,
+        fontSize: 25
     }
 
 })
