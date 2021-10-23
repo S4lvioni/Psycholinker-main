@@ -7,16 +7,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
 import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
-import CriaHorasAgendaveis from '../Agendamento/CriaHorasAgendaveis';
+import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
 import HumorTerapeuta from '../Humor/humorTerapeuta';
+import { set } from 'react-native-reanimated';
 
-//
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
     const [refresh, setRefresh] = useState(false);
-    const [display, setDisplay] = useState('none')
+    const [display, setDisplay] = useState('none');
+    const [display2, setDisplay2] = useState('none');
     //terapeuta
     const [email, setEmail] = useState(null);
     const [name, setName] = useState(null);
@@ -36,6 +37,9 @@ export default function HomeTerapeuta({ navigation }) {
     const [pacienteTelefone, setpacienteTelefone] = useState(null);
     const [pacienteEmail, setpacienteEmail] = useState(null);
     const [response, setResponse] = useState(null);
+    //horas
+    const [horasconf, setHorasConf] = useState(null);
+
     useEffect(() => {
         randomCode();
     }, []);
@@ -56,6 +60,7 @@ export default function HomeTerapeuta({ navigation }) {
             let json = JSON.parse(response);
             setName(json.name);
             setEmail(json.email);
+            setHorasConf(json.horasconf);
         }
         getName();
     }, []);
@@ -139,12 +144,16 @@ export default function HomeTerapeuta({ navigation }) {
 
     //Gerar um código randômico
     //Em caso de uso real fazer alterações de segurança**
-    async function randomCode() {
+    function randomCode() {
         let result = '';
         let length = 5;
         let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
         setCode(result);
+        setDisplay2('flex');
+            setTimeout(() => {
+                setDisplay2('none');
+            }, 10000);
     }
     //Envio do formulário
     async function sendForm() {
@@ -201,17 +210,19 @@ export default function HomeTerapeuta({ navigation }) {
 
         if (nome != null) {
             return (
-                <View>
+                <View style={{ flexDirection: "row",  backgroundColor:'#fff', marginBottom: 2,marginHorizontal:2,}}>
                     <Text style={css.pacientegerado} >
                         <TouchableOpacity
+                            style={{ flexDirection: "row"}}
                             onPress={() => openPerfilPaciente(id, nome)}>
+                            <Image style={{width:30,height:30,justifyContent:'flex-start'}} source={require("../../assets/PerfilTerapeuta.png")}/>
                             <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
                         </TouchableOpacity>
-                        <View style={css.modalcontainer}>
-                            <TouchableOpacity style={css.modalbotao} onPress={() => onEdit(id, nome)}  ><Text style={css.modaltexto}>Editar</Text></TouchableOpacity>
-                            <TouchableOpacity style={css.modalbotao} onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Text style={css.modaltexto}>Deletar</Text></TouchableOpacity>
-                        </View>
                     </Text>
+                    <View style={{flexDirection: 'row', justifyContent:'flex-end',marginRight:0}}>
+                            <TouchableOpacity onPress={() => onEdit(id, nome)}  ><Image style={{width:30,height:30,marginRight:5,justifyContent:'flex-end'}} source={require("../../assets/editar.png")}/></TouchableOpacity>
+                            <TouchableOpacity onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Image style={{width:30,height:30,justifyContent:'flex-end'}} source={require("../../assets/excluir.png")}/></TouchableOpacity>
+                    </View>
                 </View>
             )
         } else {
@@ -228,21 +239,53 @@ export default function HomeTerapeuta({ navigation }) {
         navigation.navigate('exercicios');
     }
     return (
-        <View>
+        <View style={{backgroundColor:'#fff'}}>
             <View style={{flexDirection:'column', alignItems:'center', marginTop:10}}>
-                <Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")}/>
-                <Text style={css.sumario}>{name}</Text>
-            </View>
-            <View style ={{alignItems:'center',marginTop: 3}}>
-                <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
-                    <Text style={css.SmallButtonsText}>+</Text>
-                </TouchableOpacity>
-                <Text>Novo paciente</Text>
-            </View>
+                <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")}/></TouchableOpacity>
+                
+                <Text style={css.titulohome}>{name}</Text>
             
-            <Text style={css.codigogerado}>{codeA}</Text>
+                <View style={{flexDirection:'row',marginHorizontal:37,alignItems:'center'}}>
+                   <View style={{width:80,height:80}}>
+                   <AgendamentoConfig data={terapeutaId}/>
+                   </View>
+
+                    <View style ={{alignItems:'center',marginTop: 3,width:80,height:80}}>
+                        <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
+                            <Text style={css.SmallButtonsText}>+</Text>
+                        </TouchableOpacity>
+                        <Text>Novo</Text>
+                        <Text style={{marginTop:-3}}>Paciente</Text>
+                    </View>
+
+                    <View style ={{alignItems:'center',marginTop: 3,width:80,height:80}}>
+                        <TouchableOpacity  onPress={() => navigation.navigate('Agenda')}>
+                        <Image style={{width:43,height:43, marginTop:3}}source={require("../../assets/agenda3.png")}/>
+                        </TouchableOpacity>
+                        <Text>Agendar</Text>
+                        <Text style={{marginTop:-3}}>Paciente</Text>
+                    </View>
+
+                    
+                    <View style ={{alignItems:'center',marginBottom: 3,width:80,height:80}}>
+                        <TouchableOpacity  onPress={() => navigateExercicio()}>
+                        <Image style={{width:47,height:47, marginTop:3}}source={require("../../assets/exercicios.png")}/>
+                        </TouchableOpacity>
+                        <Text>Exercicios</Text>
+                    </View>
+
+                </View>
+            </View>
+            <View style ={{alignItems:'center',marginTop: 3, height:60}}>
+                <Text style={css.login__msg(display2)}>{codeA}</Text>
+            </View>
             <View>
                 {(execucao == 2) ?
+                <View style={css.Listas}>
+                    <View style={{backgroundColor:'#FFB6C1'}}>
+                        <Text style={css.titulohome}>Lista de Pacientes</Text>
+                    </View>
+                   
                     <Text>
                         <SafeAreaView style={css.container3}>
                             <FlatList
@@ -253,6 +296,7 @@ export default function HomeTerapeuta({ navigation }) {
                             />
                         </SafeAreaView>
                     </Text>
+                    </View>
                     :
                     <View>
                     </View>
@@ -298,13 +342,16 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
             </View>
-            <AgendamentoTerapeuta data={terapeutaId}/>
-        
-            <CriaHorasAgendaveis data={terapeutaId}/>
-            <TouchableOpacity style={css.login__button} onPress={() => navigateExercicio()}>
-                <Text>Exercicios</Text>
-            </TouchableOpacity>
            
+           {/*(horasconf==true)?
+           //chamar o componente de novo
+               <View><AgendamentoTerapeuta data={terapeutaId}/></View>
+               :
+               <View>
+               </View> */
+               
+           }
+              
         </View>
 
     );

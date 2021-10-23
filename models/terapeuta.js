@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      Terapeutas.hasMany(models.Observacoes);
       Terapeutas.hasMany(models.Pacientes);
       Terapeutas.hasMany(models.diasuteis);
-      Terapeutas.hasMany(models.horas);
-      Terapeutas.hasMany(models.horas);
       Terapeutas.hasMany(models.horasuteis);
       Terapeutas.hasMany(models.dias);
+      Terapeutas.hasMany(models.agendado);
     }
   };
   Terapeutas.init({

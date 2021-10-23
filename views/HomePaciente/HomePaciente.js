@@ -1,4 +1,9 @@
 
+/*
+    -id para chamar agendamentoPaciente
+    -nao mostrar horas ocupadas
+    -input pr nome
+*/
 import React, { useState, useEffect, isValidElement } from 'react';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
@@ -22,6 +27,7 @@ export default function HomePaciente({ HomePaciente }) {
             let json = JSON.parse(response);
             setName(json.name);
             setEmail(json.email);
+            setTempId(json.terapeutaId);
             setPacienteId(json.id);
         }
         getName();
@@ -33,6 +39,8 @@ export default function HomePaciente({ HomePaciente }) {
             {/*<AgendamentoPaciente />
             <AnotacoesPaciente />*/}
             <Humor data={pacienteId} />
+            <View><AgendamentoPaciente  data={tempId} /></View>
+            
         </View>
     );
 }

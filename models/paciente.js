@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Pacientes.hasMany(models.Observacoes);
      Pacientes.hasMany(models.relatorio);
      Pacientes.hasMany(models.atividade);
-     Pacientes.hasMany(models.horas);
+
     }
   };
   Pacientes.init({

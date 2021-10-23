@@ -5,24 +5,33 @@ import { AsyncStorage } from 'react-native';
 CriaHorasAgendaveis=(id)=>{
     //controle
     const [execucao, setExecucao] = useState(1);
+    const [verificacao, setVerificacao] = useState(null);
+    //const [execucao2, setExecucao2] = useState(1);
     //variaveis
     const [ano,setAno]=useState(0);
     const [mes,setMes]=useState(0);
     const [dia,setDia]=useState(0);
+    const [horasUteis,setHorasUteis]=useState(0);
     const [diasUteis,setDiasUteis]=useState(0);
-    //const [dataConcat,setdataConcat]=useState([]);
 
+
+    //const [dataConcat,setdataConcat]=useState([]);
+    //pega dia atual
     useEffect(()=>{
         let today = new Date();
         setAno(today.getFullYear());
         //mes começa do 0
         setMes(today.getMonth()+1);
         setDia(today.getDate());
+        
     },[]);
+    //busca dias e horas
     useEffect(() => {
-       buscaDiasUteis();
-    }, []);
-    
+        buscaDiasUteis();
+        //buscaHorasUteis();
+   
+    }, [execucao]);
+
     async function buscaDiasUteis() {
         let response = await fetch(`${config.urlRoot}buscaDiasUteis`, {
             method: 'POST',
@@ -39,20 +48,45 @@ CriaHorasAgendaveis=(id)=>{
         let json = await response.json();
         if (json === 'error') {
             console.log('error');
+            setVerificacao(0);
         } else {
+            setVerificacao(1);
             // //persistencia dos dados para utilizar na aplicação
             await AsyncStorage.setItem('diasUteis', JSON.stringify(json));//json é  a resposta
 
             let response = await AsyncStorage.getItem('diasUteis');
             const jsonNovo = JSON.parse(response);
             setDiasUteis(jsonNovo);
+            console.log(jsonNovo);
+            if(jsonNovo.length<1){
+                setVerificacao(0);
+            }
         }
+        if (execucao < 2) {
+            setExecucao(2);
+        }
+        
     }
+    //cria horas no banco
     async function salvaDatas(dataConcat){
-        console.log(dataConcat);
         let index3=0;
+        let index4=0;
+        let days =diasUteis[0].dia;
+        let status;
+        let idDay;
         for (const [index, value] of dataConcat) {
+            if(days[index4]=='1'){
+                console.log('dia =1'+days[index4]);
+                status=true;
+            }else{
+                status=false; 
+                console.log('dia =0'+days[index4]);
+            }
+            if(index4==6){
+                index4=0;
+            }
             let response = await fetch(config.urlRoot + 'createDias', {
+
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -61,16 +95,24 @@ CriaHorasAgendaveis=(id)=>{
                 body: JSON.stringify({
                     terapeutaId: id.data,
                     dia:dataConcat[ index3],
-                    status:true
+                    status:status
                 
                 }),
             
             });
+           
             index3= index3+1;
+            index4= index4+1;
+  
         }
+     
     }
-    async function geraDatas(){
-        //quantos dias tem o mes
+
+
+    async function geraDatas(){       
+        if(verificacao==1){
+    
+            //quantos dias tem o mes
          let daysInMonth = new Date(ano,mes+1,0).getDate();
          let anoData=ano;
          let mesData=mes;
@@ -89,15 +131,19 @@ CriaHorasAgendaveis=(id)=>{
                 mesData=1;
             }
            newArr.push(diaData+"-"+mesData+'-'+anoData);
-           console.log(newArr);
          }
-         salvaDatas(newArr);   
-            
-            
+         salvaDatas(newArr);  
+        }else{
+            console.log('Defina horários');
+        }
+          
     }
     
     return(
-        <View style={{justifyContent:'center', alignItems:'center', marginTop:15, marginBottom:10}}><TouchableOpacity onPress={() =>geraDatas()}><Text style={{fontWeight:'bold'}}>Cria horas agendáveis</Text></TouchableOpacity></View>
+        <View style={{justifyContent:'center', alignItems:'center', marginTop:15, marginBottom:10}}>
+            <TouchableOpacity onPressIn={()=>buscaDiasUteis()} onPress={() =>geraDatas()}><Text style={{fontWeight:'bold'}}>Atualizar Datas</Text></TouchableOpacity>
+            
+        </View>
     );
 
 }

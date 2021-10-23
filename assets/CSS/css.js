@@ -60,7 +60,8 @@ const css = StyleSheet.create({
   login__msg: (text = 'none') => ({
     fontWeight: "bold",
     fontSize: 18,
-    color: "black",
+    color: "gray",
+    marginTop: 15,
     marginBottom: 15,
     display: text,
     textAlign: "center"
@@ -152,14 +153,18 @@ const css = StyleSheet.create({
     flexDirection: "row"
   },
   nomepacientehometerapeuta: {
-    fontSize: 30,
+    fontSize: 18,
   },
   pacientegerado: {
-    marginLeft: 10
+    marginLeft: 10,
+    flexDirection: "row",
+    borderRadius:2
+   
   },
   codigogerado: {
     textAlign: "center",
-    marginTop: 20
+    marginTop: 20,
+    display:'none'
   },
   welcometag: {
     fontSize: 20,
@@ -192,6 +197,10 @@ const css = StyleSheet.create({
       fontWeight:'bold',
       fontSize:20,
       marginBottom:3
+    },
+    Listas:{
+      backgroundColor:'#F3F2EF',
+      marginHorizontal:18
     }
 
 });
