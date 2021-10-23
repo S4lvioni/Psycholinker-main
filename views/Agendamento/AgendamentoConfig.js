@@ -6,6 +6,7 @@ import { css } from '../../assets/CSS/css';
 import { AsyncStorage } from 'react-native';
 import config from '../../config/config.json';
 AgendamentoConfig=(id)=>{
+ 
   const [modalVisible, setModalVisible] = useState(false);
     const [dias,setDias]=useState([ 
                {dia:'Dom',status:false},
@@ -20,7 +21,16 @@ AgendamentoConfig=(id)=>{
     const [selectedIndex, setSelectedIndex] = useState(null)
     //variavel para passar valor digitado para o array
     const [aux,setAux]=useState();
+    const [att,setAtt]=useState();
 
+   /* useEffect(() => {
+      async function getId() {
+          let response = await AsyncStorage.getItem('emailData');
+          let json = JSON.parse(response);
+          setId(json.id);
+      }
+      getId();
+  }, []);*/
     //aualiza lista de horas
  const onSaveNote = useCallback(() => {
     if (!aux) {
@@ -120,11 +130,17 @@ async function criaHoras(){
   
 }
 
+
     return(
         <View>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Image style={css.SmallIcons} source={require("../../assets/configagendamnto.png")} />
+          <View style ={{alignItems:'center',marginTop: 3,marginHorizontal:5}}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+                <Image style={{width:45,height:45}} source={require("../../assets/configagendamnto.png")} />
             </TouchableOpacity>
+            <Text>Configurar</Text>
+            <Text style={{marginTop:-3}}>Agenda</Text>
+          </View>
+            
             <Modal
               animationType="slide"
               visible={modalVisible}

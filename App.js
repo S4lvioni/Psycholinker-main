@@ -14,6 +14,7 @@ import exercicios from './views/Exercicios/exercicios';
 import Respiracao from './views/Exercicios/Respiracao';
 import Relaxamento from './views/Exercicios/Relaxamento';
 import Meditacao from './views/Exercicios/Meditacao';
+import Agenda from './views/Navegação/NavegaçãoAgenda';
 import { LogBox } from 'react-native';
 
 
@@ -48,6 +49,7 @@ export default function App() {
         <Stack.Screen name="Respiracao" component={Respiracao} />
         <Stack.Screen name="Relaxamento" component={Relaxamento} />
         <Stack.Screen name="Meditacao" component={Meditacao} />
+        <Stack.Screen name="Agenda" component={Agenda} />
       </Stack.Navigator>
 
 

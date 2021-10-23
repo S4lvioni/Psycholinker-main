@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const models = require('./models');
 const { response } = require('express');
+const paciente = require('./models/paciente');
 
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 let dias = models.dias;
+let agendados = models.agendado;
 let atividades = models.atividade;
 let diasuteis = models.diasuteis;
 let horasuteis = models.horasuteis;
@@ -361,19 +363,21 @@ app.post('/editPaciente', async (req, res) => {
     response.save();
 
 });
+
+//gabi
 //cria dias uteis
 app.post('/createDiasUteis', async (req, res) => {
     let response = await diasuteis.findOne({
-        where: { terapeutaId: req.body.terapeutaId }
+        where:{terapeutaId: req.body.terapeutaId }
     });
     //se nao existe cria
-    if (!response) {
+    if (!response){
         await diasuteis.create({
             terapeutaId: req.body.terapeutaId,
             dia: req.body.dia
         })
         //se ja existe edita
-    } else {
+    }else{
         response.terapeutaId = req.body.terapeutaId;
         response.dia = req.body.dia;
         response.save();
@@ -383,28 +387,28 @@ app.post('/createDiasUteis', async (req, res) => {
 //cria horas uteis
 app.post('/createHorasUteis', async (req, res) => {
     let response = await terapeutas.findOne({
-        where: { id: req.body.terapeutaId, horasconf: true }
+        where:{id: req.body.terapeutaId, horasconf: true}
     });
     //se nao existe cria
-    if (response) {
+    if (response){
         await horasuteis.destroy({
-            where: { terapeutaId: req.body.terapeutaId },
+            where: { terapeutaId: req.body.terapeutaId},
             //truncate: true
-        })
+          })
         response.horasconf = false
         response.save();
     }
-    await horasuteis.create({
-        terapeutaId: req.body.terapeutaId,
-        hora: req.body.hora
-    })
-    res.json('ok');
+        await horasuteis.create({
+           terapeutaId: req.body.terapeutaId,
+           hora: req.body.hora
+       })
+       res.json('ok');
 });
 app.post('/confHora', async (req, res) => {
     let response = await terapeutas.findOne({
-        where: { id: req.body.terapeutaId }
+        where:{id: req.body.terapeutaId}
     });
-    response.horasconf = true
+     response.horasconf = true
     response.save();
     res.json('ok');
 });
@@ -413,29 +417,32 @@ app.post('/confHora', async (req, res) => {
 //cria datas disponiveis na semana
 app.post('/createDias', async (req, res) => {
     let response = await terapeutas.findOne({
-        where: { id: req.body.terapeutaId }
+        where:{id: req.body.terapeutaId}
     });
     //se nao existe cria
-    if (response) {
-        let response2 = await dias.findOne({
-            where: { dia: req.body.dia }
+    if (response){
+        let response2= await dias.findOne({
+            where:{ dia: req.body.dia}
         });
-        if (!response2) {
+        if(!response2){
             //só cria se nao existe
             await dias.create({
                 terapeutaId: req.body.terapeutaId,
                 dia: req.body.dia,
-                status: req.body.status
+                status:req.body.status,
+                vinculado:false
             })
+
         }
 
     }
     res.json('ok');
 
 });
+
 //Busca dias uteis
 app.post('/buscaDiasUteis', async (req, res) => {
-
+   
     let response = await diasuteis.findAll({
         where: { terapeutaId: req.body.terapeutaId },
         attributes: ['dia'],
@@ -446,9 +453,77 @@ app.post('/buscaDiasUteis', async (req, res) => {
     } else {
         res.send(response);
     }
-    // res.json('ok');
+
+})
+//Busca horas uteis
+app.post('/buscaHorasUteis', async (req, res) => {
+   
+    let response = await horasuteis.findAll({
+        where: { terapeutaId: req.body.terapeutaId },
+        attributes: ['hora'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+
+})
+//lista de dias (apagar dps)
+app.post('/buscaDias', async (req, res) => {
+   
+    let response = await dias.findAll({
+        where: { terapeutaId: req.body.terapeutaId },
+        attributes: ['dia','status'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+
 })
 
+//Busca agendamentos
+app.post('/buscaAgendamentos', async (req, res) => {
+   
+    let response = await agendados.findAll({
+        where: { terapeutaId: req.body.terapeutaId },
+        attributes: ['horario','paciente'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+
+});
+
+app.post('/ocuparHorario', async (req, res) => {
+    console.log(req.body);
+    await agendados.create({
+        terapeutaId: req.body.terapeutaId,
+        pacienteId: req.body.pacienteId,
+        horario: req.body.horario,
+        paciente:req.body.paciente
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Cadastrado com Sucesso!'));
+    }
+
+});
+
+app.post('/deleteHorario', async (req, res) => {
+    let response = await agendados.destroy({
+        where: { terapeutaId: req.body.terapeutaId,horario: req.body.horario }
+    });
+    res.json('ok');
+});
 
 
 
