@@ -96,10 +96,10 @@ const css = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  SmallIcons:{
+  SmallIcons: {
     width: 60,
     height: 60,
-    },
+  },
   name: {
     fontSize: 32
   },
@@ -158,13 +158,13 @@ const css = StyleSheet.create({
   pacientegerado: {
     marginLeft: 10,
     flexDirection: "row",
-    borderRadius:2
-   
+    borderRadius: 2
+
   },
   codigogerado: {
     textAlign: "center",
     marginTop: 20,
-    display:'none'
+    display: 'none'
   },
   welcometag: {
     fontSize: 20,
@@ -172,36 +172,57 @@ const css = StyleSheet.create({
     marginTop: 5,
     marginRight: 5
   },
-  exercicioIcone:{
+  exercicioIcone: {
     width: 122,
     height: 122,
-    
+
   },
-  exercicioIconeContainer:{
+  exercicioIconeContainer: {
     flexDirection: 'row',
-    padding:20
+    padding: 20
   },
-  SmallButtons:{
-    backgroundColor:"#FFB6C1",
+  SmallButtons: {
+    backgroundColor: "#FFB6C1",
     width: 40,
     height: 40,
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     textAlign: "center",
-    borderRadius:50,
-    marginTop:5,
-    },
-    SmallButtonsText:{
-      color:'#FFFFFF',
-      textAlign: "center",
-      fontWeight:'bold',
-      fontSize:20,
-      marginBottom:3
-    },
-    Listas:{
-      backgroundColor:'#F3F2EF',
-      marginHorizontal:18
-    }
+    borderRadius: 50,
+    marginTop: 5,
+  },
+  SmallButtonsText: {
+    color: '#FFFFFF',
+    textAlign: "center",
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 3
+  },
+  Listas: {
+    backgroundColor: '#F3F2EF',
+    marginHorizontal: 18
+  },
+  login_button_modified: {
+    padding: 10,
+    backgroundColor: "#FFB6C1",
+    alignSelf: "center",
+    borderRadius: 5,
+    margin: 10
+  },
+  containeredit: {
+    margin: 8
+  },
+  containerbuttonedit: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  inputes: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  alturalinha: {
+    marginLeft: 5,
+  }
 
 });
 

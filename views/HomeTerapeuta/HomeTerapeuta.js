@@ -28,7 +28,7 @@ export default function HomeTerapeuta({ navigation }) {
     //listagem
     const [pacientes, setPacientes] = useState([
         {
-            name: null, id: '1'
+            name: null, id: '1', telefone: null, email: null
         }
     ]);
     //edit paciente
@@ -50,7 +50,7 @@ export default function HomeTerapeuta({ navigation }) {
 
     useEffect(() => {
         gerenciaPaciente();
-   
+
     }, [execucao]);
 
     //pega nome para o bem vindo o
@@ -93,12 +93,14 @@ export default function HomeTerapeuta({ navigation }) {
             }
         }
     }
-    async function onEdit(id, nome) {
+    async function onEdit(id, nome, email, telefone) {
         /*
 */
         setpacienteName(nome)
         setpacienteId(id);
         setModalVisible(true)
+        setpacienteEmail(email)
+        setpacienteTelefone(telefone)
 
     }
 
@@ -151,9 +153,9 @@ export default function HomeTerapeuta({ navigation }) {
         for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
         setCode(result);
         setDisplay2('flex');
-            setTimeout(() => {
-                setDisplay2('none');
-            }, 10000);
+        setTimeout(() => {
+            setDisplay2('none');
+        }, 10000);
     }
     //Envio do formulário
     async function sendForm() {
@@ -206,22 +208,24 @@ export default function HomeTerapeuta({ navigation }) {
 
 
 
-    function ListaPaciente({ nome, id }) {
+    function ListaPaciente({ nome, id, email, telefone }) {
 
         if (nome != null) {
             return (
-                <View style={{ flexDirection: "row",  backgroundColor:'#fff', marginBottom: 2,marginHorizontal:2,}}>
+                <View style={{ flexDirection: "row", marginBottom: 2, marginHorizontal: 2, width: 370 }}>
                     <Text style={css.pacientegerado} >
                         <TouchableOpacity
-                            style={{ flexDirection: "row"}}
+                            style={{ flexDirection: "row" }}
                             onPress={() => openPerfilPaciente(id, nome)}>
-                            <Image style={{width:30,height:30,justifyContent:'flex-start'}} source={require("../../assets/PerfilTerapeuta.png")}/>
+                            <Image style={{ width: 30, height: 30, justifyContent: 'flex-start', marginRight: 6 }} source={require("../../assets/PerfilTerapeuta.png")} />
                             <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
                         </TouchableOpacity>
                     </Text>
-                    <View style={{flexDirection: 'row', justifyContent:'flex-end',marginRight:0}}>
-                            <TouchableOpacity onPress={() => onEdit(id, nome)}  ><Image style={{width:30,height:30,marginRight:5,justifyContent:'flex-end'}} source={require("../../assets/editar.png")}/></TouchableOpacity>
-                            <TouchableOpacity onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Image style={{width:30,height:30,justifyContent:'flex-end'}} source={require("../../assets/excluir.png")}/></TouchableOpacity>
+                    <View style={{ justifyContent: 'flex-end', flex: 1 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 0 }}>
+                            <TouchableOpacity onPress={() => onEdit(id, nome, email, telefone)}  ><Image style={{ width: 30, height: 30, marginRight: 5, justifyContent: 'flex-end' }} source={require("../../assets/editar.png")} /></TouchableOpacity>
+                            <TouchableOpacity onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Image style={{ width: 30, height: 30, justifyContent: 'flex-end' }} source={require("../../assets/excluir.png")} /></TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             )
@@ -234,68 +238,68 @@ export default function HomeTerapeuta({ navigation }) {
         gerenciaPaciente();
         setModalVisible(false);
     }
-     //teste
-     async function navigateExercicio(){
+    //teste
+    async function navigateExercicio() {
         navigation.navigate('exercicios');
     }
     return (
-        <View style={{backgroundColor:'#fff'}}>
-            <View style={{flexDirection:'column', alignItems:'center', marginTop:10}}>
-                <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")}/></TouchableOpacity>
-                
-                <Text style={css.titulohome}>{name}</Text>
-            
-                <View style={{flexDirection:'row',marginHorizontal:37,alignItems:'center'}}>
-                   <View style={{width:80,height:80}}>
-                   <AgendamentoConfig data={terapeutaId}/>
-                   </View>
+        <View style={{ backgroundColor: '#fff' }}>
+            <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
+                <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")} /></TouchableOpacity>
 
-                    <View style ={{alignItems:'center',marginTop: 3,width:80,height:80}}>
+                <Text style={css.titulohome}>{name}</Text>
+
+                <View style={{ flexDirection: 'row', marginHorizontal: 37, alignItems: 'center' }}>
+                    <View style={{ width: 80, height: 80 }}>
+                        <AgendamentoConfig data={terapeutaId} />
+                    </View>
+
+                    <View style={{ alignItems: 'center', marginTop: 3, width: 80, height: 80 }}>
                         <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
                             <Text style={css.SmallButtonsText}>+</Text>
                         </TouchableOpacity>
                         <Text>Novo</Text>
-                        <Text style={{marginTop:-3}}>Paciente</Text>
+                        <Text style={{ marginTop: -3 }}>Paciente</Text>
                     </View>
 
-                    <View style ={{alignItems:'center',marginTop: 3,width:80,height:80}}>
-                        <TouchableOpacity  onPress={() => navigation.navigate('Agenda')}>
-                        <Image style={{width:43,height:43, marginTop:3}}source={require("../../assets/agenda3.png")}/>
+                    <View style={{ alignItems: 'center', marginTop: 3, width: 80, height: 80 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
+                            <Image style={{ width: 43, height: 43, marginTop: 3 }} source={require("../../assets/agenda3.png")} />
                         </TouchableOpacity>
                         <Text>Agendar</Text>
-                        <Text style={{marginTop:-3}}>Paciente</Text>
+                        <Text style={{ marginTop: -3 }}>Paciente</Text>
                     </View>
 
-                    
-                    <View style ={{alignItems:'center',marginBottom: 3,width:80,height:80}}>
-                        <TouchableOpacity  onPress={() => navigateExercicio()}>
-                        <Image style={{width:47,height:47, marginTop:3}}source={require("../../assets/exercicios.png")}/>
+
+                    <View style={{ alignItems: 'center', marginBottom: 3, width: 80, height: 80 }}>
+                        <TouchableOpacity onPress={() => navigateExercicio()}>
+                            <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/exercicios.png")} />
                         </TouchableOpacity>
                         <Text>Exercicios</Text>
                     </View>
 
                 </View>
             </View>
-            <View style ={{alignItems:'center',marginTop: 3, height:60}}>
+            <View style={{ alignItems: 'center', marginTop: 3, height: 60 }}>
                 <Text style={css.login__msg(display2)}>{codeA}</Text>
             </View>
             <View>
                 {(execucao == 2) ?
-                <View style={css.Listas}>
-                    <View style={{backgroundColor:'#FFB6C1'}}>
-                        <Text style={css.titulohome}>Lista de Pacientes</Text>
-                    </View>
-                   
-                    <Text>
-                        <SafeAreaView style={css.container3}>
-                            <FlatList
-                                data={pacientes}
-                                renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} />}
-                                keyExtractor={item => item.id.toString()}
-                                extraData={refresh}
-                            />
-                        </SafeAreaView>
-                    </Text>
+                    <View style={css.Listas}>
+                        <View style={{ backgroundColor: '#FFB6C1' }}>
+                            <Text style={css.titulohome}>Lista de Pacientes</Text>
+                        </View>
+
+                        <Text>
+                            <SafeAreaView style={css.container3}>
+                                <FlatList
+                                    data={pacientes}
+                                    renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} email={item.email} telefone={item.telefone} />}
+                                    keyExtractor={item => item.id.toString()}
+                                    extraData={refresh}
+                                />
+                            </SafeAreaView>
+                        </Text>
                     </View>
                     :
                     <View>
@@ -307,51 +311,64 @@ export default function HomeTerapeuta({ navigation }) {
                         visible={modalVisible}
                     >
 
-                        <View>
+                        <View style={css.containeredit}>
                             <Text>{pacienteName}</Text>
-                            <Text>{pacienteId}</Text>
-                            <TextInput
-                                placeholder='Nome:'
-                                onChangeText={text => setpacienteName(text)}
-                            />
-                            <TextInput
-                                placeholder='Email:'
-                                onChangeText={text => setpacienteEmail(text)}
-                            />
-                            <TextInput
-                                placeholder='Telefone:'
-                                onChangeText={text => setpacienteTelefone(text)}
-                            />
-                            <Pressable
-                                style={css.login__button}
-                                onPressIn={() => editData()}
-                                onPress={() => closeUpdate()}
-                            >
-                                <Text >Salvar</Text>
-                            </Pressable>
-                            <Pressable
-                                style={css.login__button}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <Text >X</Text>
-                            </Pressable>
-
+                            <View style={css.inputes}>
+                                <Text>Nome:</Text>
+                                <TextInput
+                                    style={css.alturalinha}
+                                    placeholder='Nome:'
+                                    onChangeText={text => setpacienteName(text)}
+                                    value={pacienteName}
+                                />
+                            </View>
+                            <View style={css.inputes}>
+                                <Text>Email:</Text>
+                                <TextInput
+                                    style={css.alturalinha}
+                                    onChangeText={text => setpacienteEmail(text)}
+                                    value={pacienteEmail}
+                                />
+                            </View>
+                            <View style={css.inputes}>
+                                <Text>Telefone:</Text>
+                                <TextInput
+                                    style={css.alturalinha}
+                                    onChangeText={text => setpacienteTelefone(text)}
+                                    value={pacienteTelefone}
+                                />
+                            </View>
+                            <View style={css.containerbuttonedit}>
+                                <Pressable
+                                    style={css.login_button_modified}
+                                    onPressIn={() => editData()}
+                                    onPress={() => closeUpdate()}
+                                >
+                                    <Text >Salvar</Text>
+                                </Pressable>
+                                <Pressable
+                                    style={css.login_button_modified}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <Text >Sair</Text>
+                                </Pressable>
+                            </View>
                         </View>
 
                     </Modal>
                 </View>
 
             </View>
-           
-           {/*(horasconf==true)?
+
+            {/*(horasconf==true)?
            //chamar o componente de novo
                <View><AgendamentoTerapeuta data={terapeutaId}/></View>
                :
                <View>
                </View> */
-               
-           }
-              
+
+            }
+
         </View>
 
     );

@@ -175,11 +175,12 @@ HumorTerapeuta = (idPaciente) => {
                         style={estilo.observacoescontainer}>
                         <TouchableOpacity
                             onPress={() => gerenciaAtividadesSelecionadas(emissao)}>
-                            <Text style={estilo.observacoeslista}>{emissao}</Text>
+                            <Text style={estilo.observacoeslista, { marginBottom: 5 }}>{emissao}</Text>
                         </TouchableOpacity>
-
-                        <Text> {id} {humor} {texto} </Text>
-
+                        <View style={estilo.containerobs2}>
+                            <Text>{humor}</Text>
+                            <Text style={{ marginLeft: 5 }}>{texto}</Text>
+                        </View>
                     </View>
                 </View >
             )
@@ -195,9 +196,10 @@ HumorTerapeuta = (idPaciente) => {
         if (nome != null) {
             return (
                 <View>
-                    <Text style={estilo.observacoescontainer}>
+                    <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
+                        <Text style={{ alignSelf: 'center', marginRight: 50, fontSize: 18 }}>Atividades</Text>
                         <Text style={estilo.observacoeslista}>Atividade: {nome}  id: {id} data completa: {data}</Text>
-                    </Text>
+                    </View>
                 </View >
             )
         } else {
@@ -208,7 +210,6 @@ HumorTerapeuta = (idPaciente) => {
 
     return (
         <View>
-            <Text> Olaaaaaaaa</Text>
 
             <FlatList style={estilo.lista2}
                 data={relatorios}
@@ -216,6 +217,7 @@ HumorTerapeuta = (idPaciente) => {
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />
+
             <FlatList style={estilo.lista2}
                 data={atividadesSelecionadas}
                 renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}
@@ -258,6 +260,10 @@ const estilo = StyleSheet.create({
     linhahorizontal: {
         flexDirection: 'row'
     },
+    containerobs2: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    }
 
 
 

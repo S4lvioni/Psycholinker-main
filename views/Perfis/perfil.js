@@ -47,7 +47,9 @@ export default function Perfil({ navigation }) {
             </View>
             <View>
                 <Anotacoes />
-                <HumorTerapeuta data={id}/>
+                <View style={{ marginLeft: 20 }}>
+                    <HumorTerapeuta data={id} />
+                </View>
             </View>
         </View>
     )

@@ -120,10 +120,10 @@ Anotacoes = () => {
                         {(dialogVisible) ?
                             <Text
                                 numberOfLines={3}
-                                style={estilo.observacoeslista}>{texto}{id}</Text>
+                                style={estilo.observacoeslista}>{texto}</Text>
                             :
                             <Text
-                                style={estilo.observacoeslista}>{texto}{id}</Text>
+                                style={estilo.observacoeslista}>{texto}</Text>
                         }
                     </View>
                 </View >
@@ -137,7 +137,6 @@ Anotacoes = () => {
     return (
         <View>
             <View style={estilo.botoescontainer}>
-                <Text style={{ marginLeft: 10 }}>Observações:</Text>
                 <View style={estilo.botoeshorizontais}>
                     <TouchableOpacity
                         onPress={() => setModalVisible(!modalVisible)}
@@ -181,6 +180,9 @@ Anotacoes = () => {
                         </Pressable>
                     </View>
                 </Modal>
+                <View style={{ alignItems: 'center', width: 360, marginTop: 20 }}>
+                    <Text style={{ fontSize: 15 }}> Observaçoes: </Text>
+                </View>
                 <FlatList style={estilo.lista2}
                     data={observacoes}
                     renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
@@ -245,6 +247,12 @@ const estilo = StyleSheet.create({
     },
     botoeshorizontais: {
         flexDirection: 'row'
+    },
+    observacoeslistaout: {
+        borderWidth: 3,
+        borderColor: 'red',
+        borderStyle: 'solid',
+
     }
 })
 export default Anotacoes
