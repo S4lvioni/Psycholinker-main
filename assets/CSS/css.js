@@ -1,6 +1,14 @@
 import { StyleSheet } from "react-native";
 
 const css = StyleSheet.create({
+  graficoDia: (valor = 0,cor='#fff') => ({
+    height: valor,
+    backgroundColor:cor,
+    marginTop: 15,
+    marginHorizontal:2,
+    width:30,
+    textAlign: "center"
+  }),
   container: {
     flex: 1,
     backgroundColor: '#fff',
