@@ -628,7 +628,31 @@ app.post('/deleteHorario', async (req, res) => {
     res.json('ok');
 });
 
+app.post('/graficosHumor', async (req, res) => {
+    let response = await relatorios.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['humor','emissao'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+})
 
+app.post('listaAtividadesAll', async (req, res) => {
+    let response = await selectedactivity.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['nome','dia','mes','ano'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+});
 
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {

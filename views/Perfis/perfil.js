@@ -4,6 +4,7 @@ import config from '../../config/config.json';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import Anotacoes from '../Notas/Anotacoes'
+import Graficos from '../Gráficos/Graficos'
 import HumorTerapeuta from '../Humor/humorTerapeuta';
 import {
     SafeAreaView,
@@ -46,6 +47,7 @@ export default function Perfil({ navigation }) {
                 <Text style={css.welcometag}> {name} {id}</Text>
             </View>
             <View>
+                <Graficos data={id}/>
                 <Anotacoes />
                 <View style={{ marginLeft: 20 }}>
                     <HumorTerapeuta data={id} />
