@@ -15,12 +15,13 @@ let agendados = models.agendado;
 let atividades = models.atividade;
 let diasuteis = models.diasuteis;
 let horasuteis = models.horasuteis;
-let medicacoes = models.Medicacoes;
+let medicacoes = models.remedio;
 let observacoes = models.Observacoes;
 let pacientes = models.Pacientes;
 let relatorios = models.relatorio;
 let terapeutas = models.Terapeutas;
 let selectedactivity = models.atividadexrelatorio;
+let selectedmed = models.remedioxrelatorio;
 
 //cadastro terapeuta
 app.post('/createTerapeuta', async (req, res) => {
@@ -93,6 +94,21 @@ app.post('/createActivity', async (req, res) => {
 
 });
 
+
+app.post('/createMed', async (req, res) => {
+    console.log(req.body);
+    await medicacoes.create({
+        nome: req.body.nome,
+        pacienteId: req.body.pacienteId,
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Criado com Sucesso!'));
+    }
+
+});
+
 app.post('/createReport', async (req, res) => {
     console.log(req.body);
     await relatorios.create({
@@ -115,6 +131,26 @@ app.post('/createSelectedActivity', async (req, res) => {
     await selectedactivity.create({
         nome: req.body.nome,
         atividadeId: req.body.id,
+        dia: req.body.dia,
+        mes: req.body.mes,
+        ano: req.body.ano,
+        pacienteId: req.body.pacienteId,
+        data: req.body.data
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(JSON.stringify('Criado com Sucesso!'));
+    }
+
+});
+
+
+app.post('/createSelectedMed', async (req, res) => {
+    console.log(req.body);
+    await selectedmed.create({
+        nome: req.body.nome,
+        remedioId: req.body.id,
         dia: req.body.dia,
         mes: req.body.mes,
         ano: req.body.ano,
@@ -258,8 +294,41 @@ app.post('/listaAtividades', async (req, res) => {
 })
 
 
+app.post('/listaMedicamentos', async (req, res) => {
+    let response = await medicacoes.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['id', 'nome'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+
 app.post('/listaAtividadesSelecionadas', async (req, res) => {
     let response = await selectedactivity.findAll({
+        where: {
+            pacienteId: req.body.pacienteId,
+            data: req.body.data
+        },
+        attributes: ['nome', 'dia', 'data', 'id'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
+
+app.post('/listaMedicamentosSelecionados', async (req, res) => {
+    let response = await selectedmed.findAll({
         where: {
             pacienteId: req.body.pacienteId,
             data: req.body.data
@@ -292,6 +361,25 @@ app.post('/listaAtividadesSelecionadasDiarias', async (req, res) => {
     }
 
 })
+
+app.post('/listaMedicamentosSelecionadosPaciente', async (req, res) => {
+    let response = await selectedmed.findAll({
+        where: {
+            pacienteId: req.body.pacienteId,
+            mes: req.body.mes,
+            dia: req.body.dia
+        },
+        attributes: ['nome', 'dia', 'id'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+        console.log(response);
+    }
+})
+
 
 app.post('/listaAtividadesSelecionadasPaciente', async (req, res) => {
     let response = await selectedactivity.findAll({

@@ -42,6 +42,12 @@ HumorTerapeuta = (idPaciente) => {
         }
     ])
 
+    const [medicamentosSelecionados, setMedicamentosSelecionados] = useState([
+        {
+            nome: null, dia: null, id: '1', data: null
+        }
+    ])
+
     const [diaSelecionado, setDiaSelecionado] = useState([
         {
             nome: null, id: '1', dia: null
@@ -63,6 +69,10 @@ HumorTerapeuta = (idPaciente) => {
 
     useEffect(() => {
         gerenciaAtividadesSelecionadas(emissao)
+    }, [execucao]);
+
+    useEffect(() => {
+        gerenciaMedicamentosSelecionados(emissao)
     }, [execucao]);
 
 
@@ -101,6 +111,11 @@ HumorTerapeuta = (idPaciente) => {
     }
 
 
+    function gerenciador(emissao) {
+        gerenciaAtividadesSelecionadas(emissao)
+        gerenciaMedicamentosSelecionados(emissao)
+
+    }
 
     async function gerenciaAtividadesSelecionadas(emissao) {
         let response = await fetch(`${config.urlRoot}listaAtividadesSelecionadas`, {
@@ -128,6 +143,39 @@ HumorTerapeuta = (idPaciente) => {
             let response = await AsyncStorage.getItem('AtividadesSelecionadasData');
             const jsonNovo = JSON.parse(response);
             setAtividadesSelecionadas(jsonNovo);
+            if (execucao < 2) {
+                setExecucao(2);
+            }
+        }
+    }
+
+
+    async function gerenciaMedicamentosSelecionados(emissao) {
+        let response = await fetch(`${config.urlRoot}listaMedicamentosSelecionados`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pacienteId: pacienteId,
+                nome: atividade,
+                data: emissao
+            })
+
+
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('MedicamentosSelecionadosData', JSON.stringify(json));//json é  a resposta
+
+            let response = await AsyncStorage.getItem('MedicamentosSelecionadosData');
+            const jsonNovo = JSON.parse(response);
+            setMedicamentosSelecionados(jsonNovo);
             if (execucao < 2) {
                 setExecucao(2);
             }
@@ -174,7 +222,7 @@ HumorTerapeuta = (idPaciente) => {
                     <View
                         style={estilo.observacoescontainer}>
                         <TouchableOpacity
-                            onPress={() => gerenciaAtividadesSelecionadas(emissao)}>
+                            onPress={() => gerenciador(emissao)}>
                             <Text style={estilo.observacoeslista, { marginBottom: 5 }}>{emissao}</Text>
                         </TouchableOpacity>
                         <View style={estilo.containerobs2}>
@@ -197,8 +245,23 @@ HumorTerapeuta = (idPaciente) => {
             return (
                 <View>
                     <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
-                        <Text style={{ alignSelf: 'center', marginRight: 50, fontSize: 18 }}>Atividades</Text>
                         <Text style={estilo.observacoeslista}>Atividade: {nome}  id: {id} data completa: {data}</Text>
+                    </View>
+                </View >
+            )
+        } else {
+            return (null);
+        }
+
+    }
+
+    function ListaMedicamentosSelecionados({ nome, dia, id, data }) {
+
+        if (nome != null) {
+            return (
+                <View>
+                    <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
+                        <Text style={estilo.observacoeslista}>Medicação: {nome}  id: {id} data completa: {data}</Text>
                     </View>
                 </View >
             )
@@ -218,9 +281,17 @@ HumorTerapeuta = (idPaciente) => {
                 extraData={refresh}
             />
 
+            <Text>Atividades</Text>
             <FlatList style={estilo.lista2}
                 data={atividadesSelecionadas}
                 renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}
+                keyExtractor={item => item.id.toString()}
+                extraData={refresh}
+            />
+            <Text>Medicamentos</Text>
+            <FlatList style={estilo.lista2}
+                data={medicamentosSelecionados}
+                renderItem={({ item }) => <ListaMedicamentosSelecionados nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />

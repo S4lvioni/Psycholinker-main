@@ -38,7 +38,17 @@ Humor = (id) => {
             nome: null, id: '1'
         }
     ])
+    const [medicamentos, setMedicamentos] = useState([
+        {
+            nome: null, id: '1'
+        }
+    ])
     const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([
+        {
+            nome: null, id: '1', dia: null
+        }
+    ])
+    const [medicamentosSelecionados, setMedicamentosSelecionados] = useState([
         {
             nome: null, id: '1', dia: null
         }
@@ -78,7 +88,15 @@ Humor = (id) => {
     }, [execucao]);
 
     useEffect(() => {
+        gerenciaMedicamentos();
+    }, [execucao]);
+
+    useEffect(() => {
         gerenciaAtividadesSelecionadas();
+    }, [execucao]);
+
+    useEffect(() => {
+        gerenciaMedicamentosSelecionados();
     }, [execucao]);
 
     //pega as atividades do banco
@@ -106,6 +124,37 @@ Humor = (id) => {
             let response = await AsyncStorage.getItem('AtividadesData');
             const jsonNovo = JSON.parse(response);
             setAtividades(jsonNovo);
+            if (execucao < 2) {
+                setExecucao(2);
+            }
+        }
+    }
+
+
+    async function gerenciaMedicamentos() {
+        let response = await fetch(`${config.urlRoot}listaMedicamentos`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pacienteId: id.data,
+                nome: medicacao
+            })
+
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('MedicamentosData', JSON.stringify(json));//json é  a resposta
+
+            let response = await AsyncStorage.getItem('MedicamentosData');
+            const jsonNovo = JSON.parse(response);
+            setMedicamentos(jsonNovo);
             if (execucao < 2) {
                 setExecucao(2);
             }
@@ -180,6 +229,42 @@ Humor = (id) => {
 
 
 
+    async function gerenciaMedicamentosSelecionados() {
+        let response = await fetch(`${config.urlRoot}listaMedicamentosSelecionadosPaciente`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pacienteId: id.data,
+                nome: medicacao,
+                dia: dia,
+                mes: mes,
+                ano: ano
+            })
+
+        });
+        //obtem resposta do controller
+        let json = await response.json();
+        if (json === 'error') {
+            console.log('error');
+        } else {
+            // //persistencia dos dados para utilizar na aplicação
+            await AsyncStorage.setItem('MedicamentosSelecionadosData', JSON.stringify(json));//json é  a resposta
+
+            let response = await AsyncStorage.getItem('MedicamentosSelecionadosData');
+            const jsonNovo = JSON.parse(response);
+            setMedicamentosSelecionados(jsonNovo);
+            if (execucao < 2) {
+                setExecucao(2);
+            }
+            console.log('Oi');
+        }
+    }
+
+
+
     //insere nova atividade no banco
     async function salvarAtividade() {
         let response = await fetch(config.urlRoot + 'createActivity', {
@@ -194,6 +279,22 @@ Humor = (id) => {
             }),
         });
         gerenciaAtividades();
+    }
+
+
+    async function salvarMedicamento() {
+        let response = await fetch(config.urlRoot + 'createMed', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: medicacao,
+                pacienteId: id.data
+            }),
+        });
+        gerenciaMedicamentos()
     }
 
     async function salvarRelatorio() {
@@ -233,6 +334,47 @@ Humor = (id) => {
         gerenciaAtividadesSelecionadas()
     }
 
+
+    async function medicamentoRelatorio(nome, id) {
+        let response = await fetch(config.urlRoot + 'createSelectedMed', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                id: id,
+                dia: dia,
+                mes: mes,
+                ano: ano,
+                pacienteId: pacienteId,
+                data: datafull
+            }),
+        });
+        gerenciaMedicamentosSelecionados();
+    }
+
+
+    function ListaMedicamentos({ nome, id }) {
+
+        if (nome != null) {
+            return (
+                <View>
+                    <Text style={estilo.observacoescontainer}>
+                        <Pressable style={estilo.botaoreport} onPress={() => medicamentoRelatorio(nome, id)}>
+                            <Text style={estilo.observacoeslista}>{nome}{id}</Text>
+                        </Pressable>
+
+                    </Text>
+                </View >
+            )
+        } else {
+            return (null);
+        }
+    }
+
+
     function ListaAtividades({ nome, id }) {
 
         if (nome != null) {
@@ -252,7 +394,6 @@ Humor = (id) => {
     }
 
     function ListaAtividadesSelecionadas({ nome, id }) {
-
         if (nome != null) {
             return (
                 <View>
@@ -261,6 +402,22 @@ Humor = (id) => {
                     </Text>
                 </View >
             )
+        } else {
+            return (null);
+        }
+    }
+
+
+    function ListaMedicamentosSelecionadas({ nome, id }) {
+        if (nome != null) {
+            return (
+                <View>
+                    <Text style={estilo.observacoescontainer}>
+                        <Text style={estilo.observacoeslista}>{nome}{id}</Text>
+                    </Text>
+                </View >
+            )
+
         } else {
             return (null);
         }
@@ -346,10 +503,17 @@ Humor = (id) => {
                                         <Text>Sair!</Text>
                                     </Pressable>
                                     <Pressable
-                                        onPress={() => salvarRelatorio()}>
-                                        <Text>Enviar relatório</Text>
+                                        onPress={() => salvarMedicamento()}>
+                                        <Text>Inserir medicação</Text>
                                     </Pressable>
                                 </View>
+                                <Text> Seus medicamentos cadastradas:</Text>
+                                <FlatList style={estilo.lista2}
+                                    data={medicamentos}
+                                    renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
+                                    keyExtractor={item => item.id.toString()}
+                                    extraData={refresh}
+                                />
                             </View>
                         </Modal>
                         <Text> Insira suas atividades:</Text>
@@ -395,13 +559,18 @@ Humor = (id) => {
                             keyExtractor={item => item.id.toString()}
                             extraData={refresh}
                         />
+
+                        <FlatList style={estilo.lista2}
+                            data={medicamentosSelecionados}
+                            renderItem={({ item }) => <ListaMedicamentosSelecionadas nome={item.nome} id={item.id} />}
+                            keyExtractor={item => item.id.toString()}
+                            extraData={refresh}
+                        />
                         <Pressable
                             onPress={() => salvarRelatorio()}>
                             <Text>Enviar relatório</Text>
                         </Pressable>
-                        <Text>
-                            {medicacao}
-                        </Text>
+
                     </View>
                 </View>
                 :

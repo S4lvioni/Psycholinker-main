@@ -9,14 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       relatorioId: {
-        type: Sequelize.INTEGER, 
+        type: Sequelize.INTEGER,
         references: { model: 'relatorios', key: 'id' }
       },
       remedioId: {
-        type: Sequelize.INTEGER, 
+        type: Sequelize.INTEGER,
         references: { model: 'remedios', key: 'id' }
       },
-      nome:{
+      pacienteId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'pacientes', key: 'id' }
+      },
+      nome: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -26,7 +30,19 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      data: {
+        type: Sequelize.STRING
+      },
+      dia: {
+        type: Sequelize.STRING
+      },
+      mes: {
+        type: Sequelize.STRING
+      },
+      ano: {
+        type: Sequelize.STRING
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

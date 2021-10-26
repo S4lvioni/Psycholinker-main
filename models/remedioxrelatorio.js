@@ -13,12 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       remedioxrelatorio.belongsTo(models.relatorio);
       remedioxrelatorio.belongsTo(models.remedio);
+      remedioxrelatorio.belongsTo(models.Pacientes);
     }
   };
   remedioxrelatorio.init({
     relatorioId: DataTypes.INTEGER,
+    pacienteId: DataTypes.INTEGER,
     remedioId: DataTypes.INTEGER,
-    nome:DataTypes.STRING
+    nome: DataTypes.STRING,
+    dia: DataTypes.STRING,
+    mes: DataTypes.STRING,
+    ano: DataTypes.STRING,
+    data: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'remedioxrelatorio',

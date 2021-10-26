@@ -39,8 +39,8 @@ export default function HomePaciente({ HomePaciente }) {
             {/*<AgendamentoPaciente />
             <AnotacoesPaciente />*/}
             <Humor data={pacienteId} />
-            <View><AgendamentoPaciente  data={tempId} /></View>
-            
+            {/*<View><AgendamentoPaciente  data={tempId} /></View>*/}
+
         </View>
     );
 }
