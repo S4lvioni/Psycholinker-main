@@ -134,6 +134,7 @@ export default function HomeTerapeuta({ navigation }) {
                 id: id
             })
         })
+        gerenciaPaciente()
     }
 
 

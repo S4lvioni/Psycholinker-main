@@ -169,7 +169,8 @@ Humor = (id) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                emissao: datafull
+                emissao: datafull,
+                pacienteId: pacienteId
             })
 
         });

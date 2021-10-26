@@ -192,7 +192,10 @@ app.post('/confereCodigo', async (req, res) => {
 
 app.post('/relatorioExiste', async (req, res) => {
     let response = await relatorios.findOne({
-        where: { emissao: req.body.emissao }
+        where: {
+            emissao: req.body.emissao,
+            pacienteId: req.body.pacienteId
+        }
     })
     //console.log(response);
     if (response === null) {
@@ -435,6 +438,18 @@ app.post('/listaTerapeuta', async (req, res) => {
 
 //Delete pacinte
 app.post('/deletePaciente', async (req, res) => {
+    let response5 = await selectedmed.destroy({
+        where: { pacienteId: req.body.id }
+    })
+    let response4 = await relatorios.destroy({
+        where: { pacienteId: req.body.id }
+    })
+    let response3 = await selectedactivity.destroy({
+        where: { pacienteId: req.body.id }
+    })
+    let response2 = await atividades.destroy({
+        where: { pacienteId: req.body.id }
+    })
     let response = await pacientes.destroy({
         where: { id: req.body.id }
     })
