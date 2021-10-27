@@ -641,10 +641,10 @@ app.post('/graficosHumor', async (req, res) => {
     }
 })
 
-app.post('listaAtividadesAll', async (req, res) => {
+app.post('/listaAtividadesAll', async (req, res) => {
     let response = await selectedactivity.findAll({
         where: { pacienteId: req.body.pacienteId },
-        attributes: ['nome','dia','mes','ano'],
+        attributes: ['nome','data'],
         raw: 'false'
     })
     if (response === null) {
@@ -653,6 +653,20 @@ app.post('listaAtividadesAll', async (req, res) => {
         res.send(response);
     }
 });
+
+app.post('/listaRemediosAll', async (req, res) => {
+    let response = await selectedmed.findAll({
+        where: { pacienteId: req.body.pacienteId },
+        attributes: ['nome','data'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+})
+
 
 let port = process.env.PORT || 3000;
 app.listen(port, (req, res) => {
