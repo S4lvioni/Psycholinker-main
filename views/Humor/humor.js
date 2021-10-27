@@ -58,6 +58,7 @@ Humor = (id) => {
 
     const [diaSelecionado, setDiaSelecionado] = useState(0);
     const [datafull, setDatafull] = useState(0)
+    const [dataCorrigida, setDataCorrigida] = useState(0)
 
     useEffect(() => {
         let today = new Date();
@@ -66,6 +67,7 @@ Humor = (id) => {
         setDia(today.getDate());
         let mesCerto = today.getMonth() + 1
         setDatafull(today.getFullYear() + '/' + mesCerto + '/' + today.getDate())
+        setDataCorrigida(today.getDate() + '/' + mesCerto + '/' + today.getFullYear())
     }, []);
 
     const [ano, setAno] = useState(0);
@@ -169,7 +171,7 @@ Humor = (id) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                emissao: datafull,
+                emissao: dataCorrigida,
                 pacienteId: pacienteId
             })
 
@@ -309,7 +311,7 @@ Humor = (id) => {
                 humor: humor,
                 pacienteId: id.data,
                 texto: texto,
-                emissao: datafull
+                emissao: dataCorrigida
             }),
         });
         relatorioExiste();
@@ -328,7 +330,7 @@ Humor = (id) => {
                 mes: mes,
                 ano: ano,
                 pacienteId: pacienteId,
-                data: datafull
+                data: dataCorrigida
             }),
         });
         console.log(datafull)
@@ -350,7 +352,7 @@ Humor = (id) => {
                 mes: mes,
                 ano: ano,
                 pacienteId: pacienteId,
-                data: datafull
+                data: dataCorrigida
             }),
         });
         gerenciaMedicamentosSelecionados();

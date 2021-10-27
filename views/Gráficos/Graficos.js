@@ -17,7 +17,8 @@ Graficos = (id) => {
     const [medicacaoDia, setMedicacaoDia] = useState();
     const [atividadesDia, setAtividadesDia] = useState();
     const [corAtividadeDia, setCorAtividadeDia] = useState('#fff');
-    const [checked, setChecked] = useState(false)
+    const [checked, setChecked] = useState(false);
+    const [dataGraf, setDataGraf] = useState(null);
     useEffect(() => {
         Medicamentos();
     }, [execucao3]);
@@ -230,6 +231,7 @@ Graficos = (id) => {
         }
         setAtividadesDia(atividades);
         setMedicacaoDia(medicacoes);
+        setDataGraf(diasData[posicao])
     }
     return (
         <View>
@@ -261,6 +263,7 @@ Graficos = (id) => {
                         </View>
                         {(checked) ?
                             <View style={{ backgroundColor: corAtividadeDia, marginHorizontal: 6, paddingHorizontal: 6, borderRadius: 10, marginTop: 6, marginBottom: 6 }}>
+                                <Text>{dataGraf}</Text>
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 20 }}>Atividades realizadas no dia:</Text>
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 20, marginTop: 5 }}>Medicações utilizadas no dia:</Text>
