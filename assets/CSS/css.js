@@ -1,14 +1,23 @@
 import { StyleSheet } from "react-native";
 
 const css = StyleSheet.create({
-  graficoDia: (valor = 0,cor='#fff') => ({
+  graficoDia: (valor = 0, cor = '#fff') => ({
     height: valor,
-    backgroundColor:cor,
+    backgroundColor: cor,
     marginTop: 15,
-    marginHorizontal:2,
-    width:30,
-    textAlign: "center"
+    marginHorizontal: 2,
+    width: 30,
+    textAlign: "center",
+
   }),
+  graficocontainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 6,
+    alignItems: 'flex-end'
+  },
+  fundobranco: {
+    backgroundColor: '#fff'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

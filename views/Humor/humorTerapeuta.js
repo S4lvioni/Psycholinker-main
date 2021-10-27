@@ -243,11 +243,11 @@ HumorTerapeuta = (idPaciente) => {
 
         if (nome != null) {
             return (
-                <View>
+                <ScrollView>
                     <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
                         <Text style={estilo.observacoeslista}>Atividade: {nome}  id: {id} data completa: {data}</Text>
                     </View>
-                </View >
+                </ScrollView >
             )
         } else {
             return (null);
@@ -259,11 +259,11 @@ HumorTerapeuta = (idPaciente) => {
 
         if (nome != null) {
             return (
-                <View>
+                <ScrollView>
                     <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
                         <Text style={estilo.observacoeslista}>Medicação: {nome}  id: {id} data completa: {data}</Text>
                     </View>
-                </View >
+                </ScrollView >
             )
         } else {
             return (null);
@@ -272,8 +272,7 @@ HumorTerapeuta = (idPaciente) => {
     }
 
     return (
-        <View>
-
+        <ScrollView>
             <FlatList style={estilo.lista2}
                 data={relatorios}
                 renderItem={({ item }) => <ListaRelatorios texto={item.texto} id={item.id} humor={item.humor} emissao={item.emissao} />}
@@ -295,14 +294,7 @@ HumorTerapeuta = (idPaciente) => {
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />
-
-            <View>
-
-            </View>
-
-
-
-        </View>
+        </ScrollView>
     )
 }
 
