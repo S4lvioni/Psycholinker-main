@@ -21,6 +21,7 @@ import {
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
+import NavegacaoAnotacoes from '../Notas/NavegacaoAnotacoes';
 
 
 export default function Perfil({ navigation }) {
@@ -43,15 +44,17 @@ export default function Perfil({ navigation }) {
 
     return (
         <ScrollView style={css.fundobranco}>
-            <View style={{backgroundColor:'#FFB6C1'}}>
+            <View style={{ backgroundColor: '#FFB6C1' }}>
                 <Text style={css.welcometag}> {name} {id}</Text>
             </View>
             <ScrollView>
                 <Graficos data={id} />
-               {/**<Anotacoes />
-                <View style={{ marginLeft: 20 }}>
-                    <HumorTerapeuta data={id} />
-                </View> */} 
+                <TouchableOpacity onPress={() => navigation.navigate('Anotacoes')}>
+                    <Text>ANOTACOES</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Humor')}>
+                    <Text>HUMOR </Text>
+                </TouchableOpacity>
             </ScrollView>
         </ScrollView>
     )

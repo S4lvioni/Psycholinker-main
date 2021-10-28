@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const models = require('./models');
 const { response } = require('express');
 const paciente = require('./models/paciente');
+const md5 = require('./../Psycholinker-main/MD5')
 
 
 const app = express();
@@ -24,15 +25,21 @@ let selectedactivity = models.atividadexrelatorio;
 let selectedmed = models.remedioxrelatorio;
 
 //cadastro terapeuta
+
+function codificar() {
+
+}
+
 app.post('/createTerapeuta', async (req, res) => {
     console.log(req.body);
+
     await terapeutas.create({
         name: req.body.name,
         cpf: req.body.cpf,
         email: req.body.email,
         cr: req.body.cr,
         especializacao: req.body.especializacao,
-        password: req.body.password,
+        password: md5(req.body.password),
         telefone: req.body.telefone
     })
     if (response === null) {
@@ -51,7 +58,7 @@ app.post('/createPaciente', async (req, res) => {
     response.name = req.body.name;
     response.cpf = req.body.cpf,
         response.email = req.body.email,
-        response.password = req.body.password,
+        response.password = md5(req.body.password),
         response.telefone = req.body.telefone,
         response.save();
     if (response === null) {
@@ -207,7 +214,7 @@ app.post('/relatorioExiste', async (req, res) => {
 });
 app.post('/loginterapeuta', async (req, res) => {
     let response = await terapeutas.findOne({
-        where: { email: req.body.email, password: req.body.password }
+        where: { email: req.body.email, password: md5(req.body.password) }
     })
     //console.log(response);
     if (response === null) {
@@ -221,7 +228,7 @@ app.post('/loginterapeuta', async (req, res) => {
 
 app.post('/loginpaciente', async (req, res) => {
     let response = await pacientes.findOne({
-        where: { email: req.body.email, password: req.body.password }
+        where: { email: req.body.email, password: md5(req.body.password) }
     })
     //console.log(response);
     if (response === null) {
@@ -631,7 +638,7 @@ app.post('/deleteHorario', async (req, res) => {
 app.post('/graficosHumor', async (req, res) => {
     let response = await relatorios.findAll({
         where: { pacienteId: req.body.pacienteId },
-        attributes: ['humor','emissao'],
+        attributes: ['humor', 'emissao'],
         raw: 'false'
     })
     if (response === null) {
@@ -644,7 +651,7 @@ app.post('/graficosHumor', async (req, res) => {
 app.post('/listaAtividadesAll', async (req, res) => {
     let response = await selectedactivity.findAll({
         where: { pacienteId: req.body.pacienteId },
-        attributes: ['nome','data'],
+        attributes: ['nome', 'data'],
         raw: 'false'
     })
     if (response === null) {
@@ -657,7 +664,7 @@ app.post('/listaAtividadesAll', async (req, res) => {
 app.post('/listaRemediosAll', async (req, res) => {
     let response = await selectedmed.findAll({
         where: { pacienteId: req.body.pacienteId },
-        attributes: ['nome','data'],
+        attributes: ['nome', 'data'],
         raw: 'false'
     })
     if (response === null) {

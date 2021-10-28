@@ -15,7 +15,9 @@ import Respiracao from './views/Exercicios/Respiracao';
 import Relaxamento from './views/Exercicios/Relaxamento';
 import Meditacao from './views/Exercicios/Meditacao';
 import Agenda from './views/Navegação/NavegaçãoAgenda';
+import NavegacaoHumor from './views/Humor/NavegacaoHumor'
 import { LogBox } from 'react-native';
+import NavegacaoAnotacoes from './views/Notas/NavegacaoAnotacoes';
 
 
 
@@ -50,6 +52,8 @@ export default function App() {
         <Stack.Screen name="Relaxamento" component={Relaxamento} />
         <Stack.Screen name="Meditacao" component={Meditacao} />
         <Stack.Screen name="Agenda" component={Agenda} />
+        <Stack.Screen name="Humor" component={NavegacaoHumor} />
+        <Stack.Screen name="Anotacoes" component={NavegacaoAnotacoes} />
       </Stack.Navigator>
 
 

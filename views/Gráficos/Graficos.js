@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import { AsyncStorage } from 'react-native';
 import config from '../../config/config.json';
-import {PieChart} from 'react-native-svg-charts';
+import { PieChart } from 'react-native-svg-charts';
 Graficos = (id) => {
     const [execucao, setExecucao] = useState(1);
     const [execucao2, setExecucao2] = useState(1);
@@ -22,17 +22,17 @@ Graficos = (id) => {
     const [dataGraf, setDataGraf] = useState(null);
     //pie
     const [itens, setItens] = useState([]);
-    const [atividadesP,setAtividadesP]=useState([]);
-    const [atividadesCor,setAtividadesCor]=useState([]);
-    const [porcentagemAtt,setPorcentagemAtt]=useState([]);
-    const pieData = itens.map((value,index)=>({
+    const [atividadesP, setAtividadesP] = useState([]);
+    const [atividadesCor, setAtividadesCor] = useState([]);
+    const [porcentagemAtt, setPorcentagemAtt] = useState([]);
+    const pieData = itens.map((value, index) => ({
         value,
-        key:`${index}-${value}`,
-        svg:{
-            fill:atividadesCor[index]
+        key: `${index}-${value}`,
+        svg: {
+            fill: atividadesCor[index]
         }
     }));
-    
+
 
     useEffect(() => {
         Medicamentos();
@@ -98,10 +98,10 @@ Graficos = (id) => {
             let response = await AsyncStorage.getItem('atividadesData');
             const jsonNovo = JSON.parse(response);
             setListaAtividades(jsonNovo);
-            let arr=jsonNovo;
+            let arr = jsonNovo;
             if (execucao2 < 2) {
                 setExecucao2(2);
-            }else{
+            } else {
                 geraGraficoPizzaAtividades(arr);
             }
         }
@@ -130,12 +130,12 @@ Graficos = (id) => {
 
             let response = await AsyncStorage.getItem('graficosData');
             const jsonNovo = JSON.parse(response);
-            let arrayList=[];
-            arrayList=jsonNovo;
+            let arrayList = [];
+            arrayList = jsonNovo;
             setListaHumor(jsonNovo);
             if (execucao < 2) {
                 setExecucao(2);
-            }else{
+            } else {
                 geraGraficoSemanal(arrayList);
             }
         }
@@ -145,45 +145,45 @@ Graficos = (id) => {
         var letters = '0123456789ABCDEF';
         var color = '#';
         for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
+            color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
-      }
-    
-      async function geraGraficoPizzaAtividades(arr){
+    }
+
+    async function geraGraficoPizzaAtividades(arr) {
         let tam1 = arr.length;
-        if(tam1>0){
+        if (tam1 > 0) {
             let ini1;
-            if(tam1-7<=0){
-                ini1=0;
-            }else{
-                ini1=tam1-7;
+            if (tam1 - 7 <= 0) {
+                ini1 = 0;
+            } else {
+                ini1 = tam1 - 7;
             }
-            let porcentagem=[];
-            let cor=[];
-            let att=[];
+            let porcentagem = [];
+            let cor = [];
+            let att = [];
             let index;
             let aux;
-            for(let j=ini1;j<tam1;j++){
-                if(att.includes(arr[j].nome)==true) {
+            for (let j = ini1; j < tam1; j++) {
+                if (att.includes(arr[j].nome) == true) {
                     for (var i = 0; i < att.length; ++i) {
                         if (att[i] == arr[j].nome) {
                             index = i;
-                            i=att.length;
+                            i = att.length;
                         }
-                        aux=porcentagem[index]+1;
-                        porcentagem[index]=aux;
+                        aux = porcentagem[index] + 1;
+                        porcentagem[index] = aux;
                     }
-                }else{
+                } else {
                     att.push(arr[j].nome);
                     porcentagem.push(1);
                     cor.push(getRandomColor());
                 }
             }
-            let valorPorcentagem=[];
-            let tam=porcentagem.length;
-            for(let k=0;k<tam;k++){
-                valorPorcentagem[k]=(porcentagem[k]/tam1)*100;
+            let valorPorcentagem = [];
+            let tam = porcentagem.length;
+            for (let k = 0; k < tam; k++) {
+                valorPorcentagem[k] = (porcentagem[k] / tam1) * 100;
             }
             setItens(porcentagem);
             setAtividadesP(att);
@@ -272,25 +272,25 @@ Graficos = (id) => {
             setDias(days);
             setDiasData(dataE);
         }
-        
+
     }
 
-    
+
     function mostraAtividades(posicao) {
         setChecked(true)
         let tam1 = listaAtividades.length;
         let ini1;
-        if(tam1-7<=0){
-            ini1=0;
-        }else{
-            ini1=tam1-7;
+        if (tam1 - 7 <= 0) {
+            ini1 = 0;
+        } else {
+            ini1 = tam1 - 7;
         }
         let tam2 = listaMedicacoes.length;
         let ini2;
-        if(tam2-7<=0){
-            ini2=0;
-        }else{
-            ini2=tam1-7;
+        if (tam2 - 7 <= 0) {
+            ini2 = 0;
+        } else {
+            ini2 = tam1 - 7;
         }
         let atividades = '';
         let medicacoes = '';
@@ -326,12 +326,12 @@ Graficos = (id) => {
             <ScrollView>
                 {(execucao == 2) ?
                     <View>
-                        <View style={{ marginHorizontal: 16,alignItems:'center' }}>
+                        <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
                             <View>
-                                <Text  style={{ fontWeight: 'bold', fontSize: 21,marginHorizontal: 10, alignItems:'center', marginTop:10 }}>Relatório dos ultimos 7 dias</Text>
+                                <Text style={{ fontWeight: 'bold', fontSize: 21, marginHorizontal: 10, alignItems: 'center', marginTop: 10 }}>Relatório dos ultimos 7 dias</Text>
                             </View>
                             <View>
-                                <Text  style={{ color: '#363636',fontWeight: 'bold', fontSize: 18,marginHorizontal: 10, alignItems:'center', marginBottom:-3 }}>Variação de Humor</Text>
+                                <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3 }}>Variação de Humor</Text>
                             </View>
                             <View style={{ flexDirection: 'row', paddingHorizontal: 6 }}>
                                 <View style={css.graficocontainer}>
@@ -343,21 +343,21 @@ Graficos = (id) => {
                                     <TouchableOpacity onPress={() => mostraAtividades(5)} onPressIn={() => setCorAtividadeDia('green')} style={css.graficoDia(dias[5], 'green')}></TouchableOpacity>
                                     <TouchableOpacity onPress={() => mostraAtividades(6)} onPressIn={() => setCorAtividadeDia('red')} style={css.graficoDia(dias[6], 'red')}></TouchableOpacity>
                                 </View>
-                                <View style={{ flexDirection: 'column', marginHorizontal: 10, marginTop: 25,}}>
-                                    <Image style={{ height: 30, width: 30,marginBottom:2}} source={require('../../assets/felizao.png')} />
-                                    <Image style={{ height:30, width: 30,marginBottom:2}} source={require('../../assets/felizinho.png')} />
-                                    <Image style={{ height: 30, width: 30,marginBottom:2}} source={require('../../assets/normalzinho.png')} />
-                                    <Image style={{ height: 30, width: 30,marginBottom:2}} source={require('../../assets/tristinho.png')} />
-                                    <Image style={{ height: 30, width: 30,marginBottom:2}} source={require('../../assets/tristao.png')} />
-                                    <Image style={{ height: 30, width: 30,marginBottom:2}} source={require('../../assets/raiva.png')} />
+                                <View style={{ flexDirection: 'column', marginHorizontal: 10, marginTop: 25, }}>
+                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizao.png')} />
+                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizinho.png')} />
+                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/normalzinho.png')} />
+                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/tristinho.png')} />
+                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/tristao.png')} />
+                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/raiva.png')} />
                                 </View>
 
                             </View>
-                            <View style={{width:325, height:3, backgroundColor:'#D3D3D3', marginTop:3,borderRadius:10}}></View>
+                            <View style={{ width: 325, height: 3, backgroundColor: '#D3D3D3', marginTop: 3, borderRadius: 10 }}></View>
                             {(checked) ?
-                                <View style={{ backgroundColor: corAtividadeDia, paddingHorizontal: 6,  marginTop: 6, marginBottom: 6, width:325}}>
-                                    <Text  style={{ fontWeight: 'bold', color: '#fff', fontSize: 19}}>{dataGraf}</Text>
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19}}>Atividades realizadas:</Text>
+                                <View style={{ backgroundColor: corAtividadeDia, paddingHorizontal: 6, marginTop: 6, marginBottom: 6, width: 325 }}>
+                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>{dataGraf}</Text>
+                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>Atividades realizadas:</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 5 }}>Medicações utilizadas:</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{medicacaoDia}</Text>
@@ -366,31 +366,37 @@ Graficos = (id) => {
                                 :
                                 <View></View>
                             }
-                          
+
                         </View>
-                        <View style={{ marginHorizontal: 16,alignItems:'center' }}>
-                             <Text  style={{ color: '#363636',fontWeight: 'bold', fontSize: 18,marginHorizontal: 10, alignItems:'center', marginBottom:-3, marginTop:6 }}>Percentual de Atividades realizadas</Text>
+                        <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
+                            <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3, marginTop: 6 }}>Percentual de Atividades realizadas</Text>
                         </View>
-                        <View style={{flexDirection:'row',marginHorizontal: 16,alignItems:'center'}}>
-                            <View style={{height:250,width:200, marginTop:30}}>
-                                    <PieChart style={{height:150}} data={pieData}></PieChart>
+                        <View style={{ flexDirection: 'row', marginHorizontal: 16, alignItems: 'center' }}>
+                            <View style={{ height: 250, width: 200, marginTop: 30 }}>
+                                <PieChart style={{ height: 150 }} data={pieData}></PieChart>
                             </View>
-                            <ScrollView style={{height:250, marginTop:35}} >
-                                {atividadesP.map((item,key)=>(
-                                    <View key={key} style={{flexDirection:'row',width:200,}}>
-                                        <Text>{item}</Text>
-                                        <View style={{justifyContent: 'flex-end'}}>
-                                            <View style={{backgroundColor:atividadesCor[key], marginLeft:3,height:36, width:36, alignItems:'center', justifyContent:'center',borderRadius:60}}><Text style={{}}>{porcentagemAtt[key]}%</Text></View>
+                            <ScrollView style={{ height: 250, marginTop: 35 }} >
+                                <View style={{ justifyContent: 'flex-start', marginTop: 20, alignItems: 'flex-start', alignSelf: 'flex-start' }}>
+                                    {atividadesP.map((item, key) => (
+                                        <View key={key} style={{ flexDirection: 'column', width: 150, justifyContent: 'flex-end', alignItems: 'center' }}>
+                                            <Text style={{ alignSelf: 'center', padding: 5 }}>{item}</Text>
+                                            <View style={{}}>
+                                                <View style={{ width: '100%' }}>
+                                                    <View style={{ backgroundColor: atividadesCor[key], borderRadius: 30 }}>
+                                                        <Text style={{ color: '#fff', fontWeight: 'bold', marginLeft: 3, textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120, }}>{porcentagemAtt[key]}%</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
                                         </View>
-                                    </View>
-                                ))}
+                                    ))}
+                                </View>
                             </ScrollView>
                         </View>
                     </View>
                     :
                     <View></View>
                 }
-           </ScrollView>
+            </ScrollView>
         </View>
 
 
