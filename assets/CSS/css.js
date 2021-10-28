@@ -15,6 +15,7 @@ const css = StyleSheet.create({
     paddingHorizontal: 6,
     alignItems: 'flex-end'
   },
+
   fundobranco: {
     backgroundColor: '#fff'
   },
