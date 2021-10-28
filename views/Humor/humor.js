@@ -1,7 +1,7 @@
 import React, { Component, useState, setState, useEffect } from 'react'
 import { useCallback } from 'react';
 import config from '../../config/config.json';
-import { AsyncStorage, FlatList, Pressable } from 'react-native';
+import { AsyncStorage, FlatList, Pressable} from 'react-native';
 import { css } from '../../assets/CSS/css.js';
 import {
     SafeAreaView,
@@ -431,150 +431,152 @@ Humor = (id) => {
         <View>
             { (exister) ?
                 <View>
-                    <View style={estilo.imagemContainer}>
-                        <TouchableOpacity
-                            onPress={() => setHumor(1)}>
-                            <View>
-                                <Image style={estilo.imagem}
-                                    source={require('../../assets/felizao.png')} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setHumor(2)}>
-                            <View>
-                                <Image style={estilo.imagem}
-                                    source={require('../../assets/felizinho.png')} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setHumor(3)}>
-                            <View>
-                                <Image style={estilo.imagem}
-                                    source={require('../../assets/normalzinho.png')} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setHumor(4)}>
-                            <View>
-                                <Image style={estilo.imagem}
-                                    source={require('../../assets/tristinho.png')} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setHumor(5)}>
-                            <View>
-                                <Image style={estilo.imagem}
-                                    source={require('../../assets/tristao.png')} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setHumor(6)}>
-                            <View>
-                                <Image style={estilo.imagem}
-                                    source={require('../../assets/raiva.png')} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <TextInput
-                        style={{ marginLeft: 5 }}
-                        multiline={true}
-                        placeholder="Insira sua nota:"
-                        onChangeText={text => setTexto(text)}
-                        defaultValue={text} />
-                    <Text>{humor}{texto}</Text>
-
-                    <Text>Insira seus medicamentos:</Text>
-                    <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
-                    <View style={estilo.modalsize}>
-                        <Modal
-                            style={estilo.modalcontent}
-                            animationType="slide"
-                            visible={modalVisible}>
-
-                            <View>
-                                <TextInput
-                                    style={{ marginLeft: 5 }}
-                                    multiline={true}
-                                    placeholder="Medicacao:"
-                                    onChangeText={text => setMedicacao(text)}
-                                    defaultValue={text} />
-
-                                <View style={estilo.containerquit}>
-                                    <Pressable
-                                        onPress={() => setModalVisible(false)}>
-                                        <Text>Sair!</Text>
-                                    </Pressable>
-                                    <Pressable
-                                        onPress={() => salvarMedicamento()}>
-                                        <Text>Inserir medicação</Text>
-                                    </Pressable>
+            
+                        <View style={estilo.imagemContainer}>
+                            <TouchableOpacity
+                                onPress={() => setHumor(1)}>
+                                <View>
+                                    <Image style={estilo.imagem}
+                                        source={require('../../assets/felizao.png')} />
                                 </View>
-                                <Text> Seus medicamentos cadastradas:</Text>
-                                <FlatList style={estilo.lista2}
-                                    data={medicamentos}
-                                    renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
-                                    keyExtractor={item => item.id.toString()}
-                                    extraData={refresh}
-                                />
-                            </View>
-                        </Modal>
-                        <Text> Insira suas atividades:</Text>
-                        <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
-                        <Modal
-                            style={estilo.modalcontent}
-                            animationType="slide"
-                            visible={modalVisible2}>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setHumor(2)}>
+                                <View>
+                                    <Image style={estilo.imagem}
+                                        source={require('../../assets/felizinho.png')} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setHumor(3)}>
+                                <View>
+                                    <Image style={estilo.imagem}
+                                        source={require('../../assets/normalzinho.png')} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setHumor(4)}>
+                                <View>
+                                    <Image style={estilo.imagem}
+                                        source={require('../../assets/tristinho.png')} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setHumor(5)}>
+                                <View>
+                                    <Image style={estilo.imagem}
+                                        source={require('../../assets/tristao.png')} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setHumor(6)}>
+                                <View>
+                                    <Image style={estilo.imagem}
+                                        source={require('../../assets/raiva.png')} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
 
-                            <View>
-                                <Text>Insira uma nova atividade:</Text>
-                                <TextInput
-                                    style={{ marginLeft: 5 }}
-                                    multiline={true}
-                                    placeholder="Atividade:"
-                                    onChangeText={text => setAtividade(text)}
-                                    defaultValue={text} />
-                                <Pressable
-                                    onPress={() => salvarAtividade()}>
-                                    <Text>Inserir</Text>
-                                </Pressable>
+                        <TextInput
+                            style={{ marginLeft: 5 }}
+                            multiline={true}
+                            placeholder="Insira sua nota:"
+                            onChangeText={text => setTexto(text)}
+                            defaultValue={text} />
+                        <Text>{humor}{texto}</Text>
 
+                        <Text>Insira seus medicamentos:</Text>
+                        <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
+                        <View style={estilo.modalsize}>
+                            <Modal
+                                style={estilo.modalcontent}
+                                animationType="slide"
+                                visible={modalVisible}>
 
-                                <Text> Suas atividades cadastradas:</Text>
-                                <FlatList style={estilo.lista2}
-                                    data={atividades}
-                                    renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
-                                    keyExtractor={item => item.id.toString()}
-                                    extraData={refresh}
-                                />
-                                <View style={estilo.containerquit}>
+                                <View>
+                                    <TextInput
+                                        style={{ marginLeft: 5 }}
+                                        multiline={true}
+                                        placeholder="Medicacao:"
+                                        onChangeText={text => setMedicacao(text)}
+                                        defaultValue={text} />
+
+                                    <View style={estilo.containerquit}>
+                                        <Pressable
+                                            onPress={() => setModalVisible(false)}>
+                                            <Text>Sair!</Text>
+                                        </Pressable>
+                                        <Pressable
+                                            onPress={() => salvarMedicamento()}>
+                                            <Text>Inserir medicação</Text>
+                                        </Pressable>
+                                    </View>
+                                    <Text> Seus medicamentos cadastradas:</Text>
+                                    <FlatList style={estilo.lista2}
+                                        data={medicamentos}
+                                        renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
+                                        keyExtractor={item => item.id.toString()}
+                                        extraData={refresh}
+                                    />
+                                </View>
+                            </Modal>
+                            <Text> Insira suas atividades:</Text>
+                            <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
+                            <Modal
+                                style={estilo.modalcontent}
+                                animationType="slide"
+                                visible={modalVisible2}>
+
+                                <View>
+                                    <Text>Insira uma nova atividade:</Text>
+                                    <TextInput
+                                        style={{ marginLeft: 5 }}
+                                        multiline={true}
+                                        placeholder="Atividade:"
+                                        onChangeText={text => setAtividade(text)}
+                                        defaultValue={text} />
                                     <Pressable
-                                        onPress={() => setModalVisible2(false)}>
-                                        <Text>Sair!</Text>
+                                        onPress={() => salvarAtividade()}>
+                                        <Text>Inserir</Text>
                                     </Pressable>
 
+
+                                    <Text> Suas atividades cadastradas:</Text>
+                                    <FlatList style={estilo.lista2}
+                                        data={atividades}
+                                        renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
+                                        keyExtractor={item => item.id.toString()}
+                                        extraData={refresh}
+                                    />
+                                    <View style={estilo.containerquit}>
+                                        <Pressable
+                                            onPress={() => setModalVisible2(false)}>
+                                            <Text>Sair!</Text>
+                                        </Pressable>
+
+                                    </View>
                                 </View>
-                            </View>
-                        </Modal>
-                        <FlatList style={estilo.lista2}
-                            data={atividadesSelecionadas}
-                            renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} id={item.id} />}
-                            keyExtractor={item => item.id.toString()}
-                            extraData={refresh}
-                        />
+                            </Modal>
+                            <FlatList style={estilo.lista2}
+                                data={atividadesSelecionadas}
+                                renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} id={item.id} />}
+                                keyExtractor={item => item.id.toString()}
+                                extraData={refresh}
+                            />
 
-                        <FlatList style={estilo.lista2}
-                            data={medicamentosSelecionados}
-                            renderItem={({ item }) => <ListaMedicamentosSelecionadas nome={item.nome} id={item.id} />}
-                            keyExtractor={item => item.id.toString()}
-                            extraData={refresh}
-                        />
-                        <Pressable
-                            onPress={() => salvarRelatorio()}>
-                            <Text>Enviar relatório</Text>
-                        </Pressable>
+                            <FlatList style={estilo.lista2}
+                                data={medicamentosSelecionados}
+                                renderItem={({ item }) => <ListaMedicamentosSelecionadas nome={item.nome} id={item.id} />}
+                                keyExtractor={item => item.id.toString()}
+                                extraData={refresh}
+                            />
+                            <Pressable
+                                onPress={() => salvarRelatorio()}>
+                                <Text>Enviar relatório</Text>
+                            </Pressable>
 
-                    </View>
+                        </View>
+           
                 </View>
                 :
                 <View><Text>Finalizado!</Text></View>}
