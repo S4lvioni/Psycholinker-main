@@ -15,7 +15,12 @@ import Respiracao from './views/Exercicios/Respiracao';
 import Relaxamento from './views/Exercicios/Relaxamento';
 import Meditacao from './views/Exercicios/Meditacao';
 import Agenda from './views/Navegação/NavegaçãoAgenda';
+<<<<<<< HEAD
 import NavegacaoHumor from './views/Humor/NavegacaoHumor'
+=======
+import NavegacaoHomePaciente from './views/Navegação/NavegaçãoAgendaPaciente'
+//import AgendamentoPaciente from './views/Agendamento/AgendamentoPaciente';
+>>>>>>> 5d356213fb15caf2dad8d2a9398fc233a39557f4
 import { LogBox } from 'react-native';
 import NavegacaoAnotacoes from './views/Notas/NavegacaoAnotacoes';
 
@@ -52,8 +57,12 @@ export default function App() {
         <Stack.Screen name="Relaxamento" component={Relaxamento} />
         <Stack.Screen name="Meditacao" component={Meditacao} />
         <Stack.Screen name="Agenda" component={Agenda} />
+<<<<<<< HEAD
         <Stack.Screen name="Humor" component={NavegacaoHumor} />
         <Stack.Screen name="Anotacoes" component={NavegacaoAnotacoes} />
+=======
+        <Stack.Screen name="NavegacaoHomePaciente" component={NavegacaoHomePaciente} />
+>>>>>>> 5d356213fb15caf2dad8d2a9398fc233a39557f4
       </Stack.Navigator>
 
 

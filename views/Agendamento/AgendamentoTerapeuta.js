@@ -31,7 +31,6 @@ AgendamentoTerapeuta=(id)=>{
   const [nomePaciente,setNomePaciente]=useState('Ocupado');
   //controle
   const [display, setDisplay] = useState('none');
-  const [atualizar, setAtualizar] = useState(true);
   const [execucao, setExecucao] = useState(1);
   const [execucao2, setExecucao2] = useState(1);
   const [execucao3, setExecucao3] = useState(1);
@@ -73,20 +72,20 @@ useEffect(()=>{
     setDiaLista(today.getDate());
  
 
-},[atualizar]);
+},[]);
 
 useEffect(()=>{
   buscaDias();
-},[execucao,atualizar]);
+},[execucao]);
 
 useEffect(()=>{
   buscaHorasUteis();
-},[execucao2,atualizar]);
+},[execucao2]);
 
 useEffect(()=>{
   buscaAgendamentos();
   geraCalendario();
-},[execucao3,atualizar]);
+},[execucao3]);
 
 //datas jaa gendadas 
 async function  buscaAgendamentos() {
@@ -155,9 +154,7 @@ async function buscaHorasUteis() {
       let l=jsonNovo2;
       let tam=l.length
       let newArr=[];
-      if(tam<1){
-        buscaHorasUteis();
-      }else{
+      if(tam>1){
         for(let i=0;i<tam;i++){
           newArr.push(l[i].hora);
           
@@ -198,12 +195,14 @@ async function buscaDias() {
         console.log(diasUteis);
       if (execucao < 2) {
           setExecucao(2);
+      }else{
+        geraCalendario(l);
       }
   }
 }
-  async function geraCalendario(){
-    if(diasUteis[0].dia!=undefined){
-      let diaU=diasUteis[0].dia
+  async function geraCalendario(l){
+    if(l[0].dia!=undefined){
+      let diaU=l[0].dia
       //quantos dias tem o mes
       let daysInMonth = new Date(ano,mes+1,0).getDate();
       let valores =[];
@@ -377,89 +376,83 @@ async function buscaDias() {
   return(
     
     <View style={styles.fundo}>
-
-      <TouchableOpacity onPressIn={()=>geraCalendario()} onPress={()=>setMostra(!mostra)} ><Image style={{width:30,height:30, marginTop:3,marginHorizontal:10}}source={require("../../assets/atualiza.png")}/></TouchableOpacity>
-    {/*Adicionar mensagem para avisar na primeira conf */}
-    {
-      
-    }
-    <View style={styles.dateInfo}>
-    <View style={styles.prevData}>
-      <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/voltar.png")}/></TouchableOpacity>
-    </View>
-    <View style={{width:180,justifyContent: 'center',alignItems:'center'}}>
-      <Text style={{fontWeight:'bold', fontSize:20, justifyContent: 'center',color:'#fff' }}>{meses[mes]} {ano}</Text></View>
-    <View style={styles.nextData}>
-    <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/passar.png")}/></TouchableOpacity>
-    </View>
-    </View>
-    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
-        {diasCal.map((item,key)=>(
-          <TouchableOpacity
-            style={styles.dateItem}
-            key={key}
-            onPress={()=>(item.status==true)? dataEscolhida(item.numero):mudaDisplay()}
-            style={{
-              backgroundColor:(item.numero+'-'+meses[mes]+'-'+ano==clicado)?'#FFFFFF':'#ffcbdb',
-              padding:9,
-              
-            }}
-          >
-              <Text style={styles.weekday}>{item.weekday}</Text>
-              <Text style={styles.itemNumber}>{item.numero}</Text>
-          </TouchableOpacity>
-        ))
-        }
-    </ScrollView>
-    {(btn == true) ?
-      <View style={styles.horas}>
-        <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
-          {horaLista.map((item,key)=>(
-              <TouchableOpacity
-                style={styles.timeItem}
-                key={key}
-                onPress={()=>horaEscolhida(item.hora,item.status2,item.nome)}
+      <View style={styles.dateInfo}>
+      <View style={styles.prevData}>
+        <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/voltar.png")}/></TouchableOpacity>
+      </View>
+      <View style={{width:180,justifyContent: 'center',alignItems:'center'}}>
+        <Text style={{fontWeight:'bold', fontSize:20, justifyContent: 'center',color:'#fff' }}>{meses[mes]} {ano}</Text></View>
+      <View style={styles.nextData}>
+      <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/passar.png")}/></TouchableOpacity>
+      </View>
+      </View>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
+          {diasCal.map((item,key)=>(
+            <TouchableOpacity
+              style={styles.dateItem}
+              key={key}
+              onPress={()=>(item.status==true)? dataEscolhida(item.numero):mudaDisplay()}
+              style={{
+                backgroundColor:(item.numero+'-'+meses[mes]+'-'+ano==clicado)?'#FFFFFF':'#ffcbdb',
+                padding:9,
+                
+              }}
+            >
+                <Text style={styles.weekday}>{item.weekday}</Text>
+                <Text style={styles.itemNumber}>{item.numero}</Text>
+            </TouchableOpacity>
+          ))
+          }
+      </ScrollView>
+      {(btn == true) ?
+        <View style={styles.horas}>
+          <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
+            {horaLista.map((item,key)=>(
+                <TouchableOpacity
+                  style={styles.timeItem}
+                  key={key}
+                  onPress={()=>horaEscolhida(item.hora,item.status2,item.nome)}
+                  style={{
+                    opacity:(item.status2==true)?1 : 0.5,
+                    backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
+                    padding:9
+                    
+                  }}
+                >
+                  <Text style={styles.timeItemText}>{item.hora}</Text>
+                
+                </TouchableOpacity>
+            ))}
+        </ScrollView>
+        {(ocuparLiberar == true) ?
+        <View>
+          <TouchableOpacity 
                 style={{
-                  opacity:(item.status2==true)?1 : 0.5,
-                  backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
+                  backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
                   padding:9
                   
                 }}
-              >
-                <Text style={styles.timeItemText}>{item.hora}</Text>
-               
-              </TouchableOpacity>
-          ))}
-      </ScrollView>
-      {(ocuparLiberar == true) ?
-      <View>
-        <TouchableOpacity 
-              style={{
-                backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
-                padding:9
-                
-              }}
-            onPress={()=>senForm()}>
-            <Text style={css.modaltexto}>Ocupar Horário</Text></TouchableOpacity>
-        </View>:(ocuparLiberar == false) ?
-        <View>
-          <TouchableOpacity 
-              style={{
-                backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
-                padding:9
-                
-              }}
-            onPress={()=>senForm()}>
-              <Text style={css.modaltexto}>{nomePaciente}</Text>
-            <Text style={css.modaltexto}>Liberar Horário</Text>
-          </TouchableOpacity>
-        </View>:<View></View>
-        }
-    </View>:<View></View>
-    }
-   <View>
-       <Text style={css.login__msg(display)}>Dia indisponível!</Text>
-   </View>
+              onPress={()=>senForm()}>
+              <Text style={css.modaltexto}>Ocupar Horário</Text></TouchableOpacity>
+          </View>:(ocuparLiberar == false) ?
+          <View>
+            <TouchableOpacity 
+                style={{
+                  backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
+                  padding:9
+                  
+                }}
+              onPress={()=>senForm()}>
+                <Text style={css.modaltexto}>{nomePaciente}</Text>
+              <Text style={css.modaltexto}>Liberar Horário</Text>
+            </TouchableOpacity>
+          </View>:<View></View>
+          }
+      </View>:<View></View>
+      }
+    <View>
+        <Text style={css.login__msg(display)}>Dia indisponível!</Text>
+    </View>
  </View>
   );
 
