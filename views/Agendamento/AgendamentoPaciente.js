@@ -161,10 +161,7 @@ async function buscaHorasUteis() {
       let l=jsonNovo2;
       let tam=l.length
       let newArr=[];
-      if(tam<1){
-        console.log( 'no tam')
-        buscaHorasUteis();
-      }else{
+      if(tam>1){
         for(let i=0;i<tam;i++){
           newArr.push(l[i].hora);
           
@@ -203,12 +200,14 @@ async function buscaDias() {
         setDiasUteis(l);
       if (execucao < 2) {
           setExecucao(2);
+      }else{
+        geraCalendario(l);
       }
   }
 }
-  async function geraCalendario(){
-    if(diasUteis[0].dia!=undefined){
-      let diaU=diasUteis[0].dia
+  async function geraCalendario(l){
+    if(l[0].dia!=undefined){
+      let diaU=l[0].dia
       //quantos dias tem o mes
       let daysInMonth = new Date(ano,mes+1,0).getDate();
       let valores =[];
@@ -370,79 +369,74 @@ async function buscaDias() {
     
     <View style={styles.fundo}>
 
-      <TouchableOpacity onPressIn={()=>geraCalendario()} ><Text style={css.modaltexto}>gera</Text></TouchableOpacity>
-    {/*Adicionar mensagem para avisar na primeira conf */}
-    {
-      
-    }
-    <View style={styles.dateInfo}>
-    <View style={styles.prevData}>
-      <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Text style={css.modaltexto}>Ant</Text></TouchableOpacity>
-    </View>
-    <View style={styles.tituloArea}><Text>{meses[mes]} {ano}</Text></View>
-    <View style={styles.nextData}>
-    <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Text style={css.modaltexto}>prox</Text></TouchableOpacity>
-    </View>
-    </View>
-    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
-        {diasCal.map((item,key)=>(
-          <TouchableOpacity
-            style={styles.dateItem}
-            key={key}
-            onPress={()=>(item.status==true)? dataEscolhida(item.numero):mudaDisplay()}
-            style={{
-              backgroundColor:(item.numero+'-'+meses[mes]+'-'+ano==clicado)?'#FFFFFF':'#ffcbdb',
-              padding:9,
-             /* backgroundColor: (item.numero==botaoSelecionado) ? '#FFFFFF':'#ffcbdb',*/
-              
-            }}
-          >
-              <Text style={styles.weekday}>{item.weekday}</Text>
-              <Text style={styles.itemNumber}>{item.numero}</Text>
-          </TouchableOpacity>
-        ))
-        }
-    </ScrollView>
-    {(btn == true) ?
-      <View style={styles.horas}>
-        <Text>{diaSelecionado}-{clicadoHora}</Text>
-        <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
-          {horaLista.map((item,key)=>(
-              <TouchableOpacity
-                style={styles.timeItem}
-                key={key}
-                onPress={()=>horaEscolhida(item.hora,item.status2)}
+      <View style={styles.dateInfo}>
+      <View style={styles.prevData}>
+        <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Text style={css.modaltexto}>Ant</Text></TouchableOpacity>
+      </View>
+      <View style={styles.tituloArea}><Text>{meses[mes]} {ano}</Text></View>
+      <View style={styles.nextData}>
+      <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Text style={css.modaltexto}>prox</Text></TouchableOpacity>
+      </View>
+      </View>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
+          {diasCal.map((item,key)=>(
+            <TouchableOpacity
+              style={styles.dateItem}
+              key={key}
+              onPress={()=>(item.status==true)? dataEscolhida(item.numero):mudaDisplay()}
+              style={{
+                backgroundColor:(item.numero+'-'+meses[mes]+'-'+ano==clicado)?'#FFFFFF':'#ffcbdb',
+                padding:9,
+              /* backgroundColor: (item.numero==botaoSelecionado) ? '#FFFFFF':'#ffcbdb',*/
+                
+              }}
+            >
+                <Text style={styles.weekday}>{item.weekday}</Text>
+                <Text style={styles.itemNumber}>{item.numero}</Text>
+            </TouchableOpacity>
+          ))
+          }
+      </ScrollView>
+      {(btn == true) ?
+        <View style={styles.horas}>
+          <Text>{diaSelecionado}-{clicadoHora}</Text>
+          <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
+            {horaLista.map((item,key)=>(
+                <TouchableOpacity
+                  style={styles.timeItem}
+                  key={key}
+                  onPress={()=>horaEscolhida(item.hora,item.status2)}
+                  style={{
+                    opacity:(item.status2==true)?1 : 0.5,
+                    backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
+                    padding:9
+                    
+                  }}
+                >
+                  <Text style={styles.timeItemText}>{item.hora}</Text>
+                </TouchableOpacity>
+                
+            ))}
+        </ScrollView>
+        {(ocuparLiberar == true) ?
+        <View>
+          <TouchableOpacity 
                 style={{
-                  opacity:(item.status2==true)?1 : 0.5,
-                  backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
+                  backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
                   padding:9
                   
                 }}
-              >
-                <Text style={styles.timeItemText}>{item.hora}</Text>
-              </TouchableOpacity>
-              
-          ))}
-      </ScrollView>
-      {(ocuparLiberar == true) ?
-      <View>
-        <TouchableOpacity 
-              style={{
-                backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
-                padding:9
-                
-              }}
-            onPress={()=>senForm()}>
-            <Text style={css.modaltexto}>Agendar Horário</Text></TouchableOpacity>
-        </View>:
-        <View>
-        </View>
-        }
-    </View>:<View></View>
-    }
-                <View>
-                <Text style={css.login__msg(display)}>Dia indisponível!</Text>
-            </View>
+              onPress={()=>senForm()}>
+              <Text style={css.modaltexto}>Agendar Horário</Text></TouchableOpacity>
+          </View>:
+          <View>
+          </View>
+          }
+      </View>:<View></View>
+      }
+                  <View>
+                  <Text style={css.login__msg(display)}>Dia indisponível!</Text>
+              </View>
  </View>
   );
 
