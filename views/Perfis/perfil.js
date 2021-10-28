@@ -43,15 +43,15 @@ export default function Perfil({ navigation }) {
 
     return (
         <ScrollView style={css.fundobranco}>
-            <View>
+            <View style={{backgroundColor:'#FFB6C1'}}>
                 <Text style={css.welcometag}> {name} {id}</Text>
             </View>
             <ScrollView>
                 <Graficos data={id} />
-                <Anotacoes />
+               {/**<Anotacoes />
                 <View style={{ marginLeft: 20 }}>
                     <HumorTerapeuta data={id} />
-                </View>
+                </View> */} 
             </ScrollView>
         </ScrollView>
     )
