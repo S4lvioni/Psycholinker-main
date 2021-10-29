@@ -7,6 +7,7 @@ import AgendamentoPaciente from '../Agendamento/AgendamentoPaciente';
 
 export default function NavegacaoHomePaciente({ navigation }) {
     const [id, setId] = useState(null);
+
     useEffect(() => {
         async function getId() {
             let response = await AsyncStorage.getItem('emailDataP');
@@ -15,6 +16,7 @@ export default function NavegacaoHomePaciente({ navigation }) {
         }
         getId();
     }, []);
+    
        
     
     return (
