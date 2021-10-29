@@ -284,13 +284,11 @@ async function buscaDias() {
     }
     setAgendamentLista(newAgendamento);
     if(clicado==0){
-      
       setClicado(item+'-'+meses[mes]+'-'+ano);
       //confere quantas horas, passsa para novo array q junta os objs
       let tam= horaArray.length;
       let newArray=[];
       for(let i=0;i<tam;i++){
-        console.log('ess'+item+'-'+meses[mes]+'-'+ano+'-'+horaArray[i])
         if(newAgendamento.includes(item+'-'+meses[mes]+'-'+ano+'-'+horaArray[i])==true){
           newArray.push({
             hora:horaArray[i],
@@ -305,8 +303,6 @@ async function buscaDias() {
         }
         
       }
-      console.log(newArray)
-      console.log(newAgendamento)
       setHoraLista(newArray);
     }else{
       setOcuparLiberar(3);
