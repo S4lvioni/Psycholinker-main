@@ -1,6 +1,6 @@
 //import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { ImageBackground, Text, View } from 'react-native';
 import { KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { css } from '../assets/CSS/css';
@@ -11,6 +11,8 @@ export default function Login({ navigation })//routepara passar parametros para 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [login, setLogin] = useState(null);
+
+    
 
     async function sendFormTerapeuta() {
         let response = await fetch(`${config.urlRoot}loginTerapeuta`, {

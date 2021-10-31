@@ -88,10 +88,13 @@ const css = StyleSheet.create({
     width: "80%"
   },
   login__input: {
-    backgroundColor: "#fff",
+    backgroundColor:' rgba(255,255,255,0.5)',
     fontSize: 19,
     padding: 7,
-    marginBottom: 15
+    marginBottom: 15,
+    borderRadius:10,
+    opacity:1,
+    color:"#FFF"
   },
   login__button: {
     padding: 12,
@@ -220,6 +223,7 @@ const css = StyleSheet.create({
     backgroundColor: '#F3F2EF',
     marginHorizontal: 18
   },
+  
   login_button_modified: {
     padding: 10,
     backgroundColor: "#FFB6C1",

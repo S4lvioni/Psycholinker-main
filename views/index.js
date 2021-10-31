@@ -17,4 +17,4 @@ import NavegacaoAgendaPaciente from './Navegação/NavegaçãoAgendaPaciente'
 import NavegacaoAnotacoes from './Notas/NavegacaoAnotacoes'
 import NavegacoesAnotacoesPaciente from './Notas/NavegacaoAnotacoesPaciente'
 import Perfil from './Perfis/perfil';
-export { Home, Login, HomePaciente, HomeTerapeuta, Cadastros, CadastroTerapeuta, CadastroPaciente, exercicios, Respiracao, NavegacaoHumor, NavegacaoAgenda,NavegacaoAgendaPaciente, NavegacaoAnotacoes, NavegacoesAnotacoesPaciente, Perfil };
+export { Home, Login, HomePaciente}
