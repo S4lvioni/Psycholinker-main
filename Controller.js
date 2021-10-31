@@ -612,6 +612,22 @@ app.post('/buscaAgendamentos', async (req, res) => {
 
 });
 
+//Busca agendamentos do paciente
+/*app.post('/buscaAgendamentosPaciente', async (req, res) => {
+
+    let response = await agendados.findAll({
+        where: {pacienteId:req.body.pacienteId },
+        attributes: ['horario'],
+        raw: 'false'
+    })
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+
+});*/
+
 app.post('/ocuparHorario', async (req, res) => {
     console.log(req.body);
     await agendados.create({
