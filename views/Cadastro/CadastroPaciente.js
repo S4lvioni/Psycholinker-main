@@ -4,7 +4,7 @@ import { TextInput, TouchableOpacity, Image } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
-export default function CadastroPaciente({ CadastroPaciente }) {
+export default function CadastroPaciente({}) {
     const [code, setCode] = useState(null);
     const [Confere, setConfere] = useState(false);
     //const [idPaciente, setIdPaciente] = useState(null);
