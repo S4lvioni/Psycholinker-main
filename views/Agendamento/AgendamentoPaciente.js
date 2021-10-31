@@ -26,7 +26,9 @@ AgendamentoPaciente =(id)=>{
   const [agendamentoLista,setAgendamentLista]=useState([]);
   const [agendamentoHora,setAgendamentHora]=useState([]);
   const [diasUteis, setDiasUteis] = useState(0);
-  const [horaSelecionada,setHoraSelecionada,]=useState([null]);
+  const [horaSelecionada,setHoraSelecionada]=useState([null]);
+  const [agendado,setAgendado]=useState(null);
+  const [marcado,setMarcado]=useState([]);
 
   //controle
   const [display, setDisplay] = useState('none');
@@ -94,7 +96,6 @@ useEffect(()=>{
 
 useEffect(()=>{
   buscaAgendamentos();
-  geraCalendario();
 },[execucao3,atualizar]);
 
 //datas jaa gendadas 
@@ -122,12 +123,19 @@ async function  buscaAgendamentos() {
       const jsonNovo = JSON.parse(response);
       let l2= jsonNovo;
       let lnovo2=[];
+      let marc=[];
       let tam= l2.length;
       if(tam>=1){
         for(let i=0;i<tam;i++){
+          if(l2[i].paciente==nome){
+            marc.push(l2[i].horario);
+          }
           lnovo2.push(l2[i].horario);
         }
         setAgendamentaArray(lnovo2);
+        console.log('marc')
+        console.log(marc)
+        setMarcado(marc);
       }
   }
   if (execucao3 < 2) {
@@ -250,7 +258,7 @@ async function buscaDias() {
       setBtn(false);
     }
     
-    geraCalendario();
+    geraCalendario(diasUteis);
   }
     function passarData(){
     let mountDate=new Date(ano,mes,1);
@@ -261,7 +269,7 @@ async function buscaDias() {
     if(btn==true){
       setBtn(false);
     }
-   geraCalendario();
+   geraCalendario(diasUteis);
   
   }
   //modal
@@ -318,6 +326,8 @@ async function buscaDias() {
   async function senForm(){
     if(clicadoHora!=0){
       let concat=diaSelecionado+'-'+clicadoHora;
+      let horarioA=diaSelecionado+' às '+clicadoHora;
+      setAgendado(horarioA);
       if(ocuparLiberar==true){
         console.log(paceienteId);
         let response = await fetch(config.urlRoot + 'ocuparHorario', {
@@ -350,6 +360,7 @@ async function buscaDias() {
      setBtn(!btn);
      setClicado(0);
      setClicadoHora(0);
+     setOcuparLiberar(false)
     }else{
       console.log('Defina um horário');
     }
@@ -368,85 +379,112 @@ async function buscaDias() {
   return(
     
     <View style={styles.fundo}>
-
-      <View style={styles.dateInfo}>
-      <View style={styles.prevData}>
-        <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Text style={css.modaltexto}>Ant</Text></TouchableOpacity>
-      </View>
-      <View style={styles.tituloArea}><Text>{meses[mes]} {ano}</Text></View>
-      <View style={styles.nextData}>
-      <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Text style={css.modaltexto}>prox</Text></TouchableOpacity>
-      </View>
-      </View>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
-          {diasCal.map((item,key)=>(
-            <TouchableOpacity
-              style={styles.dateItem}
-              key={key}
-              onPress={()=>(item.status==true)? dataEscolhida(item.numero):mudaDisplay()}
+      
+        <View style={styles.dateInfo}>
+          <View style={styles.prevData}>
+            <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/voltar.png")}/></TouchableOpacity>
+          </View>
+          <View style={{width:180,justifyContent: 'center',alignItems:'center',}}>
+            <Text style={{fontWeight:'bold', fontSize:20, justifyContent: 'center',color:'#fff' }}>{meses[mes]} {ano}</Text>
+          </View>
+          <View style={styles.nextData}>
+            <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/passar.png")}/></TouchableOpacity>
+          </View>
+        </View>
+    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
+        {diasCal.map((item,key)=>(
+          <TouchableOpacity
+            style={styles.dateItem}
+            key={key}
+            onPress={()=>(item.status==true)? dataEscolhida(item.numero):mudaDisplay()}
+            style={{
+              backgroundColor:(item.numero+'-'+meses[mes]+'-'+ano==clicado)?'#FFFFFF':'#ffcbdb',
+              padding:9,
+             /* backgroundColor: (item.numero==botaoSelecionado) ? '#FFFFFF':'#ffcbdb',*/
+              
+            }}
+          >
+              <Text style={styles.weekday}>{item.weekday}</Text>
+              <Text style={styles.itemNumber}>{item.numero}</Text>
+          </TouchableOpacity>
+        ))
+        }
+    </ScrollView>
+    {(btn == true) ?
+      <View style={styles.horas}>
+        <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
+          {horaLista.map((item,key)=>(
+              <TouchableOpacity
+                style={styles.timeItem}
+                key={key}
+                onPress={()=>horaEscolhida(item.hora,item.status2)}
+                style={{
+                  opacity:(item.status2==true)?1 : 0.5,
+                  backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
+                  padding:9,
+                  marginTop:2,
+                  borderRadius:100,
+                }}
+              >
+                <Text style={styles.timeItemText}>{item.hora}</Text>
+              </TouchableOpacity>
+              
+          ))}
+      </ScrollView>
+      {(ocuparLiberar == true) ?
+      <View style={{alignItems:'center', justifyContent:'center'}}>
+        <TouchableOpacity 
               style={{
-                backgroundColor:(item.numero+'-'+meses[mes]+'-'+ano==clicado)?'#FFFFFF':'#ffcbdb',
-                padding:9,
-              /* backgroundColor: (item.numero==botaoSelecionado) ? '#FFFFFF':'#ffcbdb',*/
+                 marginTop:5,
+                      backgroundColor:(0!=clicadoHora)?'#FFB6C1':'#FFFFFF',
+                      padding:9,
+                      height:35,
+                      width:150,
+                      alignItems:'center', justifyContent:'center',
+                      borderRadius:100
                 
               }}
-            >
-                <Text style={styles.weekday}>{item.weekday}</Text>
-                <Text style={styles.itemNumber}>{item.numero}</Text>
-            </TouchableOpacity>
-          ))
-          }
-      </ScrollView>
-      {(btn == true) ?
-        <View style={styles.horas}>
-          <Text>{diaSelecionado}-{clicadoHora}</Text>
-          <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
-            {horaLista.map((item,key)=>(
-                <TouchableOpacity
-                  style={styles.timeItem}
-                  key={key}
-                  onPress={()=>horaEscolhida(item.hora,item.status2)}
-                  style={{
-                    opacity:(item.status2==true)?1 : 0.5,
-                    backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
-                    padding:9
-                    
-                  }}
-                >
-                  <Text style={styles.timeItemText}>{item.hora}</Text>
-                </TouchableOpacity>
-                
-            ))}
-        </ScrollView>
-        {(ocuparLiberar == true) ?
-        <View>
-          <TouchableOpacity 
-                style={{
-                  backgroundColor:(0!=clicadoHora)?'#ffcbdb':'#FFFFFF',
-                  padding:9
-                  
-                }}
-              onPress={()=>senForm()}>
-              <Text style={css.modaltexto}>Agendar Horário</Text></TouchableOpacity>
-          </View>:
-          <View>
-          </View>
-          }
-      </View>:<View></View>
-      }
-                  <View>
-                  <Text style={css.login__msg(display)}>Dia indisponível!</Text>
-              </View>
+            onPress={()=>senForm()}>
+            <Text style={css.modaltexto}>Agendar Horário</Text></TouchableOpacity>
+        </View>:
+        <View style={{height:35,width:150,}}>
+        </View>
+        }
+    </View>:<View style={{height:80}}></View>
+    }
+                <View>
+                <Text style={css.login__msg(display)}>Dia indisponível!</Text>
+            </View>
+            <View style={{alignItems:'center',backgroundColor:'#fff'}}>
+              <Text  style={{fontSize:18, fontWeight:'bold', marginLeft:6, marginTop:20}}>Suas consultas agendadas:</Text>
+              <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}> 
+                {marcado.map((item,key)=>(
+                  <TouchableOpacity
+                    key={key}
+                    style={{
+                      padding:5,
+                      
+                    }}
+                  >
+                      <Text  style={{fontSize:14, fontWeight:'bold'}}>{item},</Text>
+                  </TouchableOpacity>
+                ))
+                }
+              </ScrollView>
+            </View>
  </View>
   );
 
 }
 const styles = StyleSheet.create({
   fundo:{
-      backgroundColor:'#ffcbdb'
+      backgroundColor:'#fff'
   },
   dateInfo: {
-    flexDirection: 'row'
+    height:45,
+    backgroundColor:'#FFB6C1',
+    flexDirection: 'row',
+    alignItems:'center'
   },
   prevData:{
    flex:1,
@@ -492,7 +530,8 @@ const styles = StyleSheet.create({
       fontWeight:'bold'
   },
   horas:{
-    backgroundColor:'#FFFFFF'
+    backgroundColor:'#FFFFFF',
+  
   }
 });
 
