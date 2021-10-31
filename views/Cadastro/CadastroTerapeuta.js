@@ -4,7 +4,7 @@ import { TextInput, TouchableOpacity, Image } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
-export default function CadastroTerapeuta({ CadastroTerapeuta }) {
+export default function CadastroTerapeuta({}) {
     const [name, setName] = useState(null);
     const [cpf, setCpf] = useState(null);
     const [email, setEmail] = useState(null);

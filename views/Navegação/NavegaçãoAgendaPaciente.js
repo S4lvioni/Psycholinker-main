@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import AgendamentoPaciente from '../Agendamento/AgendamentoPaciente';
 
-export default function NavegacaoHomePaciente({ navigation }) {
+export default function NavegacaoAgendaPaciente({ navigation }) {
     const [id, setId] = useState(null);
 
     useEffect(() => {

@@ -1,4 +1,20 @@
 import Home from './Home';
 import Login from './Login';
 import HomePaciente from './HomePaciente/HomePaciente';
-export { Home, Login, HomePaciente };
+import HomeTerapeuta from './HomeTerapeuta/HomeTerapeuta';
+import AgendamentoConfig from './Agendamento/AgendamentoConfig';
+import AgendamentoPaciente from './Agendamento/AgendamentoPaciente';
+import AgendamentoTerapeuta from './Agendamento/AgendamentoTerapeuta';
+import CriaHorasAgendaveis from './Agendamento/CriaHorasAgendaveis';
+import Cadastros from './Cadastro/Cadastros';
+import CadastroTerapeuta from './Cadastro/CadastroTerapeuta';
+import CadastroPaciente from './Cadastro/CadastroPaciente';
+import exercicios from './Exercicios/exercicios';
+import Respiracao from './Exercicios/Respiracao';
+import NavegacaoHumor from './Humor/NavegacaoHumor';
+import NavegacaoAgenda from './Navegação/NavegaçãoAgenda';
+import NavegacaoAgendaPaciente from './Navegação/NavegaçãoAgendaPaciente'
+import NavegacaoAnotacoes from './Notas/NavegacaoAnotacoes'
+import NavegacoesAnotacoesPaciente from './Notas/NavegacaoAnotacoesPaciente'
+import Perfil from './Perfis/perfil';
+export { Home, Login, HomePaciente, HomeTerapeuta, Cadastros, CadastroTerapeuta, CadastroPaciente, exercicios, Respiracao, NavegacaoHumor, NavegacaoAgenda,NavegacaoAgendaPaciente, NavegacaoAnotacoes, NavegacoesAnotacoesPaciente, Perfil };
