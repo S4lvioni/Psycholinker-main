@@ -94,7 +94,8 @@ const css = StyleSheet.create({
     marginBottom: 15,
     borderRadius:10,
     opacity:1,
-    color:"#FFF"
+    color:"#FFF",
+    marginLeft:20
   },
   login__button: {
     padding: 12,
