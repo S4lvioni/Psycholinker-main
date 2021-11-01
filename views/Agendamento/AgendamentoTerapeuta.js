@@ -260,7 +260,6 @@
     }
     //modal
     function dataEscolhida(item){
-      console.log(agendamentoArray)
       let tam= horaArray.length;
       setDiaSelecionado(item+'-'+meses[mes]+'-'+ano);
       //passa agendamentos para novo array
@@ -269,7 +268,7 @@
       let newAgendamentoNome=[];
       for(let j=0;j<tamA;j++){
         newAgendamento.push(agendamentoArray[j].horario);
-        newAgendamentoNome.push(agendamentoArray[j]);
+        newAgendamentoNome.push(agendamentoArray[j].paciente);
       }
       setAgendamentLista(newAgendamento);
       if(clicado==0){
@@ -278,15 +277,17 @@
         let tam= horaArray.length;
         let newArray=[];
         let pacientesN=[];
+        let posi=0;
         for(let i=0;i<tam;i++){
           if(newAgendamento.includes(item+'-'+meses[mes]+'-'+ano+'-'+horaArray[i])==true){
+            pacientesN.push(newAgendamentoNome[posi]);
             newArray.push({
               hora:horaArray[i],
-              status2:false
-            });       
-            console.log(agendamentoArray[i])  
-            pacientesN[i]=agendamentoArray[i].paciente;
-            console.log(pacientesN);
+              status2:false,
+              position:posi
+            });     
+            posi=posi+1;  
+
               
           }else{
             newArray.push({
@@ -307,11 +308,12 @@
       setBtn(!btn);
     }
   
-    function horaEscolhida(item,status2,key){
+    function horaEscolhida(item,status2,position){
       if(clicadoHora==0){
+          setNomePaciente(pacienteNome[position]);
           setClicadoHora(item);
           setOcuparLiberar(status2);
-          setNomePaciente(pacienteNome[key]);
+         
       }else{
         setClicadoHora(0);
         setOcuparLiberar(3);
@@ -416,7 +418,7 @@
                   <TouchableOpacity
                     style={styles.timeItem}
                     key={key}
-                    onPress={()=>horaEscolhida(item.hora,item.status2,key)}
+                    onPress={()=>horaEscolhida(item.hora,item.status2,item.position)}
                     style={{
                       opacity:(item.status2==true)?1 : 0.5,
                       backgroundColor:(item.hora==clicadoHora)?'#ffcbdb':'#FFFFFF',
