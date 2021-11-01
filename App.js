@@ -21,6 +21,7 @@ import NavegacaoHomePaciente from './views/Navegação/NavegaçãoAgendaPaciente
 import { LogBox } from 'react-native';
 import NavegacaoAnotacoes from './views/Notas/NavegacaoAnotacoes';
 import NavegacaoAnotacoesPaciente from './views/Notas/NavegacaoAnotacoesPaciente';
+import md5 from '../Psycholinker-main/MD5'
 
 
 

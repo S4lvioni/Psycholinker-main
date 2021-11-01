@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const models = require('./models');
 const { response } = require('express');
 const paciente = require('./models/paciente');
-const md5 = require('./../Psycholinker-main/MD5')
+const md5 = require('./MD5')
 
 
 const app = express();
