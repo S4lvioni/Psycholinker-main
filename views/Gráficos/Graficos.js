@@ -35,7 +35,7 @@ Graficos = (id) => {
 
 
     useEffect(() => {
-        Medicamentos();
+    //    Medicamentos();
     }, [execucao3]);
 
     useEffect(() => {
@@ -183,7 +183,7 @@ Graficos = (id) => {
             let valorPorcentagem = [];
             let tam = porcentagem.length;
             for (let k = 0; k < tam; k++) {
-                valorPorcentagem[k] = (porcentagem[k] / tam1) * 100;
+                valorPorcentagem[k] =Math.round((porcentagem[k] / tam1) * 100);
             }
             setItens(porcentagem);
             setAtividadesP(att);
@@ -285,13 +285,13 @@ Graficos = (id) => {
         } else {
             ini1 = tam1 - 7;
         }
-        let tam2 = listaMedicacoes.length;
+        //let tam2 = listaMedicacoes.length;
         let ini2;
-        if (tam2 - 7 <= 0) {
+        /*if (tam2 - 7 <= 0) {
             ini2 = 0;
         } else {
             ini2 = tam1 - 7;
-        }
+        }*/
         let atividades = '';
         let medicacoes = '';
         let virgula = 0;
@@ -306,7 +306,7 @@ Graficos = (id) => {
             }
 
         }
-        for (let i = ini2; i < tam2; i++) {
+       /* for (let i = ini2; i < tam2; i++) {
             if (listaMedicacoes[i].data == diasData[posicao]) {
                 virgula2 = virgula2 + 1;
                 if (virgula2 > 1) {
@@ -316,14 +316,14 @@ Graficos = (id) => {
 
             }
 
-        }
+        }*/
         setAtividadesDia(atividades);
-        setMedicacaoDia(medicacoes);
+       // setMedicacaoDia(medicacoes);
         setDataGraf(diasData[posicao])
     }
     return (
         <View>
-            <ScrollView>
+            {/*<ScrollView>*/}
                 {(execucao == 2) ?
                     <View>
                         <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
@@ -360,7 +360,7 @@ Graficos = (id) => {
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>Atividades realizadas:</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 5 }}>Medicações utilizadas:</Text>
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{medicacaoDia}</Text>
+                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}></Text>
                                     <Text onPress={() => setChecked(false)}>Fechar</Text>
                                 </View>
                                 :
@@ -396,7 +396,7 @@ Graficos = (id) => {
                     :
                     <View></View>
                 }
-            </ScrollView>
+            {/*</ScrollView>*/}
         </View>
 
 

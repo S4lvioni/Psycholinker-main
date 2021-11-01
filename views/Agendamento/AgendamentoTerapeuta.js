@@ -260,6 +260,7 @@
     }
     //modal
     function dataEscolhida(item){
+      console.log(agendamentoArray)
       let tam= horaArray.length;
       setDiaSelecionado(item+'-'+meses[mes]+'-'+ano);
       //passa agendamentos para novo array
@@ -282,8 +283,9 @@
             newArray.push({
               hora:horaArray[i],
               status2:false
-            });         
-              pacientesN[i]=agendamentoArray[i].paciente;
+            });       
+            console.log(agendamentoArray[i])  
+            pacientesN[i]=agendamentoArray[i].paciente;
             console.log(pacientesN);
               
           }else{
@@ -354,7 +356,7 @@
             })
         })
         }
-       
+    
        setAtualizar(!atualizar);
        setBtn(!btn);
        setClicado(0);
