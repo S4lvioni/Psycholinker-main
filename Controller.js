@@ -37,7 +37,6 @@ app.post('/createTerapeuta', async (req, res) => {
         name: req.body.name,
         cpf: req.body.cpf,
         email: req.body.email,
-        cr: req.body.cr,
         especializacao: req.body.especializacao,
         password: md5(req.body.password),
         telefone: req.body.telefone

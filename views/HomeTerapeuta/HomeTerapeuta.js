@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Component } from 'react';
-import { Text, View, Modal, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
+import { Text, View, Modal, TouchableOpacity, TextInput, Pressable, Image,ImageBackground } from 'react-native';
 //import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorage } from 'react-native';
-import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { FlatList, GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import config from '../../config/config.json';
@@ -10,6 +10,7 @@ import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
 import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
 import HumorTerapeuta from '../Humor/humorTerapeuta';
 import { set } from 'react-native-reanimated';
+///const backgroundimg = require( '../../assets/gradient2.png')
 
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
@@ -245,131 +246,124 @@ export default function HomeTerapeuta({ navigation }) {
     }
     return (
         <View style={{ backgroundColor: '#fff' }}>
-            <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-                <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")} /></TouchableOpacity>
+                <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
+                    <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")} /></TouchableOpacity>
 
-                <Text style={css.titulohome}>{name}</Text>
-
-                <View style={{ flexDirection: 'row', marginHorizontal: 37, alignItems: 'center' }}>
-                    <View style={{ width: 80, height: 80 }}>
-                        <AgendamentoConfig data={terapeutaId} />
-                    </View>
-
-                    <View style={{ alignItems: 'center', marginTop: 3, width: 80, height: 80 }}>
-                        <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
-                            <Text style={css.SmallButtonsText}>+</Text>
-                        </TouchableOpacity>
-                        <Text>Novo</Text>
-                        <Text style={{ marginTop: -3 }}>Paciente</Text>
-                    </View>
-
-                    <View style={{ alignItems: 'center', marginTop: 3, width: 80, height: 80 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
-                            <Image style={{ width: 43, height: 43, marginTop: 3 }} source={require("../../assets/agenda3.png")} />
-                        </TouchableOpacity>
-                        <Text>Agendar</Text>
-                        <Text style={{ marginTop: -3 }}>Paciente</Text>
-                    </View>
-
-
-                    <View style={{ alignItems: 'center', marginBottom: 3, width: 80, height: 80 }}>
-                        <TouchableOpacity onPress={() => navigateExercicio()}>
-                            <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/exercicios.png")} />
-                        </TouchableOpacity>
-                        <Text>Exercicios</Text>
-                    </View>
-
+                    <Text style={css.titulohome}>{name}</Text>
                 </View>
-            </View>
-            <View style={{ alignItems: 'center', marginTop: 3, height: 60 }}>
-                <Text style={css.login__msg(display2)}>{codeA}</Text>
-            </View>
-            <View>
-                {(execucao == 2) ?
-                    <View style={css.Listas}>
-                        <View style={{ backgroundColor: '#FFB6C1' }}>
-                            <Text style={css.titulohome}>Lista de Pacientes</Text>
-                        </View>
 
-                        <Text>
-                            <SafeAreaView style={css.container3}>
-                                <FlatList
-                                    data={pacientes}
-                                    renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} email={item.email} telefone={item.telefone} />}
-                                    keyExtractor={item => item.id.toString()}
-                                    extraData={refresh}
-                                />
-                            </SafeAreaView>
-                        </Text>
-                    </View>
-                    :
-                    <View>
-                    </View>
-                }
                 <View>
-                    <Modal
-                        animationType="slide"
-                        visible={modalVisible}
-                    >
+                    {(execucao == 2) ?
+                        <View style={css.Listas}>
+                            <ScrollView style={{height:335}}>
+                                <View style={{ backgroundColor: '#FFB6C1' }}>
+                                    <Text style={css.titulohome}>Lista de Pacientes</Text>
+                                </View>
 
-                        <View style={css.containeredit}>
-                            <Text>{pacienteName}</Text>
-                            <View style={css.inputes}>
-                                <Text>Nome:</Text>
-                                <TextInput
-                                    style={css.alturalinha}
-                                    placeholder='Nome:'
-                                    onChangeText={text => setpacienteName(text)}
-                                    value={pacienteName}
-                                />
+                                <Text>
+                                    <SafeAreaView style={css.container3}>
+                                        <FlatList
+                                            data={pacientes}
+                                            renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} email={item.email} telefone={item.telefone} />}
+                                            keyExtractor={item => item.id.toString()}
+                                            extraData={refresh}
+                                        />
+                                    </SafeAreaView>
+                                </Text>
+                            </ScrollView>
+                        </View>
+                        :
+                        <View>
+                        </View>
+                    }
+                    <View>
+                        <Modal
+                            animationType="slide"
+                            visible={modalVisible}
+                        >
+
+                            <View style={css.containeredit}>
+                                <Text>{pacienteName}</Text>
+                                <View style={css.inputes}>
+                                    <Text>Nome:</Text>
+                                    <TextInput
+                                        style={css.alturalinha}
+                                        placeholder='Nome:'
+                                        onChangeText={text => setpacienteName(text)}
+                                        value={pacienteName}
+                                    />
+                                </View>
+                                <View style={css.inputes}>
+                                    <Text>Email:</Text>
+                                    <TextInput
+                                        style={css.alturalinha}
+                                        onChangeText={text => setpacienteEmail(text)}
+                                        value={pacienteEmail}
+                                    />
+                                </View>
+                                <View style={css.inputes}>
+                                    <Text>Telefone:</Text>
+                                    <TextInput
+                                        style={css.alturalinha}
+                                        onChangeText={text => setpacienteTelefone(text)}
+                                        value={pacienteTelefone}
+                                    />
+                                </View>
+                                <View style={css.containerbuttonedit}>
+                                    <Pressable
+                                        style={css.login_button_modified}
+                                        onPressIn={() => editData()}
+                                        onPress={() => closeUpdate()}
+                                    >
+                                        <Text >Salvar</Text>
+                                    </Pressable>
+                                    <Pressable
+                                        style={css.login_button_modified}
+                                        onPress={() => setModalVisible(false)}
+                                    >
+                                        <Text >Sair</Text>
+                                    </Pressable>
+                                </View>
                             </View>
-                            <View style={css.inputes}>
-                                <Text>Email:</Text>
-                                <TextInput
-                                    style={css.alturalinha}
-                                    onChangeText={text => setpacienteEmail(text)}
-                                    value={pacienteEmail}
-                                />
-                            </View>
-                            <View style={css.inputes}>
-                                <Text>Telefone:</Text>
-                                <TextInput
-                                    style={css.alturalinha}
-                                    onChangeText={text => setpacienteTelefone(text)}
-                                    value={pacienteTelefone}
-                                />
-                            </View>
-                            <View style={css.containerbuttonedit}>
-                                <Pressable
-                                    style={css.login_button_modified}
-                                    onPressIn={() => editData()}
-                                    onPress={() => closeUpdate()}
-                                >
-                                    <Text >Salvar</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={css.login_button_modified}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    <Text >Sair</Text>
-                                </Pressable>
-                            </View>
+
+                        </Modal>
+                    </View>
+
+                </View>
+                <View style={{ alignItems: 'center', height: 62 }}>
+                    <Text style={css.login__msg(display2)}>{codeA}</Text>
+                </View>
+                <View style={{ bottom: 0,  width: '100%', backgroundColor:'#fff',elevation:15 }}>
+                    <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center', marginBottom:3}}>
+                        <View style={{ width: 80, height: 80,marginHorizontal:5 }}>
+                            <AgendamentoConfig data={terapeutaId} />
                         </View>
 
-                    </Modal>
-                </View>
+                        <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
+                            <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
+                                <Text style={css.SmallButtonsText}>+</Text>
+                            </TouchableOpacity>
+                            <Text>Novo</Text>
+                            <Text style={{ marginTop: -3 }}>Paciente</Text>
+                        </View>
 
-            </View>
+                        <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
+                                <Image style={{ width: 43, height: 43, marginTop: 3 }} source={require("../../assets/agenda3.png")} />
+                            </TouchableOpacity>
+                            <Text>Agendar</Text>
+                            <Text style={{ marginTop: -3 }}>Paciente</Text>
+                        </View>
 
-            {/*(horasconf==true)?
-           //chamar o componente de novo
-               <View><AgendamentoTerapeuta data={terapeutaId}/></View>
-               :
-               <View>
-               </View> */
 
-            }
-
+                        <View style={{ alignItems: 'center', marginBottom:0, width: 80, height: 80,marginHorizontal:5 }}>
+                            <TouchableOpacity onPress={() => navigateExercicio()}>
+                                <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/exercicios.png")} />
+                            </TouchableOpacity>
+                            <Text>Exercicios</Text>
+                        </View>
+                    </View>    
+                </View>  
         </View>
 
     );
