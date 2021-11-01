@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const models = require('./models');
 const { response } = require('express');
 const paciente = require('./models/paciente');
-const md5 = require('./../Psycholinker-main/MD5')
+const md5 = require('./MD5')
 
 
 const app = express();
@@ -690,7 +690,7 @@ app.post('/listaRemediosAll', async (req, res) => {
 })
 
 
-let port = process.env.PORT || 3000;
+let port = process.env.PORT  || 3000;
 app.listen(port, (req, res) => {
     console.log('Servidor Rodando');
 });
