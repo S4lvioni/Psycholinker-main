@@ -20,5 +20,5 @@
     "host": "us-cdbr-east-04.cleardb.com",
     "dialect": "mysql"
   },
-  "urlRoot": "https://server-psycholinker.herokuapp.com/"
+  "urlRoot": "http://192.168.1.6:3000/"
 }
