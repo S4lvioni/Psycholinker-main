@@ -47,17 +47,48 @@ export default function Perfil({ navigation }) {
             <View style={{ backgroundColor: '#FFB6C1' }}>
                 <Text style={css.welcometag}> {name} {id}</Text>
             </View>
-            <ScrollView>
+            <View 
+            contentContainerStyle='justifyContent' style={estilo.containerbotoes}>
                 <Graficos data={id} />
-                <TouchableOpacity onPress={() => navigation.navigate('Anotacoes')}>
-                    <Text>ANOTACOES</Text>
+                <View style={estilo.buttoncontainer}>
+                    <TouchableOpacity
+                style={estilo.btnn} onPress={() => navigation.navigate('Anotacoes')}>
+                    <Text style={estilo.btnnText}>Anotações</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Humor')}>
-                    <Text>HUMOR </Text>
+                <TouchableOpacity
+                style={estilo.btnn} onPress={() => navigation.navigate('Humor')}>
+                    <Text style={estilo.btnnText}>Relatórios </Text>
                 </TouchableOpacity>
-            </ScrollView>
+                </View>
+            </View>
         </ScrollView>
     )
 }
+
+
+const estilo = StyleSheet.create({
+    containerbotoes:{
+        alignItems:'center',
+    },
+    buttoncontainer:{
+        alignItems:'center',
+        width:300,
+        marginBottom:70
+    },
+    btnn:{
+        width:150,
+        height:30,
+        borderRadius:10,
+        backgroundColor:'salmon',
+        margin:10
+    },
+    btnnText:{
+        fontSize:18,
+        color:'#FFF',
+        fontWeight:'bold',
+        textAlignVertical:'center',
+        textAlign:'center'
+    }
+})
 
 

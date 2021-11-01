@@ -149,7 +149,7 @@ Anotacoes = () => {
                         onPress={() => setDialogVisible(!dialogVisible)}
                         style={estilo.botaoaddnota}>
                         <Text style={estilo.textobotao}>
-                            Obs completa
+                            Expandir
                 </Text>
                     </TouchableOpacity>
                 </View>
@@ -181,7 +181,7 @@ Anotacoes = () => {
                     </View>
                 </Modal>
                 <View style={{ alignItems: 'center', width: 360, marginTop: 20 }}>
-                    <Text style={{ fontSize: 15 }}> Observaçoes: </Text>
+                    <Text style={{ fontSize: 18, fontWeight:'bold' }}> Observaçoes: </Text>
                 </View>
                 <FlatList style={estilo.lista2}
                     data={observacoes}
@@ -196,8 +196,9 @@ Anotacoes = () => {
 
 const estilo = StyleSheet.create({
     botoescontainer: {
-        width: 120,
-        padding: 10
+        padding: 10,
+        justifyContent:'center',
+        alignItems:'center'
     },
     botaoaddnota: {
         marginTop: 5,
@@ -246,7 +247,8 @@ const estilo = StyleSheet.create({
         padding: 5
     },
     botoeshorizontais: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        
     },
     observacoeslistaout: {
         borderWidth: 3,

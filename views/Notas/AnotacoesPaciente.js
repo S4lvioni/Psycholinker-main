@@ -93,10 +93,10 @@ AnotacoesPaciente = () => {
                         {(dialogVisible) ?
                             <Text
                                 numberOfLines={3}
-                                style={estilo.observacoeslista}>{texto}{id}</Text>
+                                style={estilo.observacoeslista}>{texto}</Text>
                             :
                             <Text
-                                style={estilo.observacoeslista}>{texto}{id}</Text>
+                                style={estilo.observacoeslista}>{texto}</Text>
                         }
                     </View>
                 </View >
@@ -108,12 +108,13 @@ AnotacoesPaciente = () => {
 
 
     return (
-        <View>
+        <View style={{justifyContent:'center', alignItems:'center'}}>
+            <View style={{height:400, justifyContent:'center', alignItems:'center', marginTop:20}}>
             <TouchableOpacity
                 onPress={() => setDialogVisible(!dialogVisible)}
                 style={estilo.botaoaddnota}>
                 <Text style={estilo.textobotao}>
-                    Obs completa
+                    Expandir
                 </Text>
             </TouchableOpacity>
             <FlatList style={estilo.lista2}
@@ -122,6 +123,8 @@ AnotacoesPaciente = () => {
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />
+            
+            </View>
         </View>
 
     )
@@ -143,10 +146,12 @@ const estilo = StyleSheet.create({
     },
     textobotao: {
         flex: 1,
-        marginTop: 10,
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 15
+        fontSize: 18,
+        justifyContent:'center',
+        textAlignVertical:'center'
+        
     },
     botaomodal: {
         width: 130,
@@ -173,7 +178,8 @@ const estilo = StyleSheet.create({
     },
     lista2: {
         width: 300,
-        margin: 5
+        margin: 5,
+        textAlign:'center'
     },
     observacoescontainer: {
         padding: 5
