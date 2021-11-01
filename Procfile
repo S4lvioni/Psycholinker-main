@@ -1,2 +1,2 @@
-web: node Controller.js
-android: node Controller.js
+web: node Controller
+android: node Controller
