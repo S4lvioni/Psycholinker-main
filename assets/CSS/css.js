@@ -222,7 +222,8 @@ const css = StyleSheet.create({
   },
   Listas: {
     backgroundColor: '#F3F2EF',
-    marginHorizontal: 18
+    marginHorizontal: 18,
+   
   },
   
   login_button_modified: {

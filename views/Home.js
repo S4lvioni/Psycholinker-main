@@ -88,18 +88,23 @@ export default function Home({ navigation }) {
                 <View>
                 <Text style={{alignSelf:'center', fontSize:23, color:'#fff', fontWeight:'bold'}}>Entre agora!</Text>
                     </View>
-            <View style={{justifyContent:'center', padding:30, marginBottom:20}}>
+            <View style={{justifyContent:'center', padding:30}}>
             
-            <Image  source={mail} style={{width:30, height:30, position:'absolute', left: 15, top:35}}/>
-            <TextInput  style={css.login__input} placeholder='Email' placeholderTextColor='#FFF' onChangeText={text => setEmail(text)}/>
-            <Image source={cadeado} style={{width:30, height:30, position:'absolute', left: 15, top:92}}/>
+                <Image  source={mail} style={{width:30, height:30, position:'absolute', left: 15, top:35}}/>
+                <TextInput  style={css.login__input} placeholder='Email' placeholderTextColor='#FFF' onChangeText={text => setEmail(text)}/>
+                <Image source={cadeado} style={{width:30, height:30, position:'absolute', left: 15, top:92}}/>
                 <TextInput style={css.login__input} placeholder='Senha' placeholderTextColor='#FFF' onChangeText={text => setPassword(text)} secureTextEntry={true} />
-                </View>
-                <View>
-                    <TouchableOpacity style = {{justifyContent:'center',alignSelf:'center', marginBottom:10, width:290, backgroundColor:'#fff', height:35, borderRadius:18}} onPress={() => Logar()}>
-                        <Text style={{alignSelf:'center', color:'#000', fontSize:20}}>Entrar</Text> 
+            </View>
+                <View style={{flexDirection: 'row',justifyContent:'center', marginTop:-15}}>
+                    <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10}} onPress={() =>sendFormTerapeuta()}>
+                        <Text style={{color:'#808080', fontSize:15}}>Terapeuta</Text>
+                        <Image style={{width:35, height:35,marginTop:-9}} source={require("./../assets/entrar.png")}/>
                     </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10}} onPress={() =>sendFormPaciente()}>
+                        <Text style={{color:'#808080', fontSize:15}}>Paciente</Text>
+                        <Image style={{width:35, height:35,marginTop:-9}} source={require("./../assets/entrar.png")}/>
+                    </TouchableOpacity>
+                </View>
                 <View style={{justifyContent:'flex-end', alignItems:'center', height:60}}>
                     <TouchableOpacity onPress={() => navigation.navigate('Cadastros')}>
                     <Text>Não tem uma conta? Cadastre-se agora!</Text>
