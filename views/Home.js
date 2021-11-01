@@ -91,7 +91,7 @@ export default function Home({ navigation }) {
             <View style={{justifyContent:'center', padding:30, marginBottom:20}}>
             
             <Image  source={mail} style={{width:30, height:30, position:'absolute', left: 15, top:35}}/>
-            <TextInput inlineImageLeft='mail' style={css.login__input} placeholder='Email' placeholderTextColor='#FFF' onChangeText={text => setEmail(text)}/>
+            <TextInput  style={css.login__input} placeholder='Email' placeholderTextColor='#FFF' onChangeText={text => setEmail(text)}/>
             <Image source={cadeado} style={{width:30, height:30, position:'absolute', left: 15, top:92}}/>
                 <TextInput style={css.login__input} placeholder='Senha' placeholderTextColor='#FFF' onChangeText={text => setPassword(text)} secureTextEntry={true} />
                 </View>
