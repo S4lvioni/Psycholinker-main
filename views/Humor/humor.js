@@ -507,18 +507,19 @@ Humor = (id) => {
                             </TouchableOpacity>
                         </View>
                         <View style={{flexDirection:'row', marginTop:15, marginBottom:8,}}>
-                        <Image style={{width:40, height:40}}
+                        <Image style={{width:40, height:40, marginTop:20}}
                                         source={require('../../assets/relatorio.png')} />
                             <TextInput
-                                style={{ marginLeft: 5, marginBottom:5 }}
+                                style={{ marginLeft: 5, marginBottom:5, marginTop:20 }}
                                 multiline={true}
                                 placeholder="Insira sua nota:"
                                 onChangeText={text => setTexto(text)}
                                 defaultValue={text} />
                             
                         </View>
-                        <Text>Insira seus medicamentos:</Text>
-                        <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
+                        <Text style={{marginTop:10}}>Insira seus medicamentos:</Text>
+                        <View style={{alignItems:'flex-start', marginTop:10, marginBottom:10}} >
+                        <TouchableOpacity style={estilo.button_login } onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity></View>
                         <View style={estilo.modalsize}>
                             <Modal
                                 style={estilo.modalcontent}
@@ -527,7 +528,7 @@ Humor = (id) => {
                                 <View style={{alignItems:'flex-end'}}>
                                     <Pressable style={{marginTop:6,backgroundColor:'#fff', borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#000',fontSize:20}}     onPress={() => setModalVisible(false)}>x</Text></Pressable>
                                 </View>      
-                                <Text style={{marginTop:10,fontSize:17, marginBottom:8}}> Seus medicamentos cadastradas:</Text>
+                                <Text style={{marginTop:10,fontSize:17, marginBottom:8, marginLeft:15}}> Seus medicamentos cadastradas:</Text>
                                  <ScrollView style={{ marginHorizontal:10}}>
                                  <FlatList style={estilo.lista2}
                                         numColumns={4}
@@ -538,8 +539,7 @@ Humor = (id) => {
                                         keyExtractor={item => item.id.toString()}
                                         extraData={refresh}
                                     />
-                                </ScrollView>
-                                <Text style={{marginTop:10,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova medicação:</Text>
+                                    <Text style={{marginTop:30,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova medicação:</Text>
                                 <View style={{ marginHorizontal:10, flexDirection:'row'}}>
                                     <TextInput
                                         style={{ marginLeft: 5 }}
@@ -556,9 +556,12 @@ Humor = (id) => {
                                         </Pressable>
                                     </View>
                                 </View>
+                                </ScrollView>
+                                
                             </Modal>
                             <Text>Inserir nova atividade:</Text>
-                            <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
+                            <View style={{alignItems:'flex-start', marginTop:10, marginBottom:10}}>
+                            <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity></View>
                             <Modal
                                 style={estilo.modalcontent}
                                 animationType="slide"
@@ -638,7 +641,7 @@ const estilo = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 30,
-        backgroundColor: '#FFB6C1',
+        backgroundColor: '#ffcbdb',
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center'
@@ -650,7 +653,8 @@ const estilo = StyleSheet.create({
     lista2:{
         flexDirection: 'column',
         flexWrap: 'wrap',
-        alignSelf:'flex-start'
+        alignSelf:'flex-start',
+        marginLeft:10
     },
     observacoescontainer:{
         flexWrap: 'wrap'

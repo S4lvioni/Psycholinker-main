@@ -313,9 +313,9 @@ Graficos = (id) => {
                     medicacoes = medicacoes + ',';
                 }
                 medicacoes = medicacoes + listaMedicacoes[i].nome;
-
-            }
-
+                
+            } 
+                
         }
         setAtividadesDia(atividades);
         setMedicacaoDia(medicacoes);
