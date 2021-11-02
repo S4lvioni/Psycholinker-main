@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Respiracao({ navigation }) {
+export default function Relaxamento({ navigation }) {
     
     return (
         <View style={{backgroundColor:'#fff',

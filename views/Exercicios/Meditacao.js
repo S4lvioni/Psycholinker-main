@@ -4,7 +4,7 @@ import config from '../../config/config.json';
 import { AsyncStorage } from 'react-native';
 import { css } from '../../assets/CSS/css';
 
-export default function Respiracao({ navigation }) {
+export default function Meditacao({ navigation }) {
     
     return (
         <View style={{backgroundColor:'#fff', justifyContent:'center',alignItems: 'center'}}>
