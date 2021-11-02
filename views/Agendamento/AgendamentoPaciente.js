@@ -11,6 +11,7 @@ AgendamentoPaciente =(id)=>{
   //dados paceiente
   const [paceienteId,setPacienteId]=useState(0);
   const [nome,setNome]=useState(null);
+  const [terapeutaId,setTerapeutaId]=useState(null);
   //calendario
   const [btn,setBtn]=useState(false);
   const [ano,setAno]=useState(0);
@@ -72,6 +73,7 @@ AgendamentoPaciente =(id)=>{
         let json = JSON.parse(response);
         setNome(json.name);
         setPacienteId(json.id);
+        setTerapeutaId(json.terapeutaId);
         console.log('id:'+json.id);
     }
     getPacinteId();
@@ -107,7 +109,7 @@ async function  buscaAgendamentos() {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          terapeutaId: id.data
+          terapeutaId: terapeutaId
       })
 
   });
@@ -152,7 +154,7 @@ async function buscaHorasUteis() {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          terapeutaId: id.data
+          terapeutaId:terapeutaId
       })
 
   });
@@ -190,7 +192,7 @@ async function buscaDias() {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          terapeutaId: id.data
+          terapeutaId: terapeutaId
       })
 
   });
