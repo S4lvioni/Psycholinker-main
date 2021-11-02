@@ -145,9 +145,9 @@ async function criaHoras(){
               animationType="slide"
               visible={modalVisible}
             >
-              <View>
+              <View style={{marginHorizontal:10}}>
                  {/*View de configuração*/}
-              <Text>Selecione os dias na semana disponíveis para agendamento:</Text>
+              <Text style={{fontSize:15, marginTop:6}}>Selecione os dias na semana disponíveis para agendamento:</Text>
               <View style={styles.listar}>
                   {dias.map((item,key)=>(
                   <TouchableOpacity
@@ -173,7 +173,7 @@ async function criaHoras(){
                 
             </View>
 
-            <Text>Determine os horários disponíveis diariamente:</Text>
+            <Text style={{fontSize:15, marginTop:6}}>Determine os horários disponíveis diariamente:</Text>
             {/*Adicionar máscara*/}
             <View style={{flexDirection:'row', padding:5}}><TextInput style={styles.placeHora} placeholder='00:00' onChangeText={text => setAux(text)}/>
             <TouchableOpacity style={css.SmallButtons}  onPress={onSaveNote} ><Text style={css.SmallButtonsText} >+</Text></TouchableOpacity></View>

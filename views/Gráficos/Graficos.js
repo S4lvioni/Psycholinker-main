@@ -1,6 +1,6 @@
 //configurações de agendamento: colocar horas trabalhadas por dia => definirá horas disponiveis para cada dia
 import React, { Component, useState, useEffect, useCallback } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Modal, Image, TextInput, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Modal, Image, TextInput, ScrollView,Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import { AsyncStorage } from 'react-native';
@@ -67,8 +67,9 @@ Graficos = (id) => {
             await AsyncStorage.setItem('medicacoesData', JSON.stringify(json));//json é  a resposta
 
             let response = await AsyncStorage.getItem('medicacoesData');
-            const jsonNovo = JSON.parse(response);
-            setListaMedicacoes(jsonNovo);
+            const jsonNovo2 = JSON.parse(response);
+            console.log(jsonNovo2)
+            setListaMedicacoes(jsonNovo2);
             if (execucao3 < 2) {
                 setExecucao3(2);
             }
@@ -102,7 +103,8 @@ Graficos = (id) => {
             if (execucao2 < 2) {
                 setExecucao2(2);
             } else {
-                geraGraficoPizzaAtividades(arr);
+                    geraGraficoPizzaAtividades(arr);
+
             }
         }
     }
@@ -187,7 +189,6 @@ Graficos = (id) => {
             }
             setItens(porcentagem);
             setAtividadesP(att);
-            console.log(valorPorcentagem);
             setAtividadesCor(cor);
             setPorcentagemAtt(valorPorcentagem);
         }
@@ -290,13 +291,14 @@ Graficos = (id) => {
         if (tam2 - 7 <= 0) {
             ini2 = 0;
         } else {
-            ini2 = tam1 - 7;
+            ini2 = tam2 - 7;
         }
         let atividades = '';
         let medicacoes = '';
         let virgula = 0;
         let virgula2 = 0;
         for (let i = ini1; i < tam1; i++) {
+            
             if (listaAtividades[i].data == diasData[posicao]) {
                 virgula = virgula + 1;
                 if (virgula > 1) {
@@ -306,8 +308,15 @@ Graficos = (id) => {
             }
 
         }
+        
+        console.log(diasData[posicao]);
          for (let i = ini2; i < tam2; i++) {
+            
+            
+            
             if (listaMedicacoes[i].data == diasData[posicao]) {
+                console.log(listaMedicacoes[i].data);
+                console.log(i);
                 virgula2 = virgula2 + 1;
                 if (virgula2 > 1) {
                     medicacoes = medicacoes + ',';
@@ -317,6 +326,7 @@ Graficos = (id) => {
             } 
                 
         }
+        console.log(medicacoes);
         setAtividadesDia(atividades);
         setMedicacaoDia(medicacoes);
         setDataGraf(diasData[posicao])
@@ -356,12 +366,14 @@ Graficos = (id) => {
                             <View style={{ width: 325, height: 3, backgroundColor: '#D3D3D3', marginTop: 3, borderRadius: 10 }}></View>
                             {(checked) ?
                                 <View style={{ backgroundColor: corAtividadeDia, paddingHorizontal: 6, marginTop: 6, marginBottom: 6, width: 325 }}>
+                                      <View style={{alignItems:'flex-end'}}>
+                                    <Pressable style={{marginTop:6,backgroundColor: corAtividadeDia, borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#fff',fontSize:20}}   onPress={() => setChecked(false)}>x</Text></Pressable>
+                                </View>  
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>{dataGraf}</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>Atividades realizadas:</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 5 }}>Medicações utilizadas:</Text>
                                     <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{medicacaoDia}</Text>
-                                    <Text onPress={() => setChecked(false)}>Fechar</Text>
                                 </View>
                                 :
                                 <View></View>

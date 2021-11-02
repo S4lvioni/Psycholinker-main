@@ -189,10 +189,13 @@ const css = StyleSheet.create({
     display: 'none'
   },
   welcometag: {
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
-    marginTop: 5,
-    marginRight: 5
+    marginTop: 2,
+    marginBottom: 2,
+    marginRight: 5,
+    fontWeight:'bold',
+    color:'#fff'
   },
   exercicioIcone: {
     width: 122,
@@ -221,7 +224,7 @@ const css = StyleSheet.create({
     marginBottom: 3
   },
   Listas: {
-    backgroundColor: '#F3F2EF',
+    backgroundColor: '#fff',
     marginHorizontal: 18,
    
   },
