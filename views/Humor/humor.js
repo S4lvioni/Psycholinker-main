@@ -22,12 +22,13 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 
 
 Humor = (id) => {
-    const [humor, setHumor] = useState(null)
-    const [texto, setTexto] = useState('')
-    const [text, setText] = useState('')
-    const [complete, setComplete] = useState(false)
-    const [medicacao, setMedicacao] = useState('')
-    const [atividade, setAtividade] = useState('')
+    const [humor, setHumor] = useState(null);
+    const [texto, setTexto] = useState('');
+    const [text, setText] = useState('');
+    const [complete, setComplete] = useState(false);
+    const [medicacao, setMedicacao] = useState('');
+    const [atividade, setAtividade] = useState('');
+    const [coresAtividades, setCoresAtividades] = useState([])
     const [atividadeR, setAtividadeR] = useState([
         {
             nome: null, id: '1'
@@ -358,15 +359,29 @@ Humor = (id) => {
         gerenciaMedicamentosSelecionados();
     }
 
+    function putColor2(id){
+        let selecionados=[];
+        selecionados=coresAtividades;
+        selecionados.push(id);
+        setCoresAtividades(selecionados);
+    }
+
+    function checkColor2(id){
+        if(coresAtividades.includes(id)==true){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     function ListaMedicamentos({ nome, id }) {
 
         if (nome != null) {
             return (
                 <View>
-                    <Text style={estilo.observacoescontainer}>
-                        <Pressable style={estilo.botaoreport} onPress={() => medicamentoRelatorio(nome, id)}>
-                            <Text style={estilo.observacoeslista}>{nome}{id}</Text>
+                    <Text style={{}}>
+                        <Pressable style={{borderRadius:10, padding:3,backgroundColor:checkColor2(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => medicamentoRelatorio(nome, id)}onPressIn={()=>putColor(id)}>
+                            <Text style={{color:'#000',fontWeight:'bold', fontSize:15}}>{nome}</Text>
                         </Pressable>
 
                     </Text>
@@ -377,15 +392,30 @@ Humor = (id) => {
         }
     }
 
+    function putColor(id){
+        let selecionados=[];
+        selecionados=coresAtividades;
+        selecionados.push(id);
+        setCoresAtividades(selecionados);
+    }
 
+    function checkColor(id){
+        if(coresAtividades.includes(id)==true){
+            return true;
+        }else{
+            return false;
+        }
+    }
     function ListaAtividades({ nome, id }) {
 
         if (nome != null) {
             return (
                 <View>
-                    <Text style={estilo.observacoescontainer}>
-                        <Pressable style={estilo.botaoreport} onPress={() => atividadeRelatorio(nome, id)}>
-                            <Text style={estilo.observacoeslista}>{nome}{id}</Text>
+                    <Text style={{marginHorizontal:3}}>
+                        <Pressable style={{borderRadius:10, padding:3,backgroundColor:checkColor(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => atividadeRelatorio(nome, id) }  onPressIn={()=>putColor(id)}>
+                            <Text 
+                            style={{color:'#000',fontWeight:'bold', fontSize:15   }}>
+                                {nome}</Text>
                         </Pressable>
 
                     </Text>
@@ -430,7 +460,7 @@ Humor = (id) => {
     return (
         <View>
             { (exister) ?
-                <View>
+                <View style={{marginHorizontal:25}}>
             
                         <View style={estilo.imagemContainer}>
                             <TouchableOpacity
@@ -476,15 +506,17 @@ Humor = (id) => {
                                 </View>
                             </TouchableOpacity>
                         </View>
-
-                        <TextInput
-                            style={{ marginLeft: 5 }}
-                            multiline={true}
-                            placeholder="Insira sua nota:"
-                            onChangeText={text => setTexto(text)}
-                            defaultValue={text} />
-                        <Text>{humor}{texto}</Text>
-
+                        <View style={{flexDirection:'row', marginTop:15, marginBottom:8,}}>
+                        <Image style={{width:40, height:40}}
+                                        source={require('../../assets/relatorio.png')} />
+                            <TextInput
+                                style={{ marginLeft: 5, marginBottom:5 }}
+                                multiline={true}
+                                placeholder="Insira sua nota:"
+                                onChangeText={text => setTexto(text)}
+                                defaultValue={text} />
+                            
+                        </View>
                         <Text>Insira seus medicamentos:</Text>
                         <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
                         <View style={estilo.modalsize}>
@@ -492,8 +524,23 @@ Humor = (id) => {
                                 style={estilo.modalcontent}
                                 animationType="slide"
                                 visible={modalVisible}>
-
-                                <View>
+                                <View style={{alignItems:'flex-end'}}>
+                                    <Pressable style={{marginTop:6,backgroundColor:'#fff', borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#000',fontSize:20}}     onPress={() => setModalVisible(false)}>x</Text></Pressable>
+                                </View>      
+                                <Text style={{marginTop:10,fontSize:17, marginBottom:8}}> Seus medicamentos cadastradas:</Text>
+                                 <ScrollView style={{ marginHorizontal:10}}>
+                                 <FlatList style={estilo.lista2}
+                                        numColumns={4}
+                                        showsVerticalScrollIndicator={false}
+                                        showsHorizontalScrollIndicator={false}
+                                        data={medicamentos}
+                                        renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
+                                        keyExtractor={item => item.id.toString()}
+                                        extraData={refresh}
+                                    />
+                                </ScrollView>
+                                <Text style={{marginTop:10,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova medicação:</Text>
+                                <View style={{ marginHorizontal:10, flexDirection:'row'}}>
                                     <TextInput
                                         style={{ marginLeft: 5 }}
                                         multiline={true}
@@ -503,77 +550,62 @@ Humor = (id) => {
 
                                     <View style={estilo.containerquit}>
                                         <Pressable
-                                            onPress={() => setModalVisible(false)}>
-                                            <Text>Sair!</Text>
-                                        </Pressable>
-                                        <Pressable
+                                            style={{backgroundColor:'#ffcbdb', marginHorizontal:30, borderRadius:20, width:60, alignItems:'center',justifyContent:'center', }}
                                             onPress={() => salvarMedicamento()}>
-                                            <Text>Inserir medicação</Text>
+                                            <Text style={{fontWeight:'bold'}}>Inserir</Text>
                                         </Pressable>
                                     </View>
-                                    <Text> Seus medicamentos cadastradas:</Text>
-                                    <FlatList style={estilo.lista2}
-                                        data={medicamentos}
-                                        renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
-                                        keyExtractor={item => item.id.toString()}
-                                        extraData={refresh}
-                                    />
                                 </View>
                             </Modal>
-                            <Text> Insira suas atividades:</Text>
+                            <Text>Inserir nova atividade:</Text>
                             <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity>
                             <Modal
                                 style={estilo.modalcontent}
                                 animationType="slide"
                                 visible={modalVisible2}>
-
                                 <View>
-                                    <Text>Insira uma nova atividade:</Text>
-                                    <TextInput
-                                        style={{ marginLeft: 5 }}
-                                        multiline={true}
-                                        placeholder="Atividade:"
-                                        onChangeText={text => setAtividade(text)}
-                                        defaultValue={text} />
-                                    <Pressable
-                                        onPress={() => salvarAtividade()}>
-                                        <Text>Inserir</Text>
-                                    </Pressable>
+                                <View style={{alignItems:'flex-end'}}>
+                                    <Pressable style={{marginTop:6,backgroundColor:'#fff', borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#000',fontSize:20}}   onPress={() => setModalVisible2(false)}>x</Text></Pressable>
+                                </View>        
+                                        <View>
+                                        <ScrollView style={{ marginHorizontal:10}}>
+                                            <Text style={{marginTop:10,fontSize:17, marginBottom:8}}>Selecione atividades:</Text>
+                                                <FlatList style={estilo.lista2}
+                                                    numColumns={4}
+                                                    showsVerticalScrollIndicator={false}
+                                                    showsHorizontalScrollIndicator={false}
+                                                    data={atividades}
+                                                    renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
+                                                    keyExtractor={item => item.id.toString()}
+                                                    extraData={refresh}
+                                                />
+                                        </ScrollView >
+                                        <Text style={{marginTop:10,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova atividade:</Text>
+                                        <View style={{ marginHorizontal:10, flexDirection:'row'}}>
+                                                <TextInput
+                                                    style={{ marginLeft: 5 }}
+                                                    multiline={true}
+                                                    placeholder="Atividade:"
+                                                    onChangeText={text => setAtividade(text)}
+                                                    defaultValue={text} />
+                                                <Pressable
+                                                style={{backgroundColor:'#ffcbdb', marginHorizontal:30, borderRadius:20, width:60, alignItems:'center',justifyContent:'center', }}
+                                                    onPress={() => salvarAtividade()}>
+                                                    <Text style={{fontWeight:'bold'}}>Inserir</Text>
+                                                </Pressable>
+                                        </View>
 
-
-                                    <Text> Suas atividades cadastradas:</Text>
-                                    <FlatList style={estilo.lista2}
-                                        data={atividades}
-                                        renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
-                                        keyExtractor={item => item.id.toString()}
-                                        extraData={refresh}
-                                    />
-                                    <View style={estilo.containerquit}>
-                                        <Pressable
-                                            onPress={() => setModalVisible2(false)}>
-                                            <Text>Sair!</Text>
-                                        </Pressable>
-
-                                    </View>
+                                        </View>
                                 </View>
                             </Modal>
-                            <FlatList style={estilo.lista2}
-                                data={atividadesSelecionadas}
-                                renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} id={item.id} />}
-                                keyExtractor={item => item.id.toString()}
-                                extraData={refresh}
-                            />
-
-                            <FlatList style={estilo.lista2}
-                                data={medicamentosSelecionados}
-                                renderItem={({ item }) => <ListaMedicamentosSelecionadas nome={item.nome} id={item.id} />}
-                                keyExtractor={item => item.id.toString()}
-                                extraData={refresh}
-                            />
-                            <Pressable
-                                onPress={() => salvarRelatorio()}>
-                                <Text>Enviar relatório</Text>
-                            </Pressable>
+                            <View style={{alignItems:'center',justifyContent:'center', marginTop:30}}>
+                                <Pressable
+                                style={{backgroundColor:'#ffcbdb', marginHorizontal:30, borderRadius:20, width:120, alignItems:'center',justifyContent:'center', height:30}}
+                                    onPress={() => salvarRelatorio()}>
+                                    <Text>Enviar Relatório</Text>
+                                </Pressable>
+                            </View>
+                          
 
                         </View>
            
@@ -614,6 +646,14 @@ const estilo = StyleSheet.create({
     button_login_text: {
         marginBottom: 3,
         fontSize: 25
+    },
+    lista2:{
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        alignSelf:'flex-start'
+    },
+    observacoescontainer:{
+        flexWrap: 'wrap'
     }
 
 })

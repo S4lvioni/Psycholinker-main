@@ -375,7 +375,7 @@ Graficos = (id) => {
                             <View style={{ height: 250, width: 200, marginTop: 30 }}>
                                 <PieChart style={{ height: 150 }} data={pieData}></PieChart>
                             </View>
-                            <ScrollView style={{ height: 250, marginTop: 35 }} >
+                            <ScrollView style={{ height: 250, marginTop: 35 }} horizontal={true} showsHorizontalScrollIndicator={false} >
                                 <View style={{ justifyContent: 'flex-start', marginTop: 20, alignItems: 'flex-start', alignSelf: 'flex-start' }}>
                                     {atividadesP.map((item, key) => (
                                         <View key={key} style={{ flexDirection: 'column', width: 150, justifyContent: 'flex-end', alignItems: 'center' }}>
