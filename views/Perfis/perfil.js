@@ -17,7 +17,8 @@ import {
     Modal,
     TextInput,
     Platform,
-    RefreshControl
+    RefreshControl,
+    Image
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
@@ -45,23 +46,33 @@ export default function Perfil({ navigation }) {
     return (
         <ScrollView style={css.fundobranco}>
             <View style={{ backgroundColor: '#FFB6C1' }}>
-                <Text style={css.welcometag}> {name} {id}</Text>
+                <Text style={css.welcometag}> {name}</Text>
             </View>
             <View 
             contentContainerStyle='justifyContent' style={estilo.containerbotoes}>
                 <Graficos data={id} />
-                <View style={estilo.buttoncontainer}>
-                    <TouchableOpacity
-                style={estilo.btnn} onPress={() => navigation.navigate('Anotacoes')}>
-                    <Text style={estilo.btnnText}>Anotações</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                style={estilo.btnn} onPress={() => navigation.navigate('Humor')}>
-                    <Text style={estilo.btnnText}>Relatórios </Text>
-                </TouchableOpacity>
-                </View>
             </View>
+            <View style={{ bottom: 0,  width: '100%', backgroundColor:'#fff',elevation:20,alignItems: 'center'}}>
+                <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center', marginBottom:3}}>
+
+                            <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Humor')}>
+                                    <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/relatorioIcon.png")} />
+                                </TouchableOpacity>
+                                <Text>Relatórios</Text>
+                            </View>
+
+
+                            <View style={{ alignItems: 'center', marginBottom:0, width: 80, height: 80,marginHorizontal:5 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Anotacoes')}>
+                                    <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/anotaçoes.png")} />
+                                </TouchableOpacity>
+                                <Text>Anotações</Text>
+                            </View>
+                        </View> 
+            </View>   
         </ScrollView>
+        
     )
 }
 

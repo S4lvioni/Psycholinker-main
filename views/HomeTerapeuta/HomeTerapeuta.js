@@ -224,7 +224,7 @@ export default function HomeTerapeuta({ navigation }) {
                         </TouchableOpacity>
                     </Text>
                     <View style={{ justifyContent: 'flex-end', flex: 1 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 0 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 0 ,marginRight:15}}>
                             <TouchableOpacity onPress={() => onEdit(id, nome, email, telefone)}  ><Image style={{ width: 30, height: 30, marginRight: 5, justifyContent: 'flex-end' }} source={require("../../assets/editar.png")} /></TouchableOpacity>
                             <TouchableOpacity onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Image style={{ width: 30, height: 30, justifyContent: 'flex-end' }} source={require("../../assets/excluir.png")} /></TouchableOpacity>
                         </View>
