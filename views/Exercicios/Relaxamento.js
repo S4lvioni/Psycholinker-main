@@ -14,7 +14,7 @@ export default function Relaxamento({ navigation }) {
         }}>
              <Text style={{fontWeight:'bold', fontSize:18, marginTop:8}}>Treinamento autógeno:</Text>
             <ScrollView>
-                <View style={{backgroundColor:'#fff',justifyContent:'center', alignItems: 'center', marginTop:10}}>
+                <View style={{backgroundColor:'#fff',justifyContent:'center', alignItems: 'center', marginTop:10, padding:10}}>
 
                     <Text style={{fontSize:16, marginBottom:8, lineHeight:20}}>Para fazer o treinamento autógeno, arrume-se em uma posição confortável e siga os passos a seguir para aliviar sua mente e corpo.</Text>
                     <Image style={{backgroundColor:'#e0da83', justifyContent:'center',alignItems: 'center', width:300, height:300}} source={require('./imagens/autógeno.gif')}/>

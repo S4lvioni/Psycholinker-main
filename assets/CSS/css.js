@@ -164,7 +164,7 @@ const css = StyleSheet.create({
   },
   modalbotao: {
     backgroundColor: "#FFB6C1",
-    borderRadius: 5,
+    borderRadius: 18,
     width: 70,
     marginLeft: 20,
     height: 40,
@@ -231,13 +231,18 @@ const css = StyleSheet.create({
     marginHorizontal: 18,
    
   },
-  
+  login_button_Texto:{
+      fontSize:16
+  },
   login_button_modified: {
     padding: 10,
     backgroundColor: "#FFB6C1",
     alignSelf: "center",
-    borderRadius: 5,
-    margin: 10
+    alignItems: "center",
+    borderRadius: 18,
+    margin: 10,
+    width:75,
+    justifyContent:'center'
   },
   containeredit: {
     margin: 8

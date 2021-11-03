@@ -238,12 +238,11 @@ const estilo = StyleSheet.create({
     },
     observacoeslista: {
         fontSize: 16,
-        paddingLeft:5
         
     },
     lista2: {
         width: 300,
-        margin: 5
+        padding:5
     },
     observacoescontainer: {
         padding: 5,

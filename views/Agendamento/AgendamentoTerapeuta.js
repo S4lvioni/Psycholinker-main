@@ -443,7 +443,7 @@
                     height:35,
                     width:150,
                     alignItems:'center', justifyContent:'center',
-                    borderRadius:100
+                    borderRadius:18
                   }}
                 onPress={()=>senForm()}>
                 <Text style={css.modaltexto}>Ocupar Horário</Text></TouchableOpacity>
@@ -459,7 +459,7 @@
                       height:35,
                       width:150,
                       alignItems:'center', justifyContent:'center',
-                      borderRadius:100
+                      borderRadius:18
                     }}
                   onPress={()=>senForm()}>
                   

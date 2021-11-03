@@ -452,27 +452,32 @@ async function buscaDias() {
         <View style={{height:35,width:150,}}>
         </View>
         }
-    </View>:<View style={{height:80}}></View>
+    </View>:<View></View>
     }
                 <View>
                 <Text style={css.login__msg(display)}>Dia indisponível!</Text>
             </View>
-            <View style={{alignItems:'center',backgroundColor:'#fff'}}>
-              <Text  style={{fontSize:18, fontWeight:'bold', marginLeft:6, marginTop:20}}>Suas consultas agendadas:</Text>
-              <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}> 
-                {marcado.map((item,key)=>(
-                  <TouchableOpacity
-                    key={key}
-                    style={{
-                      padding:5,
-                      
-                    }}
-                  >
-                      <Text  style={{fontSize:14, fontWeight:'bold'}}>{item},</Text>
-                  </TouchableOpacity>
-                ))
-                }
-              </ScrollView>
+            <View style={{flexDirection:'row'}}>
+              <Image style={css.SmallIcons} source={require("../../assets/agendados.png")} />
+              <View style={{flexDirection:'column'}}>
+                <Text  style={{fontSize:18, fontWeight:'bold', marginTop:2,marginHorizontal:15}}>Suas consultas agendadas:</Text>
+                <View style={{alignItems:'center',backgroundColor:'#fff'}}>
+                  <ScrollView style={{marginHorizontal:10,width:300}}  horizontal={true} showsHorizontalScrollIndicator={true}> 
+                    {marcado.map((item,key)=>(
+                      <TouchableOpacity
+                        key={key}
+                        style={{
+                          padding:5,
+                          
+                        }}
+                      >
+                          <Text  style={{fontSize:14, fontWeight:'bold'}}>{item},</Text>
+                      </TouchableOpacity>
+                    ))
+                    }
+                  </ScrollView>
+                </View>
+              </View>
             </View>
  </View>
   );

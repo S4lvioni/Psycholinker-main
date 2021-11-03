@@ -315,13 +315,13 @@ export default function HomeTerapeuta({ navigation }) {
                                         onPressIn={() => editData()}
                                         onPress={() => closeUpdate()}
                                     >
-                                        <Text >Salvar</Text>
+                                        <Text style={css.login_button_Texto} >Salvar</Text>
                                     </Pressable>
                                     <Pressable
                                         style={css.login_button_modified}
                                         onPress={() => setModalVisible(false)}
                                     >
-                                        <Text >Sair</Text>
+                                        <Text style={css.login_button_Texto}>Sair</Text>
                                     </Pressable>
                                 </View>
                             </View>
