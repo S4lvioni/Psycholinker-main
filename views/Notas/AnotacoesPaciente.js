@@ -91,9 +91,18 @@ AnotacoesPaciente = () => {
                     <View
                         style={estilo.observacoescontainer}>
                         {(dialogVisible) ?
+                            <View>
                             <Text
                                 numberOfLines={3}
                                 style={estilo.observacoeslista}>{texto}</Text>
+                                <TouchableOpacity
+                onPress={() => setDialogVisible(!dialogVisible)}
+                style={estilo.botaoaddnota}>
+                <Text style={estilo.textobotao}>
+                    Expandir
+                </Text>
+            </TouchableOpacity>
+                                </View>
                             :
                             <Text
                                 style={estilo.observacoeslista}>{texto}</Text>
@@ -109,14 +118,7 @@ AnotacoesPaciente = () => {
 
     return (
         <View style={{justifyContent:'center', alignItems:'center'}}>
-            <View style={{height:400, justifyContent:'center', alignItems:'center', marginTop:20}}>
-            <TouchableOpacity
-                onPress={() => setDialogVisible(!dialogVisible)}
-                style={estilo.botaoaddnota}>
-                <Text style={estilo.textobotao}>
-                    Expandir
-                </Text>
-            </TouchableOpacity>
+            <View style={{height:400, justifyContent:'flex-start', alignItems:'flex-start', marginTop:20, width:'100%'}}>
             <FlatList style={estilo.lista2}
                 data={observacoes}
                 renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
@@ -174,7 +176,8 @@ const estilo = StyleSheet.create({
         alignItems: 'center'
     },
     observacoeslista: {
-        fontSize: 16
+        fontSize: 16,
+        justifyContent:'flex-start'
     },
     lista2: {
         width: 300,

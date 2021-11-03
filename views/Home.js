@@ -86,14 +86,18 @@ export default function Home({ navigation }) {
                 <Image source={logo} style={{width:200, height:200}}/>
                 </View>
                 <View>
-                <Text style={{alignSelf:'center', fontSize:23, color:'#fff', fontWeight:'bold'}}>Entre agora!</Text>
+                
+                <View>
+                <Text style={css.login__msg(display)}>Email incorreto!</Text>
+            </View>
+                
                     </View>
             <View style={{justifyContent:'center', padding:30}}>
             
                 <Image  source={mail} style={{width:30, height:30, position:'absolute', left: 15, top:35}}/>
-                <TextInput  style={css.login__input} placeholder='Email' placeholderTextColor='#FFF' onChangeText={text => setEmail(text)}/>
+                <TextInput  style={css.login__input} placeholder='Email' placeholderTextColor='#808080' onChangeText={text => setEmail(text)}/>
                 <Image source={cadeado} style={{width:30, height:30, position:'absolute', left: 15, top:92}}/>
-                <TextInput style={css.login__input} placeholder='Senha' placeholderTextColor='#FFF' onChangeText={text => setPassword(text)} secureTextEntry={true} />
+                <TextInput style={css.login__input} placeholder='Senha' placeholderTextColor='#808080' onChangeText={text => setPassword(text)} secureTextEntry={true} />
             </View>
                 <View style={{flexDirection: 'row',justifyContent:'center', marginTop:-15}}>
                     <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10}} onPress={() =>sendFormTerapeuta()}>

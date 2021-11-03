@@ -456,9 +456,23 @@ app.post('/deletePaciente', async (req, res) => {
     let response2 = await atividades.destroy({
         where: { pacienteId: req.body.id }
     })
+    
+    let response6 = await selectedactivity.destroy({
+        where: { pacienteId: req.body.id }
+    })
+    let response7 = await selectedmed.destroy({
+        where: { pacienteId: req.body.id }
+    })
+    let response8 = await agendados.destroy({
+        where: { pacienteId: req.body.id }
+    })
+    let response9 = await observacoes.destroy({
+        where: { pacienteId: req.body.id }
+    })
     let response = await pacientes.destroy({
         where: { id: req.body.id }
     })
+    
 });
 
 //Editar pacientes

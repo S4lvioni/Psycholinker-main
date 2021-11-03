@@ -24,6 +24,7 @@ Anotacoes = () => {
     const [dialogVisible, setDialogVisible] = useState(false)
     const [refresh, setRefresh] = useState(false);
     const [execucao, setExecucao] = useState(1);
+    const [expandir, setExpandir] = useState(null);
 
     const [text, setText] = useState('')
     const [observacao, setObservacao] = useState('')
@@ -108,6 +109,9 @@ Anotacoes = () => {
         }
     }
 
+    function Expansao(){
+        setExpandir(true)
+    }
 
 
     function ListaObservacoes({ texto, id }) {
@@ -118,13 +122,16 @@ Anotacoes = () => {
                     <View
                         style={estilo.observacoescontainer}>
                         {(dialogVisible) ?
-                            <Text
-                                numberOfLines={3}
-                                style={estilo.observacoeslista}>{texto}</Text>
+                       <Text
+                    style={estilo.observacoeslista}>{texto}</Text>
+                        
+                    
                             :
-                            <Text
+                                <Text
+                                
                                 style={estilo.observacoeslista}>{texto}</Text>
-                        }
+                                
+        }
                     </View>
                 </View >
             )
@@ -145,13 +152,7 @@ Anotacoes = () => {
                             Adicionar nota
                 </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => setDialogVisible(!dialogVisible)}
-                        style={estilo.botaoaddnota}>
-                        <Text style={estilo.textobotao}>
-                            Expandir
-                </Text>
-                    </TouchableOpacity>
+                    
                 </View>
                 <Modal
                     animationType="slide"

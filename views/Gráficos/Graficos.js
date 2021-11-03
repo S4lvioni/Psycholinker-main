@@ -387,21 +387,21 @@ Graficos = (id) => {
                             <View style={{ height: 250, width: 200, marginTop: 30 }}>
                                 <PieChart style={{ height: 150 }} data={pieData}></PieChart>
                             </View>
-                            <ScrollView style={{ height: 250, marginTop: 35 }} horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={{ justifyContent: 'flex-start', marginTop: 20, alignItems: 'flex-start', alignSelf: 'flex-start' }}>
+                            <ScrollView style={{ height: 250, marginTop: 35, marginBottom:20 }} horizontal={true} showsHorizontalScrollIndicator={false} >
+                                <ScrollView style={{marginTop: 20 }}>
                                     {atividadesP.map((item, key) => (
                                         <View key={key} style={{ flexDirection: 'column', width: 150, justifyContent: 'flex-end', alignItems: 'center' }}>
                                             <Text style={{ alignSelf: 'center', padding: 5 }}>{item}</Text>
                                             <View style={{}}>
                                                 <View style={{ width: '100%' }}>
                                                     <View style={{ backgroundColor: atividadesCor[key], borderRadius: 30 }}>
-                                                        <Text style={{ color: '#fff', fontWeight: 'bold', marginLeft: 3, textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120, }}>{porcentagemAtt[key]}%</Text>
+                                                        <Text style={{ color: '#fff', fontWeight: 'bold', marginLeft: 3, textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120 }}>{porcentagemAtt[key]}%</Text>
                                                     </View>
                                                 </View>
                                             </View>
                                         </View>
                                     ))}
-                                </View>
+                                </ScrollView>
                             </ScrollView>
                         </View>
                     </View>
