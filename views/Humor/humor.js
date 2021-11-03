@@ -19,6 +19,7 @@ import {
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
+import { render } from 'react-dom';
 
 
 Humor = (id) => {
@@ -29,6 +30,7 @@ Humor = (id) => {
     const [medicacao, setMedicacao] = useState('');
     const [atividade, setAtividade] = useState('');
     const [coresAtividades, setCoresAtividades] = useState([])
+    const [humorTexto, setHumorTexto] = useState(null);
     const [atividadeR, setAtividadeR] = useState([
         {
             nome: null, id: '1'
@@ -457,6 +459,9 @@ Humor = (id) => {
     }
 
 
+
+
+
     return (
         <View>
             { (exister) ?
@@ -468,6 +473,7 @@ Humor = (id) => {
                                 <View>
                                     <Image style={estilo.imagem}
                                         source={require('../../assets/felizao.png')} />
+                                        
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -475,6 +481,7 @@ Humor = (id) => {
                                 <View>
                                     <Image style={estilo.imagem}
                                         source={require('../../assets/felizinho.png')} />
+                                        
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -482,6 +489,7 @@ Humor = (id) => {
                                 <View>
                                     <Image style={estilo.imagem}
                                         source={require('../../assets/normalzinho.png')} />
+                                        
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -489,6 +497,7 @@ Humor = (id) => {
                                 <View>
                                     <Image style={estilo.imagem}
                                         source={require('../../assets/tristinho.png')} />
+                                        
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -496,6 +505,7 @@ Humor = (id) => {
                                 <View>
                                     <Image style={estilo.imagem}
                                         source={require('../../assets/tristao.png')} />
+                                        
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -503,9 +513,42 @@ Humor = (id) => {
                                 <View>
                                     <Image style={estilo.imagem}
                                         source={require('../../assets/raiva.png')} />
+                                        
                                 </View>
                             </TouchableOpacity>
+
+                            
                         </View>
+                        <View style={{alignItems:'center'}}>
+                        {(humor ==1 )?
+                            <View>
+                                <Text>Muito feliz!</Text>
+                            </View>
+                            :(humor == 2)?
+                            <View>
+                                <Text>Feliz!</Text>
+                            </View>
+                            :(humor ==3)?
+                            <View>
+                                <Text>Ok</Text>
+                                </View>
+                                :(humor ==4)?
+                                <View>
+                                    <Text>Chateado</Text>
+                                    </View>
+                                    :(humor ==5)?
+                                    <View>
+                                        <Text>Triste</Text>
+                                    </View>
+                                    :(humor ==6)?
+                                    <View>
+                                        <Text>Enraivecido</Text>
+                                        </View>
+                                        :
+                                        <View>
+                                            </View>
+                        }
+                            </View>
                         <View style={{flexDirection:'row', marginTop:15, marginBottom:8,}}>
                         <Image style={{width:40, height:40, marginTop:20}}
                                         source={require('../../assets/relatorio.png')} />
@@ -615,6 +658,7 @@ Humor = (id) => {
                 </View>
                 :
                 <View><Text>Finalizado!</Text></View>}
+                
         </View>
 
     )

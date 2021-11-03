@@ -93,15 +93,9 @@ AnotacoesPaciente = () => {
                         {(dialogVisible) ?
                             <View>
                             <Text
-                                numberOfLines={3}
+                                
                                 style={estilo.observacoeslista}>{texto}</Text>
-                                <TouchableOpacity
-                onPress={() => setDialogVisible(!dialogVisible)}
-                style={estilo.botaoaddnota}>
-                <Text style={estilo.textobotao}>
-                    Expandir
-                </Text>
-            </TouchableOpacity>
+                                
                                 </View>
                             :
                             <Text

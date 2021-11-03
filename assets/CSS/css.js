@@ -101,7 +101,9 @@ const css = StyleSheet.create({
     padding: 12,
     backgroundColor: "#FFB6C1",
     alignSelf: "center",
-    borderRadius: 5
+    borderRadius: 5,
+    
+    marginTop:10
   },
   login__buttonText: {
     fontWeight: "bold",

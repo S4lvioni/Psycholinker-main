@@ -126,9 +126,10 @@ export default function CadastroPaciente({}) {
                     <TextInput
                         placeholder='Código de Cadastro:'
                         onChangeText={text => setCode(text)}
+                        style={{alignSelf:'center'}}
                     />
                     <TouchableOpacity style={css.login__button} onPress={() => conferir()}>
-                        <Text>Conferir</Text>
+                        <Text >Conferir</Text>
                     </TouchableOpacity>
                 </View>
                 
