@@ -99,16 +99,17 @@ const css = StyleSheet.create({
   },
   login__button: {
     padding: 12,
-    backgroundColor: "#FFB6C1",
+    backgroundColor: "#fff",
     alignSelf: "center",
-    borderRadius: 5,
-    
+    borderRadius: 18,
+    width:130,
     marginTop:10
   },
   login__buttonText: {
     fontWeight: "bold",
     fontSize: 22,
-    color: "#000"
+    color: "#000",
+    
   },
   login__button_container: {
     flexDirection: "row",
@@ -134,7 +135,7 @@ const css = StyleSheet.create({
     flex: 1
   },
   cadastros: {
-    flex: 1,
+    flex:1,
     justifyContent: "center",
     alignItems: "center"
   },

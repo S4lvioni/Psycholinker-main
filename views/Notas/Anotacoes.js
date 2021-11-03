@@ -1,7 +1,7 @@
 import React, { Component, useState, setState, useEffect } from 'react'
 import { useCallback } from 'react';
 import config from '../../config/config.json';
-import { AsyncStorage, FlatList, Pressable } from 'react-native';
+import { AsyncStorage, FlatList, Pressable, ImageBackground, Image } from 'react-native';
 import { css } from '../../assets/CSS/css.js';
 import {
     SafeAreaView,
@@ -20,6 +20,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
 Anotacoes = () => {
+    const backgroundimg = require('./../../assets/gradient2.png')
     const [modalVisible, setModalVisible] = useState(false)
     const [dialogVisible, setDialogVisible] = useState(false)
     const [refresh, setRefresh] = useState(false);
@@ -118,22 +119,18 @@ Anotacoes = () => {
 
         if (texto != null) {
             return (
-                <View>
+                
+                <View style={{flexDirection:'row', marginTop:10}}>
+                    <Image source={require('../../assets/post-it.png')}
+                    style={{width:30,height:30, marginTop:10}} />
                     <View
                         style={estilo.observacoescontainer}>
-                        {(dialogVisible) ?
+                        
                        <Text
                     style={estilo.observacoeslista}>{texto}</Text>
-                        
-                    
-                            :
-                                <Text
-                                
-                                style={estilo.observacoeslista}>{texto}</Text>
-                                
-        }
                     </View>
                 </View >
+                
             )
         } else {
             return (null);
@@ -181,15 +178,17 @@ Anotacoes = () => {
                         </Pressable>
                     </View>
                 </Modal>
-                <View style={{ alignItems: 'center', width: 360, marginTop: 20 }}>
+                <View style={{ alignItems: 'flex-start', width: 360, marginTop: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight:'bold' }}> Observaçoes: </Text>
                 </View>
+                
                 <FlatList style={estilo.lista2}
                     data={observacoes}
                     renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
                     keyExtractor={item => item.id.toString()}
                     extraData={refresh}
                 />
+                
             </View>
         </View>
     )
@@ -198,8 +197,8 @@ Anotacoes = () => {
 const estilo = StyleSheet.create({
     botoescontainer: {
         padding: 10,
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent:'flex-start',
+        alignItems:'flex-start'
     },
     botaoaddnota: {
         marginTop: 5,
@@ -238,14 +237,17 @@ const estilo = StyleSheet.create({
         alignItems: 'center'
     },
     observacoeslista: {
-        fontSize: 16
+        fontSize: 16,
+        paddingLeft:5
+        
     },
     lista2: {
         width: 300,
         margin: 5
     },
     observacoescontainer: {
-        padding: 5
+        padding: 5,
+        borderRadius:18
     },
     botoeshorizontais: {
         flexDirection: 'row',

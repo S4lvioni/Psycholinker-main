@@ -119,6 +119,7 @@ export default function CadastroPaciente({}) {
                 </View>
                 </ImageBackground>
                 :
+                <ImageBackground source={backgroundimg} style={{flex:1}}>
                 <View>
                     <View>
                         <Text style={css.login__msg(display)}>Código inválido!</Text>
@@ -126,13 +127,13 @@ export default function CadastroPaciente({}) {
                     <TextInput
                         placeholder='Código de Cadastro:'
                         onChangeText={text => setCode(text)}
-                        style={{alignSelf:'center'}}
+                        style={{alignSelf:'flex-start', padding:12, fontSize:16}}
                     />
                     <TouchableOpacity style={css.login__button} onPress={() => conferir()}>
-                        <Text >Conferir</Text>
+                        <Text style={{textAlign:'center'}} >Conferir</Text>
                     </TouchableOpacity>
                 </View>
-                
+                </ImageBackground>
             }
 
         </View>

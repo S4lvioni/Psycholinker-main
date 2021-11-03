@@ -1,7 +1,7 @@
 import React, { Component, useState, setState, useEffect } from 'react'
 import { useCallback } from 'react';
 import config from '../../config/config.json';
-import { AsyncStorage, FlatList, Pressable } from 'react-native';
+import { AsyncStorage, FlatList, Pressable, ImageBackground } from 'react-native';
 import { css } from '../../assets/CSS/css.js';
 import {
     SafeAreaView,
@@ -21,6 +21,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
 HumorTerapeuta = (idPaciente) => {
+    const backgroundimg = require('./../../assets/gradient2.png')
+    
     const [refresh, setRefresh] = useState(false);
     const [modalVisible, setModalVisible] = useState('')
     const [execucao, setExecucao] = useState(1);
@@ -218,19 +220,24 @@ HumorTerapeuta = (idPaciente) => {
                 </View>
             }
             return (
+                <ImageBackground source={backgroundimg} style={{flex:1}}>
                 <View>
                     <View
                         style={estilo.observacoescontainer}>
                         <TouchableOpacity
                             onPress={() => gerenciador(emissao)}>
-                            <Text style={estilo.observacoeslista, { marginBottom: 5 }}>{emissao}</Text>
-                        </TouchableOpacity>
-                        <View style={estilo.containerobs2}>
+                            <Text style={{justifyContent:'flex-start', padding:10}}>{emissao}</Text>
+                            <View style={estilo.containerobs2}>
                             <Text>{humor}</Text>
                             <Text style={{ marginLeft: 5 }}>{texto}</Text>
-                        </View>
+                            </View>
+                        </TouchableOpacity>
+                        
+                            
+                        
                     </View>
                 </View >
+                </ImageBackground>
             )
 
         } else {
@@ -244,8 +251,8 @@ HumorTerapeuta = (idPaciente) => {
         if (nome != null) {
             return (
                 <ScrollView>
-                    <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
-                        <Text style={estilo.observacoeslista}>Atividade: {nome}  id: {id} data completa: {data}</Text>
+                    <View style={{justifyContent:'flex-start', padding:5}}>
+                        <Text style={estilo.observacoeslista}> Data: {data} {'\n'} {nome} </Text>
                     </View>
                 </ScrollView >
             )
@@ -260,8 +267,8 @@ HumorTerapeuta = (idPaciente) => {
         if (nome != null) {
             return (
                 <ScrollView>
-                    <View style={estilo.observacoescontainer, { flexDirection: 'column' }}>
-                        <Text style={estilo.observacoeslista}>Medicação: {nome}  id: {id} data completa: {data}</Text>
+                    <View style={{justifyContent:'flex-start', padding:5 }}>
+                        <Text style={{marginLeft:5}}> Data: {data} {'\n'} {nome}</Text>
                     </View>
                 </ScrollView >
             )
@@ -280,14 +287,14 @@ HumorTerapeuta = (idPaciente) => {
                 extraData={refresh}
             />
 
-            <Text>Atividades</Text>
+            <Text style={{textAlign:'center', fontSize:18, marginTop:10}}>Atividades</Text>
             <FlatList style={estilo.lista2}
                 data={atividadesSelecionadas}
                 renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />
-            <Text>Medicamentos</Text>
+            <Text style={{textAlign:'center', fontSize:18, marginTop:10}}>Medicamentos</Text>
             <FlatList style={estilo.lista2}
                 data={medicamentosSelecionados}
                 renderItem={({ item }) => <ListaMedicamentosSelecionados nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}

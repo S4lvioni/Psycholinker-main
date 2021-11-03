@@ -4,8 +4,9 @@ import { css } from '../../assets/CSS/css'
 
 export default function Cadastros({ navigation }) {
 
-
+    const backgroundimg = require('./../../assets/gradient2.png')
     return (
+        <ImageBackground source={backgroundimg} style={{flex:1}}>
         <View style={css.cadastros}>
             <TouchableOpacity onPress={() => navigation.navigate('CadastroTerapeuta')}>
                 <Text style={css.escolha}>Cadastrar como Terapeuta</Text>
@@ -14,6 +15,7 @@ export default function Cadastros({ navigation }) {
                 <Text style={css.escolha}>Cadastrar como Paciente</Text>
             </TouchableOpacity>
         </View>
+        </ImageBackground>
     )
 
 }

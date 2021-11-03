@@ -553,7 +553,7 @@ Humor = (id) => {
                         <Image style={{width:40, height:40, marginTop:20}}
                                         source={require('../../assets/relatorio.png')} />
                             <TextInput
-                                style={{ marginLeft: 5, marginBottom:5, marginTop:20 }}
+                                style={{ marginLeft: 5, marginBottom:5, marginTop:20, fontSize:17 }}
                                 multiline={true}
                                 placeholder="Insira sua nota:"
                                 onChangeText={text => setTexto(text)}

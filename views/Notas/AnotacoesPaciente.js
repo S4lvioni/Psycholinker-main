@@ -1,7 +1,7 @@
 import React, { Component, useState, setState, useEffect } from 'react'
 import { useCallback } from 'react';
 import config from '../../config/config.json';
-import { AsyncStorage, FlatList, Pressable } from 'react-native';
+import { AsyncStorage, FlatList, Pressable, ImageBackground, Image } from 'react-native';
 import { css } from '../../assets/CSS/css.js';
 import {
     SafeAreaView,
@@ -25,6 +25,7 @@ AnotacoesPaciente = () => {
             texto: null, id: '1'
         }
     ])
+    const backgroundimg = require('../../assets/gradient2.png')
     const [pacienteId, setPacienteId] = useState(null)
     const [texto, setTexto] = useState('')
     const [terapeutaId, setTerapeutaId] = useState(null)
@@ -87,22 +88,21 @@ AnotacoesPaciente = () => {
 
         if (texto != null) {
             return (
-                <View>
+                
+                <View >
                     <View
                         style={estilo.observacoescontainer}>
-                        {(dialogVisible) ?
-                            <View>
+                            <Image source={require('../../assets/post-it.png')}
+                    style={{width:30,height:30, marginTop:10}} />
+                            <View style={{marginLeft:10, marginTop:3}}>
                             <Text
-                                
                                 style={estilo.observacoeslista}>{texto}</Text>
-                                
                                 </View>
-                            :
-                            <Text
-                                style={estilo.observacoeslista}>{texto}</Text>
-                        }
+                            
+                        
                     </View>
                 </View >
+                
             )
         } else {
             return (null);
@@ -111,18 +111,12 @@ AnotacoesPaciente = () => {
 
 
     return (
-        <View style={{justifyContent:'center', alignItems:'center'}}>
-            <View style={{height:400, justifyContent:'flex-start', alignItems:'flex-start', marginTop:20, width:'100%'}}>
             <FlatList style={estilo.lista2}
                 data={observacoes}
                 renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />
-            
-            </View>
-        </View>
-
     )
 }
 
@@ -179,7 +173,8 @@ const estilo = StyleSheet.create({
         textAlign:'center'
     },
     observacoescontainer: {
-        padding: 5
+        padding: 10,
+        flexDirection:'row'
     },
     botoeshorizontais: {
         flexDirection: 'row'
