@@ -100,18 +100,18 @@ export default function Home({ navigation }) {
                 <TextInput style={css.login__input} placeholder='Senha' placeholderTextColor='#808080' onChangeText={text => setPassword(text)} secureTextEntry={true} />
             </View>
                 <View style={{flexDirection: 'row',justifyContent:'center', marginTop:-15}}>
-                    <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10}} onPress={() =>sendFormTerapeuta()}>
-                        <Text style={{color:'#808080', fontSize:15}}>Terapeuta</Text>
-                        <Image style={{width:35, height:35,marginTop:-9}} source={require("./../assets/entrar.png")}/>
+                <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10, width:120,height:35, borderRadius:18, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}} onPress={() =>sendFormTerapeuta()}>
+                        <Text style={{color:'#808080', fontSize:15, fontWeight:'bold'}}>Terapeuta</Text>
+                        <Image style={{width:30, height:30}} source={require("./../assets/entrar.png")}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10}} onPress={() =>sendFormPaciente()}>
-                        <Text style={{color:'#808080', fontSize:15}}>Paciente</Text>
-                        <Image style={{width:35, height:35,marginTop:-9}} source={require("./../assets/entrar.png")}/>
+                    <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10, width:120,height:35, borderRadius:18, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}} onPress={() =>sendFormPaciente()}>
+                        <Text style={{color:'#808080', fontSize:15, fontWeight:'bold'}}>Paciente</Text>
+                        <Image style={{width:30, height:30}} source={require("./../assets/entrar.png")}/>
                     </TouchableOpacity>
                 </View>
                 <View style={{justifyContent:'flex-end', alignItems:'center', height:60}}>
                     <TouchableOpacity onPress={() => navigation.navigate('Cadastros')}>
-                    <Text>Não tem uma conta? Cadastre-se agora!</Text>
+                    <Text style={{fontSize:17}}>Não tem uma conta? Cadastre-se agora!</Text>
                     </TouchableOpacity>
                 </View>
                 </View>
