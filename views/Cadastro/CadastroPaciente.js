@@ -69,7 +69,6 @@ export default function CadastroPaciente({}) {
                 body: JSON.stringify({
                     code: code,
                     name: name,
-                    cpf: cpf,
                     email: email,
                     password: password,
                     telefone: telefone
@@ -101,11 +100,6 @@ export default function CadastroPaciente({}) {
                         style={{marginTop:20,backgroundColor:' rgba(255,255,255,0.5)', height:40, borderRadius:10, fontSize:15, padding:10}}
                             placeholder='Nome:'
                             onChangeText={text => setName(text)}
-                        />
-                        <TextInput
-                            placeholder='CPF:'
-                            onChangeText={text => setCpf(text)}
-                            style={{marginTop:20,backgroundColor:' rgba(255,255,255,0.5)', height:40, borderRadius:10, fontSize:15, padding:10}}
                         />
                         <TextInput
                             placeholder='Email:'

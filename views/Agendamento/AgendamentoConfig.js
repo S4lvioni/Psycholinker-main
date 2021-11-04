@@ -1,6 +1,6 @@
 //configurações de agendamento: colocar horas trabalhadas por dia => definirá horas disponiveis para cada dia
 import React, { Component,useState, useEffect,useCallback } from 'react';
-import { Text, View, StyleSheet,TouchableOpacity,Modal,Image,TextInput } from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,Modal,Image,TextInput,Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import { AsyncStorage } from 'react-native';
@@ -145,9 +145,12 @@ async function criaHoras(){
               animationType="slide"
               visible={modalVisible}
             >
-              <View style={{marginHorizontal:10}}>
+               <View style={{alignItems:'flex-end'}}>
+                  <Pressable style={{marginTop:6,backgroundColor:'#fff', borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#000',fontSize:20}}   onPress={() => setModalVisible(false)}>x</Text></Pressable>
+              </View>  
+              <View style={{marginHorizontal:10, marginTop:3}}>
                  {/*View de configuração*/}
-              <Text style={{fontSize:15, marginTop:6}}>Selecione os dias na semana disponíveis para agendamento:</Text>
+              <Text style={{fontSize:18, marginTop:6}}>Selecione os dias na semana disponíveis para agendamento:</Text>
               <View style={styles.listar}>
                   {dias.map((item,key)=>(
                   <TouchableOpacity
@@ -160,8 +163,8 @@ async function criaHoras(){
                           marginRight:2,
                           justifyContent:'center',
                           alignItems: 'center',
-                          borderRadius:30,
-                          backgroundColor: item.status ? '#ffcbdb':'#FFFFFF',
+                          borderRadius:18,
+                          backgroundColor: item.status ? '#c87ee9':'#FFFFFF',
                           color: item.status ? '#ffcbdb':'#FFFFFF'
                            
                       }}
@@ -173,9 +176,9 @@ async function criaHoras(){
                 
             </View>
 
-            <Text style={{fontSize:15, marginTop:6}}>Determine os horários disponíveis diariamente:</Text>
+            <Text style={{fontSize:18, marginTop:6}}>Determine os horários disponíveis diariamente:</Text>
             {/*Adicionar máscara*/}
-            <View style={{flexDirection:'row', padding:5}}><TextInput style={styles.placeHora} placeholder='00:00' onChangeText={text => setAux(text)}/>
+            <View style={{flexDirection:'row', padding:5,marginTop:3}}><TextInput style={styles.placeHora} placeholder='00:00' onChangeText={text => setAux(text)}/>
             <TouchableOpacity style={css.SmallButtons}  onPress={onSaveNote} ><Text style={css.SmallButtonsText} >+</Text></TouchableOpacity></View>
              <SafeAreaView>
                 <View style={styles.listar}>
@@ -188,8 +191,8 @@ async function criaHoras(){
                                   height:45,
                                   justifyContent:'center',
                                   alignItems: 'center',
-                                  borderRadius:30,
-                                  backgroundColor:'#ffcbdb', 
+                                  borderRadius:18,
+                                  backgroundColor:'#c87ee9', 
                                   marginLeft:6,
                                   marginBottom:20,
                                   color:"#FFFFFF", 
@@ -208,7 +211,11 @@ async function criaHoras(){
                 </View>
                     
               </SafeAreaView>
-              <TouchableOpacity style={css.modalbotao} onPressOut={() => setModalVisible(false)} onPressIn={()=>criaDias()} onPress={()=>criaHoras()}><Text style={{color:"#FFFFFF", fontWeight:'bold'}}>Confirmar</Text></TouchableOpacity>
+                <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <TouchableOpacity onPressOut={() => setModalVisible(false)} onPressIn={()=>criaDias()} onPress={()=>criaHoras()}>
+                    <Image style={{width:50,height:50}} source={require('../../assets/verificadorosa.png')}/>
+                  </TouchableOpacity>
+                </View>
               </View>    
             </Modal>
            

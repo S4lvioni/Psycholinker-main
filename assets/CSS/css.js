@@ -235,14 +235,14 @@ const css = StyleSheet.create({
       fontSize:16
   },
   login_button_modified: {
-    padding: 10,
+    padding: 6,
     backgroundColor: "#FFB6C1",
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 18,
     margin: 10,
     width:75,
-    justifyContent:'center'
+    justifyContent:'center',
   },
   containeredit: {
     margin: 8

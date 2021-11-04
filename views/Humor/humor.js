@@ -583,7 +583,7 @@ Humor = (id) => {
                                         extraData={refresh}
                                     />
                                     <Text style={{marginTop:30,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova medicação:</Text>
-                                <View style={{ marginHorizontal:10, flexDirection:'row'}}>
+                                <View style={{ marginHorizontal:10}}>
                                     <TextInput
                                         style={{ marginLeft: 5 }}
                                         multiline={true}
@@ -593,14 +593,21 @@ Humor = (id) => {
 
                                     <View style={estilo.containerquit}>
                                         <Pressable
-                                            style={{backgroundColor:'#ffcbdb', marginHorizontal:30, borderRadius:20, width:60, alignItems:'center',justifyContent:'center', }}
+                                            style={css.login_button_modified}
                                             onPress={() => salvarMedicamento()}>
-                                            <Text style={{fontWeight:'bold'}}>Inserir</Text>
+                                            <Text style={css.login_button_Texto}>Inserir</Text>
                                         </Pressable>
+                                        
                                     </View>
+                                    <Pressable
+                                        style={css.login_button_modified}
+                                        onPress={() => setModalVisible(false)}
+                                    >
+                                        <Text style={css.login_button_Texto} >Salvar</Text>
+                                    </Pressable>
                                 </View>
                                 </ScrollView>
-                                
+                                    
                             </Modal>
                             <Text>Inserir nova atividade:</Text>
                             <View style={{alignItems:'flex-start', marginTop:10, marginBottom:10}}>
@@ -643,6 +650,12 @@ Humor = (id) => {
 
                                         </View>
                                 </View>
+                                    <Pressable
+                                        style={css.login_button_modified}
+                                        onPress={() => setModalVisible2(false)}
+                                    >
+                                        <Text style={css.login_button_Texto} >Salvar</Text>
+                                    </Pressable>
                             </Modal>
                             <View style={{alignItems:'center',justifyContent:'center', marginTop:30}}>
                                 <Pressable

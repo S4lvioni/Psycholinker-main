@@ -10,11 +10,12 @@ import AgendamentoTerapeuta from '../Agendamento/AgendamentoTerapeuta';
 import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
 import HumorTerapeuta from '../Humor/humorTerapeuta';
 import { set } from 'react-native-reanimated';
-///const backgroundimg = require( '../../assets/gradient2.png')
+const backgroundimg = require( '../../assets/gradientcontrario.png')
 
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
+    const [atualiza,setAtualiza]= useState(true);
     const [modalVisible, setModalVisible] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [display, setDisplay] = useState('none');
@@ -134,8 +135,9 @@ export default function HomeTerapeuta({ navigation }) {
             body: JSON.stringify({
                 id: id
             })
-        })
-        gerenciaPaciente()
+        });
+        let json = await response.json();
+        setAtualiza(true);
     }
 
 
@@ -208,8 +210,6 @@ export default function HomeTerapeuta({ navigation }) {
 
 
 
-
-
     function ListaPaciente({ nome, id, email, telefone }) {
 
         if (nome != null) {
@@ -226,7 +226,7 @@ export default function HomeTerapeuta({ navigation }) {
                     <View style={{ justifyContent: 'flex-end', flex: 1 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 0 ,marginRight:15}}>
                             <TouchableOpacity onPress={() => onEdit(id, nome, email, telefone)}  ><Image style={{ width: 30, height: 30, marginRight: 5, justifyContent: 'flex-end' }} source={require("../../assets/editar.png")} /></TouchableOpacity>
-                            <TouchableOpacity onPressIn={() => gerenciaPaciente()} onPressIn={() => onDelete(id)} onPress={() => closeUpdate()} ><Image style={{ width: 30, height: 30, justifyContent: 'flex-end' }} source={require("../../assets/excluir.png")} /></TouchableOpacity>
+                            <TouchableOpacity  onPressIn={()=> setAtualiza(false)} onPress={() => onDelete(id)}  ><Image style={{ width: 30, height: 30, justifyContent: 'flex-end' }} source={require("../../assets/excluir.png")} /></TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -245,7 +245,8 @@ export default function HomeTerapeuta({ navigation }) {
         navigation.navigate('exercicios');
     }
     return (
-        <View style={{ backgroundColor: '#fff' }}>
+
+        <View style={{ }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
                     <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")} /></TouchableOpacity>
 
@@ -253,25 +254,23 @@ export default function HomeTerapeuta({ navigation }) {
                 </View>
 
                 <View>
-                    {(execucao == 2) ?
-                        <View style={css.Listas}>
-                            <ScrollView style={{height:335}}>
-                                <View style={{ backgroundColor: '#FFB6C1' }}>
-                                    <Text style={css.titulohome}>Lista de Pacientes</Text>
-                                </View>
-
-                                <Text>
-                                    <SafeAreaView style={css.container3}>
-                                        <FlatList
-                                            data={pacientes}
-                                            renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} email={item.email} telefone={item.telefone} />}
-                                            keyExtractor={item => item.id.toString()}
-                                            extraData={refresh}
-                                        />
-                                    </SafeAreaView>
-                                </Text>
-                            </ScrollView>
-                        </View>
+                    {(execucao == 2||atualiza==true) ?
+                            <View style={css.Listas}>
+                               
+                                    <View style={{ backgroundColor: '#FFB6C1' }}>
+                                        <Text style={css.titulohome}>Lista de Pacientes</Text>
+                                    </View>
+                                    <ScrollView style={{height:290}}>
+                                        <SafeAreaView style={css.container3}>
+                                            <FlatList
+                                                data={pacientes}
+                                                renderItem={({ item }) => <ListaPaciente nome={item.name} id={item.id} email={item.email} telefone={item.telefone} />}
+                                                keyExtractor={item => item.id.toString()}
+                                                extraData={refresh}
+                                            />
+                                        </SafeAreaView>
+                                </ScrollView>
+                            </View> 
                         :
                         <View>
                         </View>
@@ -365,6 +364,6 @@ export default function HomeTerapeuta({ navigation }) {
                     </View>    
                 </View>  
         </View>
-
+        
     );
 }
