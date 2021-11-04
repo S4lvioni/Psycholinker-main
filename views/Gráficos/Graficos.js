@@ -388,17 +388,17 @@ Graficos = (id) => {
                                 <PieChart style={{ height: 150 }} data={pieData}></PieChart>
                             </View>
                             <ScrollView style={{ height: 250, marginTop: 35, marginBottom:20 }} horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <ScrollView style={{marginTop: 20 }}>
+                                <ScrollView style={{}}>
                                     {atividadesP.map((item, key) => (
                                         <View key={key} style={{ flexDirection: 'column', width: 150, justifyContent: 'flex-end', alignItems: 'center' }}>
                                             <Text style={{ alignSelf: 'center', padding: 5 }}>{item}</Text>
-                                            <View style={{}}>
+                                            <ScrollView style={{}}>
                                                 <View style={{ width: '100%' }}>
                                                     <View style={{ backgroundColor: atividadesCor[key], borderRadius: 30 }}>
                                                         <Text style={{ color: '#fff', fontWeight: 'bold', marginLeft: 3, textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120 }}>{porcentagemAtt[key]}%</Text>
                                                     </View>
                                                 </View>
-                                            </View>
+                                            </ScrollView>
                                         </View>
                                     ))}
                                 </ScrollView>

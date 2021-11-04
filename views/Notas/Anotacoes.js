@@ -120,7 +120,7 @@ Anotacoes = () => {
         if (texto != null) {
             return (
                 
-                <View style={{flexDirection:'row', marginTop:10}}>
+                <View style={{flexDirection:'row', marginTop:10, width:'100%'}}>
                     <Image source={require('../../assets/post-it.png')}
                     style={{width:30,height:30, marginTop:10}} />
                     <View
@@ -178,7 +178,7 @@ Anotacoes = () => {
                         </Pressable>
                     </View>
                 </Modal>
-                <View style={{ alignItems: 'flex-start', width: 360, marginTop: 20 }}>
+                <View style={{ alignItems: 'flex-start', width: 360, marginTop: 20,  }}>
                     <Text style={{ fontSize: 18, fontWeight:'bold' }}> Observaçoes: </Text>
                 </View>
                 
@@ -241,7 +241,7 @@ const estilo = StyleSheet.create({
         
     },
     lista2: {
-        width: 300,
+        width: '100%',
         padding:5
     },
     observacoescontainer: {

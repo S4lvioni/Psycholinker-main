@@ -92,10 +92,12 @@ const css = StyleSheet.create({
     fontSize: 19,
     padding: 7,
     marginBottom: 15,
-    borderRadius:10,
+    borderTopRightRadius:18,
+    borderBottomRightRadius:18,
     opacity:1,
     color:"#808080",
-    marginLeft:20
+    marginLeft:0,
+    width:'90%'
   },
   login__button: {
     padding: 12,
@@ -179,6 +181,8 @@ const css = StyleSheet.create({
   },
   nomepacientehometerapeuta: {
     fontSize: 18,
+    textAlign:'center',
+    marginTop:3
   },
   pacientegerado: {
     marginLeft: 10,

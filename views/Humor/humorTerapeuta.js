@@ -26,6 +26,8 @@ HumorTerapeuta = (idPaciente) => {
     const [refresh, setRefresh] = useState(false);
     const [modalVisible, setModalVisible] = useState('')
     const [execucao, setExecucao] = useState(1);
+    const [isChecked, setIsChecked] = useState(false)
+
     const pacienteId = idPaciente.data
     const [data, setData] = useState('')
     const [humorimagem, setHumorImagem] = useState(null)
@@ -116,6 +118,8 @@ HumorTerapeuta = (idPaciente) => {
     function gerenciador(emissao) {
         gerenciaAtividadesSelecionadas(emissao)
         gerenciaMedicamentosSelecionados(emissao)
+        setIsChecked(true)
+        
 
     }
 
@@ -220,13 +224,13 @@ HumorTerapeuta = (idPaciente) => {
                 </View>
             }
             return (
-                <ImageBackground source={backgroundimg} style={{flex:1}}>
+                <ImageBackground source={backgroundimg} style={{ padding:5, margin:5}}>
                 <View>
                     <View
                         style={estilo.observacoescontainer}>
                         <TouchableOpacity
                             onPress={() => gerenciador(emissao)}>
-                            <Text style={{justifyContent:'flex-start', padding:10}}>{emissao}</Text>
+                            <Text style={{justifyContent:'flex-start', padding:5}}>{emissao}</Text>
                             <View style={estilo.containerobs2}>
                             <Text>{humor}</Text>
                             <Text style={{ marginLeft: 5 }}>{texto}</Text>
@@ -251,7 +255,7 @@ HumorTerapeuta = (idPaciente) => {
         if (nome != null) {
             return (
                 <ScrollView>
-                    <View style={{justifyContent:'flex-start', padding:5}}>
+                    <View style={{justifyContent:'flex-start', padding:10}}>
                         <Text style={estilo.observacoeslista}> Data: {data} {'\n'} {nome} </Text>
                     </View>
                 </ScrollView >
@@ -287,14 +291,20 @@ HumorTerapeuta = (idPaciente) => {
                 extraData={refresh}
             />
 
-            <Text style={{textAlign:'center', fontSize:18, marginTop:10}}>Atividades</Text>
+            {(isChecked) ? 
+             <Text style={{fontSize:18, textAlign:'center'}}>Atividades</Text>
+            :
+            <View></View>}
             <FlatList style={estilo.lista2}
                 data={atividadesSelecionadas}
                 renderItem={({ item }) => <ListaAtividadesSelecionadas nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}
                 keyExtractor={item => item.id.toString()}
                 extraData={refresh}
             />
-            <Text style={{textAlign:'center', fontSize:18, marginTop:10}}>Medicamentos</Text>
+            {(isChecked) ? 
+             <Text style={{fontSize:18, textAlign:'center'}}>Medicamentos</Text>
+            :
+            <View></View>}
             <FlatList style={estilo.lista2}
                 data={medicamentosSelecionados}
                 renderItem={({ item }) => <ListaMedicamentosSelecionados nome={item.nome} dia={item.dia} id={item.id} data={item.data} />}

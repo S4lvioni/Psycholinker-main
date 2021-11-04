@@ -214,15 +214,15 @@ export default function HomeTerapeuta({ navigation }) {
 
         if (nome != null) {
             return (
-                <View style={{ flexDirection: "row", marginBottom: 2, marginHorizontal: 2, width: 370 }}>
-                    <Text style={css.pacientegerado} >
+                <View style={{ flexDirection: "row", marginBottom: 5, paddingHorizontal:5 , width: '100%', borderWidth:2, backgroundColor:' rgba(255,255,255,0.5)', height:50, justifyContent:'center', alignItems:'center', borderRadius:18, borderColor:'#c87ee9' }}>
+                    
                         <TouchableOpacity
                             style={{ flexDirection: "row" }}
                             onPress={() => openPerfilPaciente(id, nome)}>
                             <Image style={{ width: 30, height: 30, justifyContent: 'flex-start', marginRight: 6 }} source={require("../../assets/PerfilTerapeuta.png")} />
                             <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
                         </TouchableOpacity>
-                    </Text>
+                    
                     <View style={{ justifyContent: 'flex-end', flex: 1 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 0 ,marginRight:15}}>
                             <TouchableOpacity onPress={() => onEdit(id, nome, email, telefone)}  ><Image style={{ width: 30, height: 30, marginRight: 5, justifyContent: 'flex-end' }} source={require("../../assets/editar.png")} /></TouchableOpacity>
@@ -246,7 +246,7 @@ export default function HomeTerapeuta({ navigation }) {
     }
     return (
 
-        <View style={{ }}>
+        <View style={{flex:1, backgroundColor:'#fff' }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
                     <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")} /></TouchableOpacity>
 
@@ -332,8 +332,8 @@ export default function HomeTerapeuta({ navigation }) {
                 <View style={{ alignItems: 'center', height: 62 }}>
                     <Text style={css.login__msg(display2)}>{codeA}</Text>
                 </View>
-                <View style={{ bottom: 0,  width: '100%', backgroundColor:'#fff',elevation:15 }}>
-                    <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center', marginBottom:3}}>
+                <View style={{width: '100%', backgroundColor:'#fff'}}>
+                    <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center', marginBottom:3, justifyContent:'center', height:'65%'}}>
                         <View style={{ width: 80, height: 80,marginHorizontal:5 }}>
                             <AgendamentoConfig data={terapeutaId} />
                         </View>

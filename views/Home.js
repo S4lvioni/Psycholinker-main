@@ -92,14 +92,21 @@ export default function Home({ navigation }) {
             </View>
                 
                     </View>
-            <View style={{justifyContent:'center', padding:30}}>
-            
-                <Image  source={mail} style={{width:30, height:30, position:'absolute', left: 15, top:35}}/>
+            <View style={{justifyContent:'flex-start', paddingHorizontal:15, flexDirection:'row', width:'100%'}}>
+                <View style={{backgroundColor:' rgba(255,255,255,0.5)', height:41.8, borderBottomLeftRadius:18,
+            borderTopLeftRadius:18, alignItems:'center', flexDirection:'row'}}>
+                <Image  source={mail} style={{width:30, height:30, marginLeft:5}}/></View>
                 <TextInput  style={css.login__input} placeholder='Email' placeholderTextColor='#808080' onChangeText={text => setEmail(text)}/>
-                <Image source={cadeado} style={{width:30, height:30, position:'absolute', left: 15, top:92}}/>
-                <TextInput style={css.login__input} placeholder='Senha' placeholderTextColor='#808080' onChangeText={text => setPassword(text)} secureTextEntry={true} />
             </View>
-                <View style={{flexDirection: 'row',justifyContent:'center', marginTop:-15}}>
+
+            <View style={{justifyContent:'flex-start', paddingHorizontal:15, flexDirection:'row', width:'100%'}}>
+                <View style={{backgroundColor:' rgba(255,255,255,0.5)', height:41.8, borderBottomLeftRadius:18,
+            borderTopLeftRadius:18, alignItems:'center', flexDirection:'row'}}>
+                <Image  source={cadeado} style={{width:30, height:30, marginLeft:5}}/></View>
+                <TextInput  style={css.login__input} placeholder='Senha' placeholderTextColor='#808080' onChangeText={text => setPassword(text)}
+                secureTextEntry={true}/>
+            </View>
+                <View style={{flexDirection: 'row',justifyContent:'center', marginTop:10}}>
                 <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10, width:120,height:35, borderRadius:18, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}} onPress={() =>sendFormTerapeuta()}>
                         <Text style={{color:'#808080', fontSize:15, fontWeight:'bold'}}>Terapeuta</Text>
                         <Image style={{width:30, height:30}} source={require("./../assets/entrar.png")}/>
@@ -109,7 +116,7 @@ export default function Home({ navigation }) {
                         <Image style={{width:30, height:30}} source={require("./../assets/entrar.png")}/>
                     </TouchableOpacity>
                 </View>
-                <View style={{justifyContent:'flex-end', alignItems:'center', height:60}}>
+                <View style={{justifyContent:'flex-end', alignItems:'center', height:100}}>
                     <TouchableOpacity onPress={() => navigation.navigate('Cadastros')}>
                     <Text style={{fontSize:17}}>Não tem uma conta? Cadastre-se agora!</Text>
                     </TouchableOpacity>
