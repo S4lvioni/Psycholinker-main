@@ -38,7 +38,6 @@ export default function CadastroTerapeuta({}) {
                 },
                 body: JSON.stringify({
                     name: name,
-                    cpf: cpf,
                     email: email,
                     especializacao: especializacao,
                     password: password,
@@ -72,12 +71,6 @@ export default function CadastroTerapeuta({}) {
                 style={{marginTop:20,backgroundColor:' rgba(255,255,255,0.5)', height:40, borderRadius:10, fontSize:15, padding:10}}
                     placeholder='Nome:'
                     onChangeText={text => setName(text)}
-                    placeholderTextColor='#000'
-                />
-                <TextInput
-                style={{marginTop:20,backgroundColor:' rgba(255,255,255,0.5)', height:40, borderRadius:10, fontSize:15, padding:10}}
-                    placeholder='CPF:'
-                    onChangeText={text => setCpf(text)}
                     placeholderTextColor='#000'
                 />
                 <TextInput

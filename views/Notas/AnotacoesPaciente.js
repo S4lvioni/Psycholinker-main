@@ -94,7 +94,7 @@ AnotacoesPaciente = () => {
                         style={estilo.observacoescontainer}>
                             <Image source={require('../../assets/post-it.png')}
                     style={{width:30,height:30, marginTop:10}} />
-                            <View style={{marginLeft:10, marginTop:3}}>
+                            <View style={{paddingLeft:5, marginTop:3}}>
                             <Text
                                 style={estilo.observacoeslista}>{texto}</Text>
                                 </View>
@@ -169,7 +169,6 @@ const estilo = StyleSheet.create({
     },
     lista2: {
         width: 300,
-        margin: 5,
         textAlign:'center'
     },
     observacoescontainer: {

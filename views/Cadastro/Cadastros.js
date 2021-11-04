@@ -8,11 +8,13 @@ export default function Cadastros({ navigation }) {
     return (
         <ImageBackground source={backgroundimg} style={{flex:1}}>
         <View style={css.cadastros}>
-            <TouchableOpacity onPress={() => navigation.navigate('CadastroTerapeuta')}>
-                <Text style={css.escolha}>Cadastrar como Terapeuta</Text>
+            <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10, width:180,height:35, borderRadius:18, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}} onPress={() =>sendFormPaciente()} onPress={() => navigation.navigate('CadastroTerapeuta')}>
+            <Image style={{width:25, height:25}} source={require("../../assets/cadastro.png")}/>
+                <Text style={css.escolha}>Terapeuta</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('CadastroPaciente')}>
-                <Text style={css.escolha}>Cadastrar como Paciente</Text>
+            <TouchableOpacity style = {{flexDirection: 'row', marginHorizontal:10, width:180,height:35, borderRadius:18, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', marginTop:10}} onPress={() =>sendFormPaciente()} onPress={() => navigation.navigate('CadastroPaciente')}>
+            <Image style={{width:25, height:25}} source={require("../../assets/cadastro.png")}/>
+                <Text style={css.escolha}>Paciente</Text>
             </TouchableOpacity>
         </View>
         </ImageBackground>

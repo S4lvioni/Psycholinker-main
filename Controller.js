@@ -472,7 +472,7 @@ app.post('/deletePaciente', async (req, res) => {
     let response = await pacientes.destroy({
         where: { id: req.body.id }
     })
-    
+    res.send(true);
 });
 
 //Editar pacientes

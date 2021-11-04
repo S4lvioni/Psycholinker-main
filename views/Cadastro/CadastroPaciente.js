@@ -16,6 +16,7 @@ export default function CadastroPaciente({}) {
     const [password, setPassword] = useState(null);
     const [telefone, setTelefone] = useState(null);
     const [response, setResponse] = useState(null);
+    const [display2, setDisplay2] = useState('none');
 
     const backgroundimg = require('./../../assets/gradient2.png')
 
@@ -48,35 +49,46 @@ export default function CadastroPaciente({}) {
 
     //envio do cadastro
     async function sendForm() {
-        let response = await fetch(config.urlRoot + 'createPaciente', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                code: code,
-                name: name,
-                cpf: cpf,
-                email: email,
-                password: password,
-                telefone: telefone
-
-            })
-        })
-        let json = await response.json();
-        if (json === 'error') {
-            setAnotherDisplay('flex');
-            setTimeout(() => {
-                setAnotherDisplay('none');
-            }, 5000);
-            await AsyncStorage.clear();
-        } else {
-            setAnotherDisplay('flex');
-            setTimeout(() => {
-                setAnotherDisplay('none');
-            }, 5000);
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(email) === false) {
+          console.log("Email is Not Correct");
+          setDisplay2('flex');
+          setTimeout(() => {
+              setDisplay2('none');
+          }, 5000);
+          return false;
         }
+        else {
+                console.log("Email is Correct");
+            let response = await fetch(config.urlRoot + 'createPaciente', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: code,
+                    name: name,
+                    email: email,
+                    password: password,
+                    telefone: telefone
+
+                })
+            })
+            let json = await response.json();
+            if (json === 'error') {
+                setAnotherDisplay('flex');
+                setTimeout(() => {
+                    setAnotherDisplay('none');
+                }, 5000);
+                await AsyncStorage.clear();
+            } else {
+                setAnotherDisplay('flex');
+                setTimeout(() => {
+                    setAnotherDisplay('none');
+                }, 5000);
+            }
+      }
     }
     return (
         <View style={{flex:1}}>
@@ -88,11 +100,6 @@ export default function CadastroPaciente({}) {
                         style={{marginTop:20,backgroundColor:' rgba(255,255,255,0.5)', height:40, borderRadius:10, fontSize:15, padding:10}}
                             placeholder='Nome:'
                             onChangeText={text => setName(text)}
-                        />
-                        <TextInput
-                            placeholder='CPF:'
-                            onChangeText={text => setCpf(text)}
-                            style={{marginTop:20,backgroundColor:' rgba(255,255,255,0.5)', height:40, borderRadius:10, fontSize:15, padding:10}}
                         />
                         <TextInput
                             placeholder='Email:'
@@ -112,6 +119,9 @@ export default function CadastroPaciente({}) {
                     </View>
                     <View>
                         <Text style={css.login__msg(anotherDisplay)}>Cadastrado com Sucesso!</Text>
+                    </View>
+                    <View>
+                        <Text style={css.login__msg(display2)}>Email incorreto!</Text>
                     </View>
                     <TouchableOpacity style={{justifyContent:'center',alignSelf:'center', marginBottom:10, width:290, backgroundColor:'#fff', height:35, borderRadius:18, marginTop:20}} onPress={() => sendForm()}>
                 <Text style={{alignSelf:'center', fontSize:15, fontWeight:'bold'}}>Cadastrar</Text>

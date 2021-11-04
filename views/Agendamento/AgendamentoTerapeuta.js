@@ -278,14 +278,22 @@
         let newArray=[];
         let pacientesN=[];
         let posi=0;
+        console.log('-------------')
         for(let i=0;i<tam;i++){
           if(newAgendamento.includes(item+'-'+meses[mes]+'-'+ano+'-'+horaArray[i])==true){
-            pacientesN.push(newAgendamentoNome[posi]);
+            console.log('do array')
+
+            console.log('selecionado')
+            console.log(item+'-'+meses[mes]+'-'+ano+'-'+horaArray[i])
+            var idx = newAgendamento.indexOf(item+'-'+meses[mes]+'-'+ano+'-'+horaArray[i]);
+            console.log(newAgendamentoNome[idx]);
+            pacientesN.push(newAgendamentoNome[idx]);
             newArray.push({
               hora:horaArray[i],
               status2:false,
               position:posi
-            });     
+            });    
+            console.log('pose:'+posi+'i:'+i) 
             posi=posi+1;  
 
               
@@ -297,6 +305,7 @@
           }
           
         }
+        console.log(pacientesN)
         setpacienteNome(pacientesN);
         setHoraLista(newArray);
       }else{
@@ -310,6 +319,7 @@
   
     function horaEscolhida(item,status2,position){
       if(clicadoHora==0){
+        console.log(position)
           setNomePaciente(pacienteNome[position]);
           setClicadoHora(item);
           setOcuparLiberar(status2);
@@ -363,7 +373,7 @@
        setBtn(!btn);
        setClicado(0);
        setClicadoHora(0);
-       setOcuparLiberar(false);
+       setOcuparLiberar(3);
       }else{
         console.log('Defina um horário');
       }
@@ -443,7 +453,7 @@
                     height:35,
                     width:150,
                     alignItems:'center', justifyContent:'center',
-                    borderRadius:100
+                    borderRadius:18
                   }}
                 onPress={()=>senForm()}>
                 <Text style={css.modaltexto}>Ocupar Horário</Text></TouchableOpacity>
@@ -459,7 +469,7 @@
                       height:35,
                       width:150,
                       alignItems:'center', justifyContent:'center',
-                      borderRadius:100
+                      borderRadius:18
                     }}
                   onPress={()=>senForm()}>
                   
