@@ -200,7 +200,7 @@ async function criaHoras(){
                                   
                                 }} 
                                 onPressOut={()=>deletarHora(hora)} >
-                                    <Text style={{color:"#c87ee9", fontWeight:'bold', fontSize:16,fontWeight:'bold'}}>{hora}</Text>
+                                    <Text style={{color:"#000", fontWeight:'bold', fontSize:16,fontWeight:'bold'}}>{hora}</Text>
                                 </TouchableOpacity>
                                 
                             </View>

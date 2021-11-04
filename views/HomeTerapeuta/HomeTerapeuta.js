@@ -260,7 +260,7 @@ export default function HomeTerapeuta({ navigation }) {
                                     <View style={{ backgroundColor: '#FFB6C1' }}>
                                         <Text style={css.titulohome}>Lista de Pacientes</Text>
                                     </View>
-                                    <ScrollView style={{height:290}}>
+                                    <ScrollView style={{height:200}}>
                                         <SafeAreaView style={css.container3}>
                                             <FlatList
                                                 data={pacientes}
