@@ -196,18 +196,18 @@
         if (execucao < 2) {
             setExecucao(2);
         }else{
-          geraCalendario(l);
+          geraCalendario(l,mes);
         }
     }
   }
-    async function geraCalendario(l){
+    async function geraCalendario(l,mt){
       if(l[0].dia!=undefined){
         let diaU=l[0].dia
         //quantos dias tem o mes
-        let daysInMonth = new Date(ano,mes+1,0).getDate();
+        let daysInMonth = new Date(ano,mt+1,0).getDate();
         let valores =[];
         for(let i=1;i<=daysInMonth;i++){
-          let d =new Date(ano,mes,i);
+          let d =new Date(ano,mt,i);
           let anoD = d.getFullYear();
           let mesD =d.getMonth();
           let diaD =d.getDate();
@@ -234,28 +234,35 @@
      
     }
     //Botoes da agenda
+    function ajustarMesVolta(){
+     
+    }
     function voltarData(){
       let mountDate=new Date(ano,mes,1);
       mountDate.setMonth(mountDate.getMonth()-1);
       setAno(mountDate.getFullYear());
-      setMes(mountDate.getMonth());
+      let mt=mountDate.getMonth()
+      setMes(mt);
       setDia(0);
       if(btn==true){
         setBtn(false);
       }
-      
-      geraCalendario(diasUteis);
+      console.log('mountDate.getMonth()-1')
+      console.log(mt)
+      geraCalendario(diasUteis,mt);
     }
       function passarData(){
       let mountDate=new Date(ano,mes,1);
       mountDate.setMonth(mountDate.getMonth()+1);
       setAno(mountDate.getFullYear());
       setMes(mountDate.getMonth());
+      let mt=mountDate.getMonth();
       setDia(0);
       if(btn==true){
         setBtn(false);
       }
-     geraCalendario(diasUteis);
+     
+     geraCalendario(diasUteis,mt);
     
     }
     //modal
@@ -392,15 +399,15 @@
     return(
       
       <View style={styles.fundo}>
-        <View style={styles.dateInfo}>
+        <View style={{height:45, backgroundColor:'#FFB6C1', flexDirection: 'row', alignItems:'center'}}>
         <View style={styles.prevData}>
-          <TouchableOpacity style={styles.prevIcon} onPress={voltarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/voltar.png")}/></TouchableOpacity>
+          <TouchableOpacity style={styles.prevIcon} onPress={()=>voltarData()}  onPressOut={()=>geraCalendario(diasUteis)}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/voltar.png")}/></TouchableOpacity>
         </View>
         <View style={{width:180,justifyContent: 'center',alignItems:'center',}}>
           <Text style={{fontWeight:'bold', fontSize:20, justifyContent: 'center',color:'#fff' }}>{meses[mes]} {ano}</Text>
         </View>
         <View style={styles.nextData}>
-        <TouchableOpacity style={styles.nextIcon} onPress={passarData}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/passar.png")}/></TouchableOpacity>
+        <TouchableOpacity style={styles.nextIcon} onPress={()=>passarData()}><Image style={{width:30,height:30, marginTop:3}}source={require("../../assets/passar.png")}/></TouchableOpacity>
         </View>
         </View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> 
@@ -491,12 +498,6 @@
   const styles = StyleSheet.create({
     fundo:{
         backgroundColor:'#ffcbdb'
-    },
-    dateInfo: {
-      height:45,
-      backgroundColor:'#FFB6C1',
-      flexDirection: 'row',
-      alignItems:'center'
     },
     prevData:{
      flex:1,
