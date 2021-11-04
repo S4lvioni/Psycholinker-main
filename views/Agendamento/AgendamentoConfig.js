@@ -192,16 +192,15 @@ async function criaHoras(){
                                   justifyContent:'center',
                                   alignItems: 'center',
                                   borderRadius:18,
-                                  backgroundColor:'#c87ee9', 
                                   marginLeft:6,
                                   marginBottom:20,
-                                  color:"#FFFFFF", 
+                                  
                                   fontWeight:'bold',
                                   fontSize:16,
                                   
                                 }} 
                                 onPressOut={()=>deletarHora(hora)} >
-                                    <Text style={{color:"#FFFFFF", fontWeight:'bold', fontSize:16,fontWeight:'bold'}}>{hora}</Text>
+                                    <Text style={{color:"#000", fontWeight:'bold', fontSize:16,fontWeight:'bold'}}>{hora}</Text>
                                 </TouchableOpacity>
                                 
                             </View>

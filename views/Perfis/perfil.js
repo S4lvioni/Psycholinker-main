@@ -45,7 +45,7 @@ export default function Perfil({ navigation }) {
 
     return (
         <ScrollView style={css.fundobranco}>
-            <View style={{ backgroundColor: '#FFB6C1' }}>
+            <View style={{ backgroundColor: '#c87ee9' }}>
                 <Text style={css.welcometag}> {name}</Text>
             </View>
             <View 
