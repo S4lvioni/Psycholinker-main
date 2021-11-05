@@ -77,7 +77,7 @@ const css = StyleSheet.create({
   },
   login__msg: (text = 'none') => ({
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
     color: "gray",
     marginTop: 15,
     marginBottom: 15,
@@ -231,7 +231,6 @@ const css = StyleSheet.create({
     marginBottom: 3
   },
   Listas: {
-    backgroundColor: '#fff',
     marginHorizontal: 18,
 
   },

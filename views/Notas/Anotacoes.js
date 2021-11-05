@@ -119,8 +119,9 @@ Anotacoes = () => {
 
         if (texto != null) {
             return (
+                
+                <View style={{flexDirection:'row', marginTop:10, width:'90%'}}>
 
-                <View style={{ flexDirection: 'row', marginTop: 10, width: '90%' }}>
                     <Image source={require('../../assets/post-it.png')}
                         style={{ width: 30, height: 30, marginTop: 10 }} />
                     <View
