@@ -214,10 +214,10 @@ export default function HomeTerapeuta({ navigation }) {
 
         if (nome != null) {
             return (
-                <View style={{ flexDirection: "row", marginBottom: 5, paddingHorizontal:5 , width: '100%', borderWidth:2, backgroundColor:' rgba(255,255,255,0.5)', height:50, justifyContent:'center', alignItems:'center', borderRadius:18, borderColor:'#c87ee9' }}>
+                <View style={{ flexDirection: "row", marginBottom: 5, paddingHorizontal:5 , width: '100%',  backgroundColor:' rgba(255,255,255,0.7)', height:60, justifyContent:'center', alignItems:'center', borderRadius:10,marginTop:5}}>
                     
                         <TouchableOpacity
-                            style={{ flexDirection: "row" }}
+                            style={{ flexDirection: "row",}}
                             onPress={() => openPerfilPaciente(id, nome)}>
                             <Image style={{ width: 30, height: 30, justifyContent: 'flex-start', marginRight: 6 }} source={require("../../assets/PerfilTerapeuta.png")} />
                             <Text style={css.nomepacientehometerapeuta}>{nome}</Text>
@@ -245,21 +245,33 @@ export default function HomeTerapeuta({ navigation }) {
         navigation.navigate('exercicios');
     }
     return (
+        <ImageBackground style={{flex:1}}source={backgroundimg}>
+            <View style={{flex:1}}>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center', backgroundColor:' rgba(255,255,255,0.7)', borderBottomEndRadius:50, borderBottomStartRadius:50, height:'20%'}}>
+                <View style={{ width: 80, height: 80,marginHorizontal:5 }}>
+                            <AgendamentoConfig data={terapeutaId} />
+                        </View>
 
-        <View style={{flex:1, backgroundColor:'#fff' }}>
-                <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-                    <TouchableOpacity ><Image style={css.SmallIcons} source={require("../../assets/PerfilTerapeuta.png")} /></TouchableOpacity>
+                        <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
+                                <Image style={{ width: 43, height: 43, marginTop: 3 }} source={require("../../assets/agenda3.png")} />
+                            </TouchableOpacity>
+                            <Text>Agendar</Text>
+                            <Text style={{ marginTop: -3 }}>Paciente</Text>
+                        </View>
 
-                    <Text style={css.titulohome}>{name}</Text>
-                </View>
 
+                        <View style={{ alignItems: 'center', marginBottom:0, width: 80, height: 80,marginHorizontal:5 }}>
+                            <TouchableOpacity onPress={() => navigateExercicio()}>
+                                <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/exercicios.png")} />
+                            </TouchableOpacity>
+                            <Text>Exercicios</Text>
+                        </View>
+                    </View>   
                 <View>
                     {(execucao == 2||atualiza==true) ?
                             <View style={css.Listas}>
                                
-                                    <View style={{ backgroundColor: '#FFB6C1' }}>
-                                        <Text style={css.titulohome}>Lista de Pacientes</Text>
-                                    </View>
                                     <ScrollView style={{height:200}}>
                                         <SafeAreaView style={css.container3}>
                                             <FlatList
@@ -332,38 +344,19 @@ export default function HomeTerapeuta({ navigation }) {
                 <View style={{ alignItems: 'center', height: 62 }}>
                     <Text style={css.login__msg(display2)}>{codeA}</Text>
                 </View>
-                <View style={{width: '100%', backgroundColor:'#fff'}}>
-                    <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center', marginBottom:3, justifyContent:'center', height:'65%'}}>
-                        <View style={{ width: 80, height: 80,marginHorizontal:5 }}>
-                            <AgendamentoConfig data={terapeutaId} />
-                        </View>
-
-                        <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
-                            <TouchableOpacity style={css.SmallButtons} onPress={() => sendForm()}>
-                                <Text style={css.SmallButtonsText}>+</Text>
+                
+                <View style={{width:'100%', backgroundColor:'',justifyContent:'flex-end', flex:1}}>
+                <View style={{ justifyContent:'flex-end',alignItems: 'center', marginHorizontal:5, marginBottom:10}}>
+                            <TouchableOpacity style={{width:60, height:60, backgroundColor:'#c87ee9', borderRadius:50, alignItems: 'center',
+    justifyContent: 'center',elevation:5,
+    textAlign: "center"}} onPress={() => sendForm()}>
+                                <Text style={{fontSize:40, textAlign:'center', color: '#fff'}}>+</Text>
                             </TouchableOpacity>
                             <Text>Novo</Text>
                             <Text style={{ marginTop: -3 }}>Paciente</Text>
                         </View>
-
-                        <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
-                                <Image style={{ width: 43, height: 43, marginTop: 3 }} source={require("../../assets/agenda3.png")} />
-                            </TouchableOpacity>
-                            <Text>Agendar</Text>
-                            <Text style={{ marginTop: -3 }}>Paciente</Text>
                         </View>
-
-
-                        <View style={{ alignItems: 'center', marginBottom:0, width: 80, height: 80,marginHorizontal:5 }}>
-                            <TouchableOpacity onPress={() => navigateExercicio()}>
-                                <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/exercicios.png")} />
-                            </TouchableOpacity>
-                            <Text>Exercicios</Text>
-                        </View>
-                    </View>    
-                </View>  
         </View>
-        
+    </ImageBackground>   
     );
 }
