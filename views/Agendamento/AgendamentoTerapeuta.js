@@ -12,6 +12,7 @@
   import AgendamentoConfig from '../Agendamento/AgendamentoConfig';
   import config from '../../config/config.json';
   import { set } from 'react-native-reanimated';
+  
   AgendamentoTerapeuta=(id)=>{
     const [btn,setBtn]=useState(false);
     const [ano,setAno]=useState(0);
