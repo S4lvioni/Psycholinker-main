@@ -110,7 +110,7 @@ Anotacoes = () => {
         }
     }
 
-    function Expansao(){
+    function Expansao() {
         setExpandir(true)
     }
 
@@ -121,16 +121,17 @@ Anotacoes = () => {
             return (
                 
                 <View style={{flexDirection:'row', marginTop:10, width:'90%'}}>
+
                     <Image source={require('../../assets/post-it.png')}
-                    style={{width:30,height:30, marginTop:10}} />
+                        style={{ width: 30, height: 30, marginTop: 10 }} />
                     <View
                         style={estilo.observacoescontainer}>
-                        
-                       <Text
-                    style={estilo.observacoeslista}>{texto}</Text>
+
+                        <Text
+                            style={estilo.observacoeslista}>{texto}</Text>
                     </View>
                 </View >
-                
+
             )
         } else {
             return (null);
@@ -139,7 +140,7 @@ Anotacoes = () => {
 
 
     return (
-        <View>
+        <View style={{ width: '100%' }}>
             <View style={estilo.botoescontainer}>
                 <View style={estilo.botoeshorizontais}>
                     <TouchableOpacity
@@ -149,7 +150,7 @@ Anotacoes = () => {
                             Adicionar nota
                 </Text>
                     </TouchableOpacity>
-                    
+
                 </View>
                 <Modal
                     animationType="slide"
@@ -178,17 +179,17 @@ Anotacoes = () => {
                         </Pressable>
                     </View>
                 </Modal>
-                <View style={{ alignItems: 'flex-start', width: 360, marginTop: 20,  }}>
-                    <Text style={{ fontSize: 18, fontWeight:'bold' }}> Observaçoes: </Text>
+                <View style={{ alignItems: 'flex-start', width: 360, marginTop: 20, }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}> Observaçoes: </Text>
                 </View>
-                
+
                 <FlatList style={estilo.lista2}
                     data={observacoes}
                     renderItem={({ item }) => <ListaObservacoes texto={item.texto} id={item.id} />}
                     keyExtractor={item => item.id.toString()}
                     extraData={refresh}
                 />
-                
+
             </View>
         </View>
     )
@@ -196,9 +197,9 @@ Anotacoes = () => {
 
 const estilo = StyleSheet.create({
     botoescontainer: {
-        padding: 10,
-        justifyContent:'flex-start',
-        alignItems:'flex-start'
+        padding: 5,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
     },
     botaoaddnota: {
         marginTop: 5,
@@ -238,19 +239,20 @@ const estilo = StyleSheet.create({
     },
     observacoeslista: {
         fontSize: 16,
-        
+
     },
     lista2: {
         width: '100%',
-        padding:5
+        padding: 5
     },
     observacoescontainer: {
-        padding: 5,
-        borderRadius:18
+        borderRadius: 18,
+        width: '100%',
+        padding: 5
     },
     botoeshorizontais: {
         flexDirection: 'row',
-        
+
     },
     observacoeslistaout: {
         borderWidth: 3,

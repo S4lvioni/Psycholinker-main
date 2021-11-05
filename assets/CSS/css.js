@@ -88,30 +88,30 @@ const css = StyleSheet.create({
     width: "80%"
   },
   login__input: {
-    backgroundColor:' rgba(255,255,255,0.5)',
+    backgroundColor: ' rgba(255,255,255,0.5)',
     fontSize: 19,
     padding: 7,
     marginBottom: 15,
-    borderTopRightRadius:18,
-    borderBottomRightRadius:18,
-    opacity:1,
-    color:"#808080",
-    marginLeft:0,
-    width:'90%'
+    borderTopRightRadius: 18,
+    borderBottomRightRadius: 18,
+    opacity: 1,
+    color: "#808080",
+    marginLeft: 0,
+    width: '90%'
   },
   login__button: {
     padding: 12,
     backgroundColor: "#fff",
     alignSelf: "center",
     borderRadius: 18,
-    width:130,
-    marginTop:10
+    width: 130,
+    marginTop: 10
   },
   login__buttonText: {
     fontWeight: "bold",
     fontSize: 22,
     color: "#000",
-    
+
   },
   login__button_container: {
     flexDirection: "row",
@@ -137,7 +137,7 @@ const css = StyleSheet.create({
     flex: 1
   },
   cadastros: {
-    flex:1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -181,8 +181,8 @@ const css = StyleSheet.create({
   },
   nomepacientehometerapeuta: {
     fontSize: 18,
-    textAlign:'center',
-    marginTop:3
+    textAlign: 'center',
+    marginTop: 3
   },
   pacientegerado: {
     marginLeft: 10,
@@ -201,8 +201,8 @@ const css = StyleSheet.create({
     marginTop: 2,
     marginBottom: 2,
     marginRight: 5,
-    fontWeight:'bold',
-    color:'#fff'
+    fontWeight: 'bold',
+    color: '#fff'
   },
   exercicioIcone: {
     width: 122,
@@ -232,10 +232,10 @@ const css = StyleSheet.create({
   },
   Listas: {
     marginHorizontal: 18,
-   
+
   },
-  login_button_Texto:{
-      fontSize:16
+  login_button_Texto: {
+    fontSize: 16
   },
   login_button_modified: {
     padding: 6,
@@ -244,8 +244,8 @@ const css = StyleSheet.create({
     alignItems: "center",
     borderRadius: 18,
     margin: 10,
-    width:75,
-    justifyContent:'center',
+    width: 75,
+    justifyContent: 'center',
   },
   containeredit: {
     margin: 8
