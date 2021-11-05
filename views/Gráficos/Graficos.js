@@ -1,6 +1,6 @@
 //configurações de agendamento: colocar horas trabalhadas por dia => definirá horas disponiveis para cada dia
 import React, { Component, useState, useEffect, useCallback } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Modal, Image, TextInput, ScrollView,Pressable } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Modal, Image, TextInput, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { css } from '../../assets/CSS/css';
 import { AsyncStorage } from 'react-native';
@@ -103,7 +103,7 @@ Graficos = (id) => {
             if (execucao2 < 2) {
                 setExecucao2(2);
             } else {
-                    geraGraficoPizzaAtividades(arr);
+                geraGraficoPizzaAtividades(arr);
 
             }
         }
@@ -185,7 +185,7 @@ Graficos = (id) => {
             let valorPorcentagem = [];
             let tam = porcentagem.length;
             for (let k = 0; k < tam; k++) {
-                valorPorcentagem[k] =Math.round((porcentagem[k] / tam1) * 100);
+                valorPorcentagem[k] = Math.round((porcentagem[k] / tam1) * 100);
             }
             setItens(porcentagem);
             setAtividadesP(att);
@@ -298,7 +298,7 @@ Graficos = (id) => {
         let virgula = 0;
         let virgula2 = 0;
         for (let i = ini1; i < tam1; i++) {
-            
+
             if (listaAtividades[i].data == diasData[posicao]) {
                 virgula = virgula + 1;
                 if (virgula > 1) {
@@ -308,12 +308,12 @@ Graficos = (id) => {
             }
 
         }
-        
+
         console.log(diasData[posicao]);
-         for (let i = ini2; i < tam2; i++) {
-            
-            
-            
+        for (let i = ini2; i < tam2; i++) {
+
+
+
             if (listaMedicacoes[i].data == diasData[posicao]) {
                 console.log(listaMedicacoes[i].data);
                 console.log(i);
@@ -322,9 +322,9 @@ Graficos = (id) => {
                     medicacoes = medicacoes + ',';
                 }
                 medicacoes = medicacoes + listaMedicacoes[i].nome;
-                
-            } 
-                
+
+            }
+
         }
         console.log(medicacoes);
         setAtividadesDia(atividades);
@@ -334,80 +334,75 @@ Graficos = (id) => {
     return (
         <View>
             {/*<ScrollView>*/}
-                {(execucao == 2) ?
-                    <View>
-                        <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
-                            <View>
-                                <Text style={{ fontWeight: 'bold', fontSize: 21, marginHorizontal: 10, alignItems: 'center', marginTop: 10 }}>Relatório dos ultimos 7 dias</Text>
+            {(execucao == 2) ?
+                <View>
+                    <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
+                        <View>
+                            <Text style={{ fontWeight: 'bold', fontSize: 21, marginHorizontal: 10, alignItems: 'center', marginTop: 10 }}>Relatório dos ultimos 7 dias</Text>
+                        </View>
+                        <View>
+                            <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3 }}>Variação de Humor</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingHorizontal: 6 }}>
+                            <View style={css.graficocontainer}>
+                                <TouchableOpacity style={css.graficoDia(dias[0], '#00BFFF')} onPress={() => mostraAtividades(0)} onPressIn={() => setCorAtividadeDia('#00BFFF')}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(1)} onPressIn={() => setCorAtividadeDia('#FF7F50')} style={css.graficoDia(dias[1], '#FF7F50')}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(2)} onPressIn={() => setCorAtividadeDia('orange')} style={css.graficoDia(dias[2], 'orange')}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(3)} onPressIn={() => setCorAtividadeDia('#A020F0')} style={css.graficoDia(dias[3], '#A020F0')}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(4)} onPressIn={() => setCorAtividadeDia('#FF69B4')} style={css.graficoDia(dias[4], '#FF69B4')}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(5)} onPressIn={() => setCorAtividadeDia('green')} style={css.graficoDia(dias[5], 'green')}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(6)} onPressIn={() => setCorAtividadeDia('red')} style={css.graficoDia(dias[6], 'red')}></TouchableOpacity>
                             </View>
-                            <View>
-                                <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3 }}>Variação de Humor</Text>
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10, marginTop: 25, }}>
+                                <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizao.png')} />
+                                <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizinho.png')} />
+                                <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/normalzinho.png')} />
+                                <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/tristinho.png')} />
+                                <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/tristao.png')} />
+                                <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/raiva.png')} />
                             </View>
-                            <View style={{ flexDirection: 'row', paddingHorizontal: 6 }}>
-                                <View style={css.graficocontainer}>
-                                    <TouchableOpacity style={css.graficoDia(dias[0], '#00BFFF')} onPress={() => mostraAtividades(0)} onPressIn={() => setCorAtividadeDia('#00BFFF')}></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => mostraAtividades(1)} onPressIn={() => setCorAtividadeDia('#FF7F50')} style={css.graficoDia(dias[1], '#FF7F50')}></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => mostraAtividades(2)} onPressIn={() => setCorAtividadeDia('orange')} style={css.graficoDia(dias[2], 'orange')}></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => mostraAtividades(3)} onPressIn={() => setCorAtividadeDia('#A020F0')} style={css.graficoDia(dias[3], '#A020F0')}></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => mostraAtividades(4)} onPressIn={() => setCorAtividadeDia('#FF69B4')} style={css.graficoDia(dias[4], '#FF69B4')}></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => mostraAtividades(5)} onPressIn={() => setCorAtividadeDia('green')} style={css.graficoDia(dias[5], 'green')}></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => mostraAtividades(6)} onPressIn={() => setCorAtividadeDia('red')} style={css.graficoDia(dias[6], 'red')}></TouchableOpacity>
-                                </View>
-                                <View style={{ flexDirection: 'column', marginHorizontal: 10, marginTop: 25, }}>
-                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizao.png')} />
-                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizinho.png')} />
-                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/normalzinho.png')} />
-                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/tristinho.png')} />
-                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/tristao.png')} />
-                                    <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/raiva.png')} />
-                                </View>
-
-                            </View>
-                            <View style={{ width: 325, height: 3, backgroundColor: '#D3D3D3', marginTop: 3, borderRadius: 10 }}></View>
-                            {(checked) ?
-                                <View style={{ backgroundColor: corAtividadeDia, paddingHorizontal: 6, marginTop: 6, marginBottom: 6, width: 325 }}>
-                                      <View style={{alignItems:'flex-end'}}>
-                                    <Pressable style={{marginTop:6,backgroundColor: corAtividadeDia, borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#fff',fontSize:20}}   onPress={() => setChecked(false)}>x</Text></Pressable>
-                                </View>  
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>{dataGraf}</Text>
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>Atividades realizadas:</Text>
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 5 }}>Medicações utilizadas:</Text>
-                                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{medicacaoDia}</Text>
-                                </View>
-                                :
-                                <View></View>
-                            }
 
                         </View>
-                        <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
-                            <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3, marginTop: 6 }}>Percentual de Atividades realizadas</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', marginHorizontal: 16, alignItems: 'center' }}>
-                            <View style={{ height: 250, width: 200, marginTop: 30 }}>
-                                <PieChart style={{ height: 150 }} data={pieData}></PieChart>
+                        <View style={{ width: 325, height: 3, backgroundColor: '#D3D3D3', marginTop: 3, borderRadius: 10 }}></View>
+                        {(checked) ?
+                            <View style={{ backgroundColor: corAtividadeDia, paddingHorizontal: 6, marginTop: 6, marginBottom: 6, width: 325 }}>
+                                <View style={{ alignItems: 'flex-end' }}>
+                                    <Pressable style={{ marginTop: 6, backgroundColor: corAtividadeDia, borderRadius: 100, width: 20, height: 20, justifyContent: 'center', alignItems: 'center', marginHorizontal: 6 }}><Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 20 }} onPress={() => setChecked(false)}>x</Text></Pressable>
+                                </View>
+                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>{dataGraf}</Text>
+                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>Atividades realizadas:</Text>
+                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
+                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 5 }}>Medicações utilizadas:</Text>
+                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{medicacaoDia}</Text>
                             </View>
-                            <ScrollView style={{ height: 250, marginTop: 35, marginBottom:20 }} horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <ScrollView style={{}}>
-                                    {atividadesP.map((item, key) => (
-                                        <View key={key} style={{ flexDirection: 'column', width: 150, justifyContent: 'flex-end', alignItems: 'center' }}>
-                                            <Text style={{ alignSelf: 'center', padding: 5 }}>{item}</Text>
-                                            <ScrollView style={{}}>
-                                                <View style={{ width: '100%' }}>
-                                                    <View style={{ backgroundColor: atividadesCor[key], borderRadius: 30 }}>
-                                                        <Text style={{ color: '#fff', fontWeight: 'bold', marginLeft: 3, textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120 }}>{porcentagemAtt[key]}%</Text>
-                                                    </View>
-                                                </View>
-                                            </ScrollView>
-                                        </View>
-                                    ))}
-                                </ScrollView>
-                            </ScrollView>
-                        </View>
+                            :
+                            <View></View>
+                        }
+
                     </View>
-                    :
-                    <View></View>
-                }
+                    <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
+                        <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3, marginTop: 6 }}>Percentual de Atividades realizadas</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginHorizontal: 16, alignItems: 'center' }}>
+                        <View style={{ height: 250, width: 200, marginTop: 30 }}>
+                            <PieChart style={{ height: 150 }} data={pieData}></PieChart>
+                        </View>
+                        <ScrollView style={{ height: 250, marginTop: 35, marginBottom: 20 }} >
+                            {atividadesP.map((item, key) => (
+                                <ScrollView key={key} style={{ flexDirection: 'column', width: 120 }}   >
+                                    <Text style={{ alignSelf: 'center' }}>{item}</Text>
+                                    <ScrollView style={{ backgroundColor: atividadesCor[key], borderRadius: 30, width: '100%' }} >
+                                        <Text style={{ color: '#fff', fontWeight: 'bold', textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120 }}>{porcentagemAtt[key]}%</Text>
+                                    </ScrollView>
+                                </ScrollView>
+                            ))}
+
+                        </ScrollView>
+                    </View>
+                </View>
+                :
+                <View></View>
+            }
             {/*</ScrollView>*/}
         </View>
 
