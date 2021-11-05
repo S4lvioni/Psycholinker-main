@@ -68,7 +68,6 @@ Graficos = (id) => {
 
             let response = await AsyncStorage.getItem('medicacoesData');
             const jsonNovo2 = JSON.parse(response);
-            console.log(jsonNovo2)
             setListaMedicacoes(jsonNovo2);
             if (execucao3 < 2) {
                 setExecucao3(2);
@@ -280,19 +279,11 @@ Graficos = (id) => {
     function mostraAtividades(posicao) {
         setChecked(true)
         let tam1 = listaAtividades.length;
-        let ini1;
-        if (tam1 - 7 <= 0) {
-            ini1 = 0;
-        } else {
-            ini1 = tam1 - 7;
-        }
+        let ini1=0;
+       
         let tam2 = listaMedicacoes.length;
-        let ini2;
-        if (tam2 - 7 <= 0) {
-            ini2 = 0;
-        } else {
-            ini2 = tam2 - 7;
-        }
+        let ini2=0;
+        
         let atividades = '';
         let medicacoes = '';
         let virgula = 0;
@@ -302,31 +293,34 @@ Graficos = (id) => {
             if (listaAtividades[i].data == diasData[posicao]) {
                 virgula = virgula + 1;
                 if (virgula > 1) {
-                    atividades = atividades + ',';
+                    atividades = atividades + ', ';
                 }
                 atividades = atividades + listaAtividades[i].nome;
             }
 
         }
-
-        console.log(diasData[posicao]);
+        console.log('====================');
         for (let i = ini2; i < tam2; i++) {
 
-
-
+            console.log(i)
+            console.log(listaMedicacoes[3].data);
+            console.log(diasData[posicao]);
             if (listaMedicacoes[i].data == diasData[posicao]) {
-                console.log(listaMedicacoes[i].data);
-                console.log(i);
+                console.log('listaMedicacoes');
+                console.log(listaMedicacoes[i].nome);
                 virgula2 = virgula2 + 1;
                 if (virgula2 > 1) {
-                    medicacoes = medicacoes + ',';
+                    medicacoes = medicacoes + ', ';
                 }
                 medicacoes = medicacoes + listaMedicacoes[i].nome;
 
             }
 
         }
+        console.log('medicacoes');
         console.log(medicacoes);
+        console.log('atividades');
+        console.log(atividades);
         setAtividadesDia(atividades);
         setMedicacaoDia(medicacoes);
         setDataGraf(diasData[posicao])
@@ -372,7 +366,7 @@ Graficos = (id) => {
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>{dataGraf}</Text>
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19 }}>Atividades realizadas:</Text>
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{atividadesDia}</Text>
-                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 5 }}>Medicações utilizadas:</Text>
+                                <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 19, marginTop: 7 }}>Medicações utilizadas:</Text>
                                 <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 17 }}>{medicacaoDia}</Text>
                             </View>
                             :
