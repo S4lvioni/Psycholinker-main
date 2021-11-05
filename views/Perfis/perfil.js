@@ -53,11 +53,11 @@ export default function Perfil({ navigation }) {
                 <Graficos data={id} />
             </View>
             <View style={{ bottom: 0,  width: '100%', backgroundColor:'#fff',elevation:20,alignItems: 'center'}}>
-                <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center', marginBottom:3}}>
+                <View style={{marginHorizontal:25, flexDirection: 'row', alignItems: 'center'}}>
 
                             <View style={{ alignItems: 'center', width: 80, height: 80,marginHorizontal:5 }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Humor')}>
-                                    <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/relatorioIcon.png")} />
+                                    <Image style={{ width: 47, height: 47, marginTop: 15 }} source={require("../../assets/relatorioIcon.png")} />
                                 </TouchableOpacity>
                                 <Text>Relatórios</Text>
                             </View>
@@ -65,7 +65,7 @@ export default function Perfil({ navigation }) {
 
                             <View style={{ alignItems: 'center', marginBottom:0, width: 80, height: 80,marginHorizontal:5 }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Anotacoes')}>
-                                    <Image style={{ width: 47, height: 47, marginTop: 3 }} source={require("../../assets/anotaçoes.png")} />
+                                    <Image style={{ width: 47, height: 47, marginTop: 15 }} source={require("../../assets/anotaçoes.png")} />
                                 </TouchableOpacity>
                                 <Text>Anotações</Text>
                             </View>

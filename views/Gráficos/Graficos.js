@@ -384,10 +384,10 @@ Graficos = (id) => {
                         <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3, marginTop: 6 }}>Percentual de Atividades realizadas</Text>
                     </View>
                     <View style={{ flexDirection: 'row', marginHorizontal: 16, alignItems: 'center' }}>
-                        <View style={{ height: 250, width: 200, marginTop: 30 }}>
+                        <View style={{ height: 150, width: 200, marginTop: 30 }}>
                             <PieChart style={{ height: 150 }} data={pieData}></PieChart>
                         </View>
-                        <ScrollView style={{ height: 250, marginTop: 35, marginBottom: 20 }} >
+                        <ScrollView style={{ height: 230, marginTop: 35, marginBottom: 20 }} showsVerticalScrollIndicator={true} >
                             {atividadesP.map((item, key) => (
                                 <ScrollView key={key} style={{ flexDirection: 'column', width: 120 }}   >
                                     <Text style={{ alignSelf: 'center' }}>{item}</Text>
