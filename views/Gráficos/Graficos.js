@@ -279,11 +279,11 @@ Graficos = (id) => {
     function mostraAtividades(posicao) {
         setChecked(true)
         let tam1 = listaAtividades.length;
-        let ini1=0;
-       
+        let ini1 = 0;
+
         let tam2 = listaMedicacoes.length;
-        let ini2=0;
-        
+        let ini2 = 0;
+
         let atividades = '';
         let medicacoes = '';
         let virgula = 0;
@@ -377,21 +377,22 @@ Graficos = (id) => {
                     <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
                         <Text style={{ color: '#363636', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10, alignItems: 'center', marginBottom: -3, marginTop: 6 }}>Percentual de Atividades realizadas</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', marginHorizontal: 16, alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'column', marginHorizontal: 16, alignItems: 'center', maxHeight: 300 }}>
                         <View style={{ height: 150, width: 200, marginTop: 30 }}>
                             <PieChart style={{ height: 150 }} data={pieData}></PieChart>
                         </View>
-                        <ScrollView style={{ height: 230, marginTop: 35, marginBottom: 20 }} showsVerticalScrollIndicator={true} >
+                        <ScrollView style={{ height: 100, marginTop: 35, marginBottom: 20 }} horizontal={true} showsHorizontalScrollIndicator={false} >
                             {atividadesP.map((item, key) => (
-                                <ScrollView key={key} style={{ flexDirection: 'column', width: 120 }}   >
+                                <View key={key} style={{ flexDirection: 'column', width: 120, height: 40 }}   >
                                     <Text style={{ alignSelf: 'center' }}>{item}</Text>
-                                    <ScrollView style={{ backgroundColor: atividadesCor[key], borderRadius: 30, width: '100%' }} >
+                                    <View style={{ backgroundColor: atividadesCor[key], borderRadius: 30, width: '100%' }}  >
                                         <Text style={{ color: '#fff', fontWeight: 'bold', textAlign: 'center', justifyContent: 'center', textAlignVertical: 'center', width: 120 }}>{porcentagemAtt[key]}%</Text>
-                                    </ScrollView>
-                                </ScrollView>
+                                    </View>
+                                </View>
                             ))}
 
                         </ScrollView>
+                        <Text>Deslize para a direita!</Text>
                     </View>
                 </View>
                 :

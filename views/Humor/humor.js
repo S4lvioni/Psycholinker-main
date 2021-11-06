@@ -1,7 +1,7 @@
 import React, { Component, useState, setState, useEffect } from 'react'
 import { useCallback } from 'react';
 import config from '../../config/config.json';
-import { AsyncStorage, FlatList, Pressable} from 'react-native';
+import { AsyncStorage, FlatList, Pressable } from 'react-native';
 import { css } from '../../assets/CSS/css.js';
 import {
     SafeAreaView,
@@ -361,17 +361,17 @@ Humor = (id) => {
         gerenciaMedicamentosSelecionados();
     }
 
-    function putColor2(id){
-        let selecionados=[];
-        selecionados=coresAtividades;
+    function putColor2(id) {
+        let selecionados = [];
+        selecionados = coresAtividades;
         selecionados.push(id);
         setCoresAtividades(selecionados);
     }
 
-    function checkColor2(id){
-        if(coresAtividades.includes(id)==true){
+    function checkColor2(id) {
+        if (coresAtividades.includes(id) == true) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -381,9 +381,9 @@ Humor = (id) => {
         if (nome != null) {
             return (
                 <View>
-                    <Text style={{marginRight:10}}>
-                        <Pressable style={{borderRadius:5, padding:5,backgroundColor:checkColor2(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => medicamentoRelatorio(nome, id)}onPressIn={()=>putColor(id)}>
-                            <Text style={{color:'#000',fontWeight:'bold', fontSize:15}}>{nome}</Text>
+                    <Text style={{ marginRight: 10 }}>
+                        <Pressable style={{ borderRadius: 5, padding: 5, backgroundColor: checkColor2(id) == true ? '#ffcbdb' : '#FFFFFF', }} onPress={() => medicamentoRelatorio(nome, id)} onPressIn={() => putColor(id)}>
+                            <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 15 }}>{nome}</Text>
                         </Pressable>
 
                     </Text>
@@ -394,17 +394,17 @@ Humor = (id) => {
         }
     }
 
-    function putColor(id){
-        let selecionados=[];
-        selecionados=coresAtividades;
+    function putColor(id) {
+        let selecionados = [];
+        selecionados = coresAtividades;
         selecionados.push(id);
         setCoresAtividades(selecionados);
     }
 
-    function checkColor(id){
-        if(coresAtividades.includes(id)==true){
+    function checkColor(id) {
+        if (coresAtividades.includes(id) == true) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -413,10 +413,10 @@ Humor = (id) => {
         if (nome != null) {
             return (
                 <View>
-                    <Text  style={{marginRight:10}}>
-                        <Pressable style={{borderRadius:5, padding:5,backgroundColor:checkColor(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => atividadeRelatorio(nome, id) }  onPressIn={()=>putColor(id)}>
-                            <Text 
-                            style={{color:'#000',fontWeight:'bold', fontSize:15   }}>
+                    <Text style={{ marginRight: 10 }}>
+                        <Pressable style={{ borderRadius: 5, padding: 5, backgroundColor: checkColor(id) == true ? '#ffcbdb' : '#FFFFFF', }} onPress={() => atividadeRelatorio(nome, id)} onPressIn={() => putColor(id)}>
+                            <Text
+                                style={{ color: '#000', fontWeight: 'bold', fontSize: 15 }}>
                                 {nome}</Text>
                         </Pressable>
 
@@ -461,125 +461,125 @@ Humor = (id) => {
     return (
         <View>
             { (exister) ?
-                <View style={{marginHorizontal:25}}>
-            
-                        <View style={estilo.imagemContainer}>
-                            <TouchableOpacity
-                                onPress={() => setHumor(1)}>
-                                <View>
-                                    <Image style={estilo.imagem}
-                                        source={require('../../assets/felizao.png')} />
-                                        
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setHumor(2)}>
-                                <View>
-                                    <Image style={estilo.imagem}
-                                        source={require('../../assets/felizinho.png')} />
-                                        
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setHumor(3)}>
-                                <View>
-                                    <Image style={estilo.imagem}
-                                        source={require('../../assets/normalzinho.png')} />
-                                        
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setHumor(4)}>
-                                <View>
-                                    <Image style={estilo.imagem}
-                                        source={require('../../assets/tristinho.png')} />
-                                        
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setHumor(5)}>
-                                <View>
-                                    <Image style={estilo.imagem}
-                                        source={require('../../assets/tristao.png')} />
-                                        
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setHumor(6)}>
-                                <View>
-                                    <Image style={estilo.imagem}
-                                        source={require('../../assets/raiva.png')} />
-                                        
-                                </View>
-                            </TouchableOpacity>
+                <View style={{ marginHorizontal: 25 }}>
 
-                            
-                        </View>
-                        <View style={{alignItems:'center'}}>
-                        {(humor ==1 )?
+                    <View style={estilo.imagemContainer}>
+                        <TouchableOpacity
+                            onPress={() => setHumor(1)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/felizao.png')} />
+
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(2)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/felizinho.png')} />
+
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(3)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/normalzinho.png')} />
+
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(4)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/tristinho.png')} />
+
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(5)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/tristao.png')} />
+
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setHumor(6)}>
+                            <View>
+                                <Image style={estilo.imagem}
+                                    source={require('../../assets/raiva.png')} />
+
+                            </View>
+                        </TouchableOpacity>
+
+
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        {(humor == 1) ?
                             <View>
                                 <Text>Muito feliz!</Text>
                             </View>
-                            :(humor == 2)?
-                            <View>
-                                <Text>Feliz!</Text>
-                            </View>
-                            :(humor ==3)?
-                            <View>
-                                <Text>Ok</Text>
-                                </View>
-                                :(humor ==4)?
+                            : (humor == 2) ?
                                 <View>
-                                    <Text>Chateado</Text>
-                                    </View>
-                                    :(humor ==5)?
+                                    <Text>Feliz!</Text>
+                                </View>
+                                : (humor == 3) ?
                                     <View>
-                                        <Text>Triste</Text>
+                                        <Text>Ok</Text>
                                     </View>
-                                    :(humor ==6)?
-                                    <View>
-                                        <Text>Enraivecido</Text>
-                                        </View>
-                                        :
+                                    : (humor == 4) ?
                                         <View>
+                                            <Text>Chateado</Text>
+                                        </View>
+                                        : (humor == 5) ?
+                                            <View>
+                                                <Text>Triste</Text>
                                             </View>
+                                            : (humor == 6) ?
+                                                <View>
+                                                    <Text>Enraivecido</Text>
+                                                </View>
+                                                :
+                                                <View>
+                                                </View>
                         }
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 15, marginBottom: 8, }}>
+                        <Image style={{ width: 40, height: 40, marginTop: 20 }}
+                            source={require('../../assets/relatorio.png')} />
+                        <TextInput
+                            style={{ marginLeft: 5, marginBottom: 5, marginTop: 20, fontSize: 17 }}
+                            multiline={true}
+                            placeholder="Insira sua nota:"
+                            onChangeText={text => setTexto(text)}
+                            defaultValue={text} />
+
+                    </View>
+                    <Text style={{ marginTop: 10 }}>Insira seus medicamentos:</Text>
+                    <View style={{ alignItems: 'flex-start', marginTop: 10, marginBottom: 10 }} >
+                        <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity></View>
+                    <View style={estilo.modalsize}>
+                        <Modal
+                            style={estilo.modalcontent}
+                            animationType="slide"
+                            visible={modalVisible}>
+                            <View style={{ alignItems: 'flex-end' }}>
+                                <Pressable style={{ marginTop: 6, backgroundColor: '#fff', borderRadius: 100, width: 20, height: 20, justifyContent: 'center', alignItems: 'center', marginHorizontal: 6 }}><Text style={{ fontWeight: 'bold', color: '#000', fontSize: 20 }} onPress={() => setModalVisible(false)}>x</Text></Pressable>
                             </View>
-                        <View style={{flexDirection:'row', marginTop:15, marginBottom:8,}}>
-                        <Image style={{width:40, height:40, marginTop:20}}
-                                        source={require('../../assets/relatorio.png')} />
-                            <TextInput
-                                style={{ marginLeft: 5, marginBottom:5, marginTop:20, fontSize:17 }}
-                                multiline={true}
-                                placeholder="Insira sua nota:"
-                                onChangeText={text => setTexto(text)}
-                                defaultValue={text} />
-                            
-                        </View>
-                        <Text style={{marginTop:10}}>Insira seus medicamentos:</Text>
-                        <View style={{alignItems:'flex-start', marginTop:10, marginBottom:10}} >
-                        <TouchableOpacity style={estilo.button_login } onPress={() => setModalVisible(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity></View>
-                        <View style={estilo.modalsize}>
-                            <Modal
-                                style={estilo.modalcontent}
-                                animationType="slide"
-                                visible={modalVisible}>
-                                <View style={{alignItems:'flex-end'}}>
-                                    <Pressable style={{marginTop:6,backgroundColor:'#fff', borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#000',fontSize:20}}     onPress={() => setModalVisible(false)}>x</Text></Pressable>
-                                </View>      
-                                <Text style={{marginTop:10,fontSize:17, marginBottom:8, marginLeft:15}}> Seus medicamentos cadastradas:</Text>
-                                 <ScrollView style={{ marginHorizontal:10}}>
-                                 <FlatList style={estilo.lista2}
-                                        numColumns={4}
-                                        showsVerticalScrollIndicator={false}
-                                        showsHorizontalScrollIndicator={false}
-                                        data={medicamentos}
-                                        renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
-                                        keyExtractor={item => item.id.toString()}
-                                        extraData={refresh}
-                                    />
-                                    <Text style={{marginTop:30,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova medicação:</Text>
-                                <View style={{ marginHorizontal:10}}>
+                            <Text style={{ marginTop: 10, fontSize: 17, marginBottom: 8, marginLeft: 15 }}> Seus medicamentos cadastradas:</Text>
+                            <ScrollView style={{ marginHorizontal: 10 }}>
+                                <FlatList style={estilo.lista2}
+                                    numColumns={4}
+                                    showsVerticalScrollIndicator={false}
+                                    showsHorizontalScrollIndicator={false}
+                                    data={medicamentos}
+                                    renderItem={({ item }) => <ListaMedicamentos nome={item.nome} id={item.id} />}
+                                    keyExtractor={item => item.id.toString()}
+                                    extraData={refresh}
+                                />
+                                <Text style={{ marginTop: 30, fontSize: 17, marginBottom: 8, marginHorizontal: 10 }}>Insira uma nova medicação:</Text>
+                                <View style={{ marginHorizontal: 10 }}>
                                     <TextInput
                                         style={{ marginLeft: 5 }}
                                         multiline={true}
@@ -589,85 +589,85 @@ Humor = (id) => {
 
                                     <View style={estilo.containerquit}>
                                         <Pressable
-                                            style={{borderRadius:20, width:60, alignItems:'center',justifyContent:'center',marginTop:-25 }}
+                                            style={{ borderRadius: 20, width: 60, alignItems: 'center', justifyContent: 'center', marginTop: -25 }}
                                             onPress={() => salvarMedicamento()}>
-                                             <Image style={{width:30,height:30}} source={require('../../assets/inserirrosa.png')}/>
+                                            <Image style={{ width: 30, height: 30 }} source={require('../../assets/inserirrosa.png')} />
                                         </Pressable>
-                                        
+
                                     </View>
                                     <Pressable
-                                        style={{alignItems:'center',justifyContent:'center', marginTop:30}}
+                                        style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}
                                         onPress={() => setModalVisible(false)}
                                     >
-                                         <Image style={{width:50,height:50}} source={require('../../assets/verificadorosa.png')}/>
+                                        <Image style={{ width: 50, height: 50 }} source={require('../../assets/verificadorosa.png')} />
                                     </Pressable>
                                 </View>
-                                </ScrollView>
-                                    
-                            </Modal>
-                            <Text>Inserir nova atividade:</Text>
-                            <View style={{alignItems:'flex-start', marginTop:10, marginBottom:10}}>
+                            </ScrollView>
+
+                        </Modal>
+                        <Text>Inserir nova atividade:</Text>
+                        <View style={{ alignItems: 'flex-start', marginTop: 10, marginBottom: 10 }}>
                             <TouchableOpacity style={estilo.button_login} onPress={() => setModalVisible2(true)}><Text style={estilo.button_login_text}>+</Text></TouchableOpacity></View>
-                            <Modal
-                                style={estilo.modalcontent}
-                                animationType="slide"
-                                visible={modalVisible2}>
-                                <View>
-                                <View style={{alignItems:'flex-end'}}>
-                                    <Pressable style={{marginTop:6,backgroundColor:'#fff', borderRadius:100, width:20, height:20,justifyContent:'center',alignItems:'center',marginHorizontal:6}}><Text style={{fontWeight:'bold',color:'#000',fontSize:20}}   onPress={() => setModalVisible2(false)}>x</Text></Pressable>
-                                </View>        
-                                        <View>
-                                        <ScrollView style={{ marginHorizontal:10}}>
-                                            <Text style={{marginTop:10,fontSize:17, marginBottom:8}}>Selecione atividades:</Text>
-                                                <FlatList style={estilo.lista2}
-                                                    numColumns={4}
-                                                    showsVerticalScrollIndicator={false}
-                                                    showsHorizontalScrollIndicator={false}
-                                                    data={atividades}
-                                                    renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
-                                                    keyExtractor={item => item.id.toString()}
-                                                    extraData={refresh}
-                                                />
-                                        </ScrollView >
-                                        <Text style={{marginTop:10,fontSize:17, marginBottom:8,marginHorizontal:10}}>Insira uma nova atividade:</Text>
-                                        <View style={{ marginHorizontal:10, flexDirection:'row'}}>
-                                                <TextInput
-                                                    style={{ marginLeft: 5 }}
-                                                    multiline={true}
-                                                    placeholder="Atividade:"
-                                                    onChangeText={text => setAtividade(text)}
-                                                    defaultValue={text} />
-                                                <Pressable
-                                                style={{borderRadius:20, width:60, alignItems:'center',justifyContent:'center', }}
-                                                    onPress={() => salvarAtividade()}>
-                                                     <Image style={{width:30,height:30}} source={require('../../assets/inserirrosa.png')}/>
-                                                </Pressable>
-                                        </View>
-
-                                        </View>
+                        <Modal
+                            style={estilo.modalcontent}
+                            animationType="slide"
+                            visible={modalVisible2}>
+                            <View>
+                                <View style={{ alignItems: 'flex-end' }}>
+                                    <Pressable style={{ marginTop: 6, backgroundColor: '#fff', borderRadius: 100, width: 20, height: 20, justifyContent: 'center', alignItems: 'center', marginHorizontal: 6 }}><Text style={{ fontWeight: 'bold', color: '#000', fontSize: 20 }} onPress={() => setModalVisible2(false)}>x</Text></Pressable>
                                 </View>
-                                    <Pressable
-                                        style={{alignItems:'center',justifyContent:'center', marginTop:30}}
-                                        onPress={() => setModalVisible2(false)}
-                                    >
-                                       <Image style={{width:50,height:50}} source={require('../../assets/verificadorosa.png')}/>
-                                    </Pressable>
-                            </Modal>
-                            <View style={{alignItems:'center',justifyContent:'center', marginTop:30}}>
-                                <Pressable
-                                style={{backgroundColor:'#ffcbdb', marginHorizontal:30, borderRadius:20, width:120, alignItems:'center',justifyContent:'center', height:30}}
-                                    onPress={() => salvarRelatorio()}>
-                                    <Text>Enviar Relatório</Text>
-                                </Pressable>
-                            </View>
-                          
+                                <View>
+                                    <ScrollView style={{ marginHorizontal: 10 }}>
+                                        <Text style={{ marginTop: 10, fontSize: 17, marginBottom: 8 }}>Selecione atividades:</Text>
+                                        <FlatList style={estilo.lista2}
+                                            numColumns={4}
+                                            showsVerticalScrollIndicator={false}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={atividades}
+                                            renderItem={({ item }) => <ListaAtividades nome={item.nome} id={item.id} dia={item.dia} />}
+                                            keyExtractor={item => item.id.toString()}
+                                            extraData={refresh}
+                                        />
+                                    </ScrollView >
+                                    <Text style={{ marginTop: 10, fontSize: 17, marginBottom: 8, marginHorizontal: 10 }}>Insira uma nova atividade:</Text>
+                                    <View style={{ marginHorizontal: 10, flexDirection: 'row' }}>
+                                        <TextInput
+                                            style={{ marginLeft: 5 }}
+                                            multiline={true}
+                                            placeholder="Atividade:"
+                                            onChangeText={text => setAtividade(text)}
+                                            defaultValue={text} />
+                                        <Pressable
+                                            style={{ borderRadius: 20, width: 60, alignItems: 'center', justifyContent: 'center', }}
+                                            onPress={() => salvarAtividade()}>
+                                            <Image style={{ width: 30, height: 30 }} source={require('../../assets/inserirrosa.png')} />
+                                        </Pressable>
+                                    </View>
 
+                                </View>
+                            </View>
+                            <Pressable
+                                style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}
+                                onPress={() => setModalVisible2(false)}
+                            >
+                                <Image style={{ width: 50, height: 50 }} source={require('../../assets/verificadorosa.png')} />
+                            </Pressable>
+                        </Modal>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
+                            <Pressable
+                                style={{ backgroundColor: '#ffcbdb', marginHorizontal: 30, borderRadius: 20, width: 120, alignItems: 'center', justifyContent: 'center', height: 30 }}
+                                onPress={() => salvarRelatorio()}>
+                                <Text>Enviar Relatório</Text>
+                            </Pressable>
                         </View>
-           
+
+
+                    </View>
+
                 </View>
                 :
-                <View><Text>Finalizado!</Text></View>}
-                
+                <View><Text style={{ textAlign: 'center' }}>Voce ja enviou seu relatório diário, volte amanhã!</Text></View>}
+
         </View>
 
     )
@@ -703,13 +703,13 @@ const estilo = StyleSheet.create({
         marginBottom: 3,
         fontSize: 25
     },
-    lista2:{
+    lista2: {
         flexDirection: 'column',
         flexWrap: 'wrap',
-        alignSelf:'flex-start',
-        marginLeft:10
+        alignSelf: 'flex-start',
+        marginLeft: 10
     },
-    observacoescontainer:{
+    observacoescontainer: {
         flexWrap: 'wrap'
     }
 
