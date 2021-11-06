@@ -272,7 +272,7 @@ export default function HomeTerapeuta({ navigation }) {
                     {(execucao == 2||atualiza==true) ?
                             <View style={css.Listas}>
                                
-                                    <ScrollView style={{height:200}}>
+                                    <ScrollView style={{height:300}}>
                                         <SafeAreaView style={css.container3}>
                                             <FlatList
                                                 data={pacientes}

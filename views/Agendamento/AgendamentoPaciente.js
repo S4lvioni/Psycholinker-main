@@ -74,7 +74,6 @@ AgendamentoPaciente =(id)=>{
         setNome(json.name);
         setPacienteId(json.id);
         setTerapeutaId(json.terapeutaId);
-        console.log('id:'+json.id);
     }
     getPacinteId();
 }, []);
@@ -135,8 +134,6 @@ async function  buscaAgendamentos() {
           lnovo2.push(l2[i].horario);
         }
         setAgendamentaArray(lnovo2);
-        console.log('marc')
-        console.log(marc)
         setMarcado(marc);
       }
   }
@@ -211,18 +208,19 @@ async function buscaDias() {
       if (execucao < 2) {
           setExecucao(2);
       }else{
-        geraCalendario(l);
+
+        geraCalendario(l,mes);
       }
   }
 }
-  async function geraCalendario(l){
+  async function geraCalendario(l,mt){
     if(l[0].dia!=undefined){
       let diaU=l[0].dia
       //quantos dias tem o mes
-      let daysInMonth = new Date(ano,mes+1,0).getDate();
+      let daysInMonth = new Date(ano,mt+1,0).getDate();
       let valores =[];
       for(let i=1;i<=daysInMonth;i++){
-        let d =new Date(ano,mes,i);
+        let d =new Date(ano,mt,i);
         let anoD = d.getFullYear();
         let mesD =d.getMonth();
         let diaD =d.getDate();
@@ -259,8 +257,8 @@ async function buscaDias() {
     if(btn==true){
       setBtn(false);
     }
-    
-    geraCalendario(diasUteis);
+    let mt=mountDate.getMonth();
+    geraCalendario(diasUteis,mt);
   }
     function passarData(){
     let mountDate=new Date(ano,mes,1);
@@ -271,7 +269,8 @@ async function buscaDias() {
     if(btn==true){
       setBtn(false);
     }
-   geraCalendario(diasUteis);
+    let mt=mountDate.getMonth();
+   geraCalendario(diasUteis,mt);
   
   }
   //modal
@@ -326,12 +325,13 @@ async function buscaDias() {
   }
 
   async function senForm(){
+
     if(clicadoHora!=0){
       let concat=diaSelecionado+'-'+clicadoHora;
+      console.log(concat)
       let horarioA=diaSelecionado+' às '+clicadoHora;
       setAgendado(horarioA);
       if(ocuparLiberar==true){
-        console.log(paceienteId);
         let response = await fetch(config.urlRoot + 'ocuparHorario', {
           method: 'POST',
           headers: {
@@ -339,7 +339,7 @@ async function buscaDias() {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-          terapeutaId:id.data,
+          terapeutaId:terapeutaId,
           pacienteId:paceienteId,
           paciente:nome,
           horario:concat

@@ -381,8 +381,8 @@ Humor = (id) => {
         if (nome != null) {
             return (
                 <View>
-                    <Text style={{}}>
-                        <Pressable style={{borderRadius:10, padding:3,backgroundColor:checkColor2(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => medicamentoRelatorio(nome, id)}onPressIn={()=>putColor(id)}>
+                    <Text style={{marginRight:10}}>
+                        <Pressable style={{borderRadius:5, padding:5,backgroundColor:checkColor2(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => medicamentoRelatorio(nome, id)}onPressIn={()=>putColor(id)}>
                             <Text style={{color:'#000',fontWeight:'bold', fontSize:15}}>{nome}</Text>
                         </Pressable>
 
@@ -413,8 +413,8 @@ Humor = (id) => {
         if (nome != null) {
             return (
                 <View>
-                    <Text style={{marginHorizontal:3}}>
-                        <Pressable style={{borderRadius:10, padding:3,backgroundColor:checkColor(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => atividadeRelatorio(nome, id) }  onPressIn={()=>putColor(id)}>
+                    <Text  style={{marginRight:10}}>
+                        <Pressable style={{borderRadius:5, padding:5,backgroundColor:checkColor(id)==true ? '#ffcbdb':'#FFFFFF',}} onPress={() => atividadeRelatorio(nome, id) }  onPressIn={()=>putColor(id)}>
                             <Text 
                             style={{color:'#000',fontWeight:'bold', fontSize:15   }}>
                                 {nome}</Text>
@@ -457,10 +457,6 @@ Humor = (id) => {
             return (null);
         }
     }
-
-
-
-
 
     return (
         <View>
@@ -593,17 +589,17 @@ Humor = (id) => {
 
                                     <View style={estilo.containerquit}>
                                         <Pressable
-                                            style={css.login_button_modified}
+                                            style={{borderRadius:20, width:60, alignItems:'center',justifyContent:'center',marginTop:-25 }}
                                             onPress={() => salvarMedicamento()}>
-                                            <Text style={css.login_button_Texto}>Inserir</Text>
+                                             <Image style={{width:30,height:30}} source={require('../../assets/inserirrosa.png')}/>
                                         </Pressable>
                                         
                                     </View>
                                     <Pressable
-                                        style={css.login_button_modified}
+                                        style={{alignItems:'center',justifyContent:'center', marginTop:30}}
                                         onPress={() => setModalVisible(false)}
                                     >
-                                        <Text style={css.login_button_Texto} >Salvar</Text>
+                                         <Image style={{width:50,height:50}} source={require('../../assets/verificadorosa.png')}/>
                                     </Pressable>
                                 </View>
                                 </ScrollView>
@@ -642,19 +638,19 @@ Humor = (id) => {
                                                     onChangeText={text => setAtividade(text)}
                                                     defaultValue={text} />
                                                 <Pressable
-                                                style={{backgroundColor:'#ffcbdb', marginHorizontal:30, borderRadius:20, width:60, alignItems:'center',justifyContent:'center', }}
+                                                style={{borderRadius:20, width:60, alignItems:'center',justifyContent:'center', }}
                                                     onPress={() => salvarAtividade()}>
-                                                    <Text style={{fontWeight:'bold'}}>Inserir</Text>
+                                                     <Image style={{width:30,height:30}} source={require('../../assets/inserirrosa.png')}/>
                                                 </Pressable>
                                         </View>
 
                                         </View>
                                 </View>
                                     <Pressable
-                                        style={css.login_button_modified}
+                                        style={{alignItems:'center',justifyContent:'center', marginTop:30}}
                                         onPress={() => setModalVisible2(false)}
                                     >
-                                        <Text style={css.login_button_Texto} >Salvar</Text>
+                                       <Image style={{width:50,height:50}} source={require('../../assets/verificadorosa.png')}/>
                                     </Pressable>
                             </Modal>
                             <View style={{alignItems:'center',justifyContent:'center', marginTop:30}}>
