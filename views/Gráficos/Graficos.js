@@ -15,6 +15,7 @@ Graficos = (id) => {
     const [dias, setDias] = useState([null]);
     const [diasData, setDiasData] = useState([null]);
     const [listaMedicacoes, setListaMedicacoes] = useState([null]);
+    const [corE, setCorE] = useState([]);
     const [medicacaoDia, setMedicacaoDia] = useState();
     const [atividadesDia, setAtividadesDia] = useState();
     const [corAtividadeDia, setCorAtividadeDia] = useState('#fff');
@@ -198,6 +199,7 @@ Graficos = (id) => {
         let tam = arrayList.length;
         let days = [];
         let dataE = [];
+        let cor=[];
         if (tam >= 7) {
             let fim = tam - 7;
             for (let i = fim; i < tam; i++) {
@@ -206,26 +208,32 @@ Graficos = (id) => {
                     case 1:
                         dataE.push(arrayList[i].emissao);
                         days.push(180);
+                        cor.push('#00de00');
                         break;
                     case 2:
                         dataE.push(arrayList[i].emissao);
                         days.push(150);
+                        cor.push('#ffdc00');
                         break;
                     case 3:
                         dataE.push(arrayList[i].emissao);
                         days.push(120);
+                        cor.push('#f49c01');
                         break;
                     case 4:
                         dataE.push(arrayList[i].emissao);
                         days.push(90);
+                        cor.push('#b82ae3');
                         break;
                     case 5:
                         dataE.push(arrayList[i].emissao);
                         days.push(60);
+                        cor.push('#68007d');
                         break;
                     case 6:
                         dataE.push(arrayList[i].emissao);
                         days.push(30);
+                        cor.push('#be0028');
                         break;
                     default:
                         console.log(`Sorry, we are out of.`);
@@ -240,26 +248,32 @@ Graficos = (id) => {
                         case 1:
                             dataE.push(arrayList[j].emissao);
                             days.push(180);
+                            cor.push('#00de00');
                             break;
                         case 2:
                             dataE.push(arrayList[j].emissao);
                             days.push(150);
+                            cor.push('#ffdc00');
                             break;
                         case 3:
                             dataE.push(arrayList[j].emissao);
                             days.push(120);
+                            cor.push('#f49c01');
                             break;
                         case 4:
                             dataE.push(arrayList[j].emissao);
                             days.push(90);
+                            cor.push('#b82ae3');
                             break;
                         case 5:
                             dataE.push(arrayList[j].emissao);
                             days.push(60);
+                            cor.push('#68007d');
                             break;
                         case 6:
                             dataE.push(arrayList[j].emissao);
                             days.push(30);
+                            cor.push('#be0028');
                             break;
                         default:
                             console.log(`Sorry, we are out of.`);
@@ -271,6 +285,7 @@ Graficos = (id) => {
             }
             setDias(days);
             setDiasData(dataE);
+            setCorE(cor);
         }
 
     }
@@ -339,13 +354,13 @@ Graficos = (id) => {
                         </View>
                         <View style={{ flexDirection: 'row', paddingHorizontal: 6 }}>
                             <View style={css.graficocontainer}>
-                                <TouchableOpacity style={css.graficoDia(dias[0], '#00BFFF')} onPress={() => mostraAtividades(0)} onPressIn={() => setCorAtividadeDia('#00BFFF')}></TouchableOpacity>
-                                <TouchableOpacity onPress={() => mostraAtividades(1)} onPressIn={() => setCorAtividadeDia('#FF7F50')} style={css.graficoDia(dias[1], '#FF7F50')}></TouchableOpacity>
-                                <TouchableOpacity onPress={() => mostraAtividades(2)} onPressIn={() => setCorAtividadeDia('orange')} style={css.graficoDia(dias[2], 'orange')}></TouchableOpacity>
-                                <TouchableOpacity onPress={() => mostraAtividades(3)} onPressIn={() => setCorAtividadeDia('#A020F0')} style={css.graficoDia(dias[3], '#A020F0')}></TouchableOpacity>
-                                <TouchableOpacity onPress={() => mostraAtividades(4)} onPressIn={() => setCorAtividadeDia('#FF69B4')} style={css.graficoDia(dias[4], '#FF69B4')}></TouchableOpacity>
-                                <TouchableOpacity onPress={() => mostraAtividades(5)} onPressIn={() => setCorAtividadeDia('green')} style={css.graficoDia(dias[5], 'green')}></TouchableOpacity>
-                                <TouchableOpacity onPress={() => mostraAtividades(6)} onPressIn={() => setCorAtividadeDia('red')} style={css.graficoDia(dias[6], 'red')}></TouchableOpacity>
+                                <TouchableOpacity style={{height: dias[0], backgroundColor:corE[0],marginTop: 15,marginHorizontal: 2, width: 30, textAlign: "center",}} onPress={() => mostraAtividades(0)} onPressIn={() => setCorAtividadeDia(corE[0])}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(1)} onPressIn={() => setCorAtividadeDia(corE[1])} style={css.graficoDia(dias[1], corE[1])}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(2)} onPressIn={() => setCorAtividadeDia(corE[2])} style={css.graficoDia(dias[2], corE[2])}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(3)} onPressIn={() => setCorAtividadeDia(corE[3])} style={css.graficoDia(dias[3], corE[3])}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(4)} onPressIn={() => setCorAtividadeDia(corE[4])} style={css.graficoDia(dias[4],corE[4])}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(5)} onPressIn={() => setCorAtividadeDia(corE[5])} style={css.graficoDia(dias[5], corE[5])}></TouchableOpacity>
+                                <TouchableOpacity onPress={() => mostraAtividades(6)} onPressIn={() => setCorAtividadeDia(corE[6])} style={css.graficoDia(dias[6], corE[6])}></TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: 'column', marginHorizontal: 10, marginTop: 25, }}>
                                 <Image style={{ height: 30, width: 30, marginBottom: 2 }} source={require('../../assets/felizao.png')} />
