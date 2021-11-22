@@ -200,6 +200,7 @@ Graficos = (id) => {
         let days = [];
         let dataE = [];
         let cor=[];
+        console.log('entrou')
         if (tam >= 7) {
             let fim = tam - 7;
             for (let i = fim; i < tam; i++) {
@@ -283,10 +284,15 @@ Graficos = (id) => {
                 }
 
             }
+            console.log(days)
             setDias(days);
             setDiasData(dataE);
             setCorE(cor);
         }
+        console.log(days)
+            setDias(days);
+            setDiasData(dataE);
+            setCorE(cor);
 
     }
 
