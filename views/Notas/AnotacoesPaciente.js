@@ -123,7 +123,8 @@ AnotacoesPaciente = () => {
 const estilo = StyleSheet.create({
     botoescontainer: {
         width: 120,
-        padding: 10
+        padding: 10,
+        
     },
     botaoaddnota: {
         marginTop: 5,
@@ -140,7 +141,8 @@ const estilo = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 18,
         justifyContent:'center',
-        textAlignVertical:'center'
+        textAlignVertical:'center',
+        flexWrap:'wrap'
         
     },
     botaomodal: {
@@ -165,10 +167,11 @@ const estilo = StyleSheet.create({
     },
     observacoeslista: {
         fontSize: 16,
-        justifyContent:'flex-start'
+        justifyContent:'flex-start',
+        width:300
     },
     lista2: {
-        width: 300,
+        width: 500,
         textAlign:'center'
     },
     observacoescontainer: {
