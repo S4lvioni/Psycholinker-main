@@ -52,7 +52,7 @@ export default function HomeTerapeuta({ navigation }) {
 
     useEffect(() => {
         gerenciaPaciente();
-
+        setRefresh(!refresh)
     }, [execucao]);
 
     useEffect(() => {
@@ -98,6 +98,9 @@ export default function HomeTerapeuta({ navigation }) {
             if (execucao < 2) {
                 setExecucao(2);
             }
+            if(execucao==5){
+                setExecucao(2);
+            }
         }
     }
     async function onEdit(id, nome, email, telefone) {
@@ -131,6 +134,7 @@ export default function HomeTerapeuta({ navigation }) {
     }
 
     async function onDelete(id) {
+        setExecucao(5);
         let response = await fetch(config.urlRoot + 'deletePaciente', {
             method: 'POST',
             headers: {
@@ -141,12 +145,8 @@ export default function HomeTerapeuta({ navigation }) {
                 id: id
             })
         });
-        let json = await response.json();
-        
-            setAtualiza(true);
-        
-    }
 
+    }
 
     //Pegar o id do Terapeuta
     async function getTerapeuta() {
@@ -233,7 +233,7 @@ export default function HomeTerapeuta({ navigation }) {
                     <View style={{ justifyContent: 'flex-end', flex: 1 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 0 ,marginRight:15}}>
                             <TouchableOpacity onPress={() => onEdit(id, nome, email, telefone)}  ><Image style={{ width: 30, height: 30, marginRight: 5, justifyContent: 'flex-end' }} source={require("../../assets/editar.png")} /></TouchableOpacity>
-                            <TouchableOpacity  onPressIn={()=> setAtualiza(false)} onPress={() => onDelete(id)}  ><Image style={{ width: 30, height: 30, justifyContent: 'flex-end' }} source={require("../../assets/excluir.png")} /></TouchableOpacity>
+                            <TouchableOpacity   onPress={() => onDelete(id)}  ><Image style={{ width: 30, height: 30, justifyContent: 'flex-end' }} source={require("../../assets/excluir.png")} /></TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -276,7 +276,7 @@ export default function HomeTerapeuta({ navigation }) {
                         </View>
                     </View>   
                 <View>
-                    {(execucao == 2||atualiza==true) ?
+                    {(execucao >= 2) ?
                             <View style={css.Listas}>
                                
                                     <ScrollView style={{height:300}}>
