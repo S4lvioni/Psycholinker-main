@@ -15,7 +15,7 @@ const backgroundimg = require( '../../assets/gradientcontrario.png')
 export default function HomeTerapeuta({ navigation }) {
     //variaveis de controle
     const [execucao, setExecucao] = useState(1);
-    const [atualiza,setAtualiza]= useState(true);
+    const [atualiza,setAtualiza]= useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [display, setDisplay] = useState('none');
@@ -54,6 +54,11 @@ export default function HomeTerapeuta({ navigation }) {
         gerenciaPaciente();
         setRefresh(!refresh)
     }, [execucao]);
+
+    useEffect(() => {
+        gerenciaPaciente();
+
+    }, [atualiza])
 
     //pega nome para o bem vindo o
     useEffect(() => {
@@ -140,8 +145,7 @@ export default function HomeTerapeuta({ navigation }) {
                 id: id
             })
         });
-        
-    
+
     }
 
     //Pegar o id do Terapeuta
